@@ -1,0 +1,8 @@
+---
+title: "Recipes"
+listing:
+  contents: cookbook
+  type: grid
+  fields: [title, category, total_time]
+  field-display-names: category: "Category", total_time: "Time"
+---

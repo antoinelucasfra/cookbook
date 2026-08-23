@@ -1,0 +1,100 @@
+/* recipe-app custom styles layered over gram.css */
+.recipe-toolbar {
+  display: flex;
+  gap: 1rem;
+  align-items: center;
+  margin: 1rem 0;
+  flex-wrap: wrap;
+}
+.scale-controls {
+  display: inline-flex;
+  border: 1px solid #ccc;
+  border-radius: 999px;
+  overflow: hidden;
+}
+.scale-btn {
+  border: 0;
+  background: transparent;
+  padding: 0.35rem 0.9rem;
+  cursor: pointer;
+  font-weight: 600;
+}
+.scale-btn.active {
+  background: #4f46e5;
+  color: white;
+}
+.cook-start {
+  border: 0;
+  border-radius: 999px;
+  background: #059669;
+  color: white;
+  padding: 0.4rem 1rem;
+  cursor: pointer;
+  font-weight: 600;
+}
+.cook-bar {
+  display: none;
+  position: sticky;
+  top: 0;
+  z-index: 10;
+  background: #ecfdf5;
+  border: 1px solid #059669;
+  border-radius: 8px;
+  padding: 0.5rem 0.9rem;
+  margin: 0.5rem 0;
+}
+.recipe-app.cooking .cook-bar {
+  display: block;
+}
+.cook-bar summary {
+  cursor: pointer;
+  font-weight: 600;
+  list-style: none;
+}
+.cook-next {
+  border: 0;
+  border-radius: 999px;
+  background: #4f46e5;
+  color: white;
+  padding: 0.35rem 0.9rem;
+  cursor: pointer;
+  margin-right: 0.5rem;
+}
+.cook-exit {
+  border: 1px solid #999;
+  border-radius: 999px;
+  background: transparent;
+  padding: 0.35rem 0.9rem;
+  cursor: pointer;
+}
+.recipe-app.cooking ol.steps > li {
+  display: none;
+  padding: 1rem;
+  border-radius: 8px;
+}
+.recipe-app.cooking ol.steps > li.cook-active {
+  display: block;
+  background: #eef2ff;
+  border: 2px solid #4f46e5;
+  font-size: 1.15em;
+  line-height: 1.8;
+}
+.recipe-app.cooking section.cook-hidden-section {
+  display: none;
+}
+.recipe-app.cooking .shopping-list,
+.recipe-app.cooking .nutrition-panel,
+.recipe-app.cooking .section-ingredients,
+.recipe-app.cooking .recipe-timings-grid {
+  display: none;
+}
+.gantt-details summary {
+  cursor: pointer;
+  font-weight: 600;
+  margin: 1.5rem 0 0.5rem;
+}
+
+/* page title comes from Quarto frontmatter — hide the renderer's duplicate */
+.recipe-render h1 {
+  display: none;
+}

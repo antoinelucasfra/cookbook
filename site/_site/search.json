@@ -1,0 +1,30 @@
+[
+  {
+    "objectID": "index.html",
+    "href": "index.html",
+    "title": "Recipes",
+    "section": "",
+    "text": "Cannelés\n\n\n\n\n\ncategory\n\n\nPastry\n\n\n\n\n\ntotal_time\n\n\n1516 min\n\n\n\n\n\n\n\n\n\n\n\n\nLemon Tart\n\n\n\n\n\ncategory\n\n\nPastry\n\n\n\n\n\ntotal_time\n\n\n334 min\n\n\n\n\n\n\n\n\n\n\n\n\nPancakes\n\n\n\n\n\ncategory\n\n\nBreakfast\n\n\n\n\n\ntotal_time\n\n\n17 min\n\n\n\n\n\n\n\n\nNo matching items"
+  },
+  {
+    "objectID": "cookbook/lemon-tart.html",
+    "href": "cookbook/lemon-tart.html",
+    "title": "Lemon Tart",
+    "section": "",
+    "text": "0.5×1×2×3×\n    \n    ▶ Cook mode\n  \n  \n    Cook mode active — \n    Next step →\n    Exit\n  \n  \n  ⏱ Timeline"
+  },
+  {
+    "objectID": "cookbook/canneles.html",
+    "href": "cookbook/canneles.html",
+    "title": "Cannelés",
+    "section": "",
+    "text": "0.5×1×2×3×\n    \n    ▶ Cook mode\n  \n  \n    Cook mode active — \n    Next step →\n    Exit\n  \n  \n  ⏱ Timeline"
+  },
+  {
+    "objectID": "cookbook/pancakes.html",
+    "href": "cookbook/pancakes.html",
+    "title": "Pancakes",
+    "section": "",
+    "text": "0.5×1×2×3×\n    \n    ▶ Cook mode\n  \n  \n    Cook mode active — \n    Next step →\n    Exit\n  \n  \n  ⏱ Timeline"
+  }
+]

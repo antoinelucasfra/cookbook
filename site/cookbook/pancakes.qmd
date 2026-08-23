@@ -1,0 +1,8 @@
+---
+title: "Pancakes"
+category: "Breakfast"
+total_time: "17 min"
+portions: "2"
+---
+
+{{< recipe pancakes >}}

@@ -1,0 +1,23 @@
+[
+  {
+    "slug": "canneles",
+    "title": "Cannelés",
+    "category": "Pastry",
+    "time": 1516,
+    "portions": "10"
+  },
+  {
+    "slug": "lemon-tart",
+    "title": "Lemon Tart",
+    "category": "Pastry",
+    "time": 334,
+    "portions": "8"
+  },
+  {
+    "slug": "pancakes",
+    "title": "Pancakes",
+    "category": "Breakfast",
+    "time": 17,
+    "portions": "2"
+  }
+]

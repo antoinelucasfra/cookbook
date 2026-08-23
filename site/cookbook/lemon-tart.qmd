@@ -1,0 +1,8 @@
+---
+title: "Lemon Tart"
+category: "Pastry"
+total_time: "334 min"
+portions: "8"
+---
+
+{{< recipe lemon-tart >}}

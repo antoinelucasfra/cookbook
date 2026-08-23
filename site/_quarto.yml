@@ -1,0 +1,22 @@
+project:
+  type: website
+  output-dir: _site
+  resources:
+    - recipe-app.js
+
+website:
+  title: "Cookbook"
+  navbar:
+    left:
+      - href: index.qmd
+        text: Recipes
+  page-footer: "Cooked with [Gram](https://gram-lang.org) + Quarto"
+
+format:
+  html:
+    theme: cosmo
+    css:
+      - css/gram.css
+      - css/gantt.css
+      - css/app.css
+    include-in-header: _partials/head.html
