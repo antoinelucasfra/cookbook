@@ -1,0 +1,125 @@
+ingredients:
+  flour:
+    name: "All-purpose flour"
+    aliases: ["farine", "flour"]
+    category: "Grains"
+    physical:
+      density: 0.59
+      yield: 1.0
+    nutrition:
+      calories: 364
+      protein: 10.3
+      carbs: 76.3
+      fat: 1.0
+  milk:
+    name: "Milk"
+    aliases: ["lait"]
+    category: "Dairy"
+    physical:
+      density: 1.03
+      yield: 1.0
+    nutrition:
+      calories: 61
+      protein: 3.2
+      carbs: 4.8
+      fat: 3.3
+  egg:
+    name: "Egg"
+    aliases: ["eggs", "œuf", "œufs"]
+    category: "Eggs"
+    physical:
+      unit_weight: 60
+      yield: 1.0
+    nutrition:
+      calories: 143
+      protein: 12.6
+      carbs: 0.7
+      fat: 9.5
+  sugar:
+    name: "Sugar"
+    aliases: ["sucre"]
+    category: "Sugars"
+    physical:
+      density: 0.85
+    nutrition:
+      calories: 387
+      protein: 0
+      carbs: 100
+      fat: 0
+  butter:
+    name: "Butter"
+    aliases: ["beurre"]
+    category: "Fats"
+    physical:
+      density: 0.96
+    nutrition:
+      calories: 717
+      protein: 0.9
+      carbs: 0.1
+      fat: 81
+  baking-powder:
+    name: "Baking powder"
+    aliases: ["levure chimique"]
+    physical:
+      density: 0.9
+  salt:
+    name: "Salt"
+    aliases: ["sel"]
+    physical:
+      density: 2.16
+  cling-film:
+    name: "Cling film"
+    aliases: ["film alimentaire"]
+  food-processor:
+    name: "Food processor"
+    aliases: ["robot"]
+
+  vanilla-extract:
+    name: "Vanilla extract"
+    aliases: ["extrait de vanille"]
+  buttermilk:
+    name: "Buttermilk"
+    aliases: ["lait ribot"]
+    physical:
+      density: 1.04
+  vanilla-bean:
+    name: "Vanilla bean"
+    aliases: ["gousse de vanille"]
+  egg-yolk:
+    name: "Egg yolk"
+    aliases: ["jaune d'œuf"]
+    physical:
+      unit_weight: 18
+    nutrition:
+      calories: 322
+      protein: 15.9
+      carbs: 3.6
+      fat: 26.5
+  rum:
+    name: "Rum"
+    aliases: ["rhum"]
+    physical:
+      density: 0.94
+  lemon:
+    name: "Lemon"
+    aliases: ["citron"]
+    physical:
+      unit_weight: 100
+      density: 1.03
+      yield: 0.9
+    nutrition:
+      calories: 29
+      protein: 1.1
+      carbs: 9.3
+      fat: 0.3
+  lemon-juice:
+    name: "Lemon juice"
+    aliases: ["jus de citron"]
+    physical:
+      density: 1.03
+  lemon-zest:
+    name: "Lemon zest"
+    aliases: ["zeste de citron"]
+  tart-ring:
+    name: "Tart ring"
+    is_cookware: true

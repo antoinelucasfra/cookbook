@@ -1,0 +1,25 @@
+---
+title: Lemon Tart
+portions: 8
+category: Pastry
+---
+
+@use "./bases/pate-sucree.gram" as &pate
+
+## Shell
+
+[Line] Roll out the &pate{250 g} and line a #tart ring{}. Dock with a #fork{}.
+
+[Blind bake] Bake at ^{170°C} for ~_{15 min} until lightly golden.
+
+## Curd ->&curd
+
+[Whisk] Whisk the @egg{3}, the @sugar{150 g}, the @lemon juice{120 ml}<@lemon{4}(juiced) and the @lemon zest{2}<@lemon{2}(zested) in a #saucepan{}. ->&curd mix{}
+
+[Thicken] Cook the &curd mix over ^{low heat} for ~{5 min}, stirring, until it coats the #spatula{}. Add the @butter{60 g} off heat.
+
+[Strain] Pass through a #fine sieve{}.
+
+## Assembly
+
+[Fill] Pour the &curd into the shell. Set for ~_refrigerator{3 h}.
