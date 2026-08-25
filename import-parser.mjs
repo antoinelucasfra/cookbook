@@ -1,12 +1,24 @@
 // import-parser.mjs — recipe text / JSON-LD → Gram recipe draft
 // Self-check: node import-parser.mjs
 const UNIT_MAP = {
-  tbsp: "15 ml", tablespoon: "15 ml", tablespoons: "15 ml",
-  tsp: "5 ml", teaspoon: "5 ml", teaspoons: "5 ml",
-  cup: "240 ml", cups: "240 ml",
-  oz: "28 g", ounce: "28 g", ounces: "28 g",
-  lb: "454 g", lbs: "454 g", pound: "454 g", pounds: "454 g",
-  pint: "473 ml", quart: "946 ml", qt: "946 ml",
+  tbsp: "15 ml",
+  tablespoon: "15 ml",
+  tablespoons: "15 ml",
+  tsp: "5 ml",
+  teaspoon: "5 ml",
+  teaspoons: "5 ml",
+  cup: "240 ml",
+  cups: "240 ml",
+  oz: "28 g",
+  ounce: "28 g",
+  ounces: "28 g",
+  lb: "454 g",
+  lbs: "454 g",
+  pound: "454 g",
+  pounds: "454 g",
+  pint: "473 ml",
+  quart: "946 ml",
+  qt: "946 ml",
 };
 
 const QTY = String.raw`(?:\d+\s+\d*\/\d+|\d+\/\d+|\d+[.,]\d+|\d+|[¼½¾⅓⅔⅛⅜⅝⅞])`;
@@ -16,7 +28,17 @@ const ING_RE = new RegExp(
 
 function fracToNum(s) {
   s = s.trim().replace(",", ".");
-  const uni = { "¼": 0.25, "½": 0.5, "¾": 0.75, "⅓": 1 / 3, "⅔": 2 / 3, "⅛": 0.125, "⅜": 0.375, "⅝": 0.625, "⅞": 0.875 };
+  const uni = {
+    "¼": 0.25,
+    "½": 0.5,
+    "¾": 0.75,
+    "⅓": 1 / 3,
+    "⅔": 2 / 3,
+    "⅛": 0.125,
+    "⅜": 0.375,
+    "⅝": 0.625,
+    "⅞": 0.875,
+  };
   const mixedUni = s.match(/^(\d+)\s+([¼½¾⅓⅔⅛⅜⅝⅞])$/);
   if (mixedUni) return Number(mixedUni[1]) + uni[mixedUni[2]];
   const mixed = s.match(/^(\d+)\s+(\d+)\/(\d+)$/);
@@ -27,8 +49,15 @@ function fracToNum(s) {
 }
 
 function slugify(s) {
-  return s.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "")
-    .replace(/[^a-z0-9]+/g, "-").replace(/^-+|-+$/g, "").slice(0, 40) || "ingredient";
+  return (
+    s
+      .toLowerCase()
+      .normalize("NFD")
+      .replace(/[\u0300-\u036f]/g, "")
+      .replace(/[^a-z0-9]+/g, "-")
+      .replace(/^-+|-+$/g, "")
+      .slice(0, 40) || "ingredient"
+  );
 }
 
 function toGramQty(qtyStr, unitStr) {
@@ -59,37 +88,80 @@ export function parseRecipeText(text, titleHint = "") {
       .replace(/[*_`]/g, "")
       .trim();
     if (!line) continue;
-    const h = line.match(/^#{1,6}\s+(.*)/) || line.match(/^\*\*(.{2,60}?)\*\*:?\s*$/);
+    const h =
+      line.match(/^#{1,6}\s+(.*)/) || line.match(/^\*\*(.{2,60}?)\*\*:?\s*$/);
     if (h) {
       const head = h[1].toLowerCase();
-      if (!out.title && h[1].length < 80 && !/ingredient|instruction|direction|method|step|note/.test(head)) {
+      if (
+        !out.title &&
+        h[1].length < 80 &&
+        !/ingredient|instruction|direction|method|step|note/.test(head)
+      ) {
         out.title = h[1].trim();
         continue;
       }
-      mode = /ingredient/.test(head) ? "ingredients" : /instruction|direction|method|step|preparation|recipe/.test(head) ? "steps" : mode;
+      mode = /ingredient/.test(head)
+        ? "ingredients"
+        : /instruction|direction|method|step|preparation|recipe/.test(head)
+          ? "steps"
+          : mode;
       continue;
     }
-    if (/^(ingredients?|for the .*)\s*:?\s*$/i.test(line)) { mode = "ingredients"; continue; }
-    if (/^(instructions?|directions?|method|steps?|preparation)\s*:?\s*$/i.test(line)) { mode = "steps"; continue; }
-    const cleaned = line.replace(/^[-*•]\s+/, "").replace(/^\d+[.)]\s+/, "").trim();
+    if (/^(ingredients?|for the .*)\s*:?\s*$/i.test(line)) {
+      mode = "ingredients";
+      continue;
+    }
+    if (
+      /^(instructions?|directions?|method|steps?|preparation)\s*:?\s*$/i.test(
+        line,
+      )
+    ) {
+      mode = "steps";
+      continue;
+    }
+    const cleaned = line
+      .replace(/^[-*•]\s+/, "")
+      .replace(/^\d+[.)]\s+/, "")
+      .trim();
     if (!cleaned) continue;
-    if (/^(print|share|save|join|subscribe|follow|watch|jump to|advertisement)\b/i.test(cleaned)) continue;
-    if (/^(title|name)\s*:\s*/i.test(cleaned)) { out.title ||= cleaned.replace(/^(title|name)\s*:\s*/i, ""); continue; }
+    if (
+      /^(print|share|save|join|subscribe|follow|watch|jump to|advertisement)\b/i.test(
+        cleaned,
+      )
+    )
+      continue;
+    if (/^(title|name)\s*:\s*/i.test(cleaned)) {
+      out.title ||= cleaned.replace(/^(title|name)\s*:\s*/i, "");
+      continue;
+    }
     const m = cleaned.match(ING_RE);
     if (mode === "ingredients" && cleaned.length < 120) {
       if (m) {
-        out.ingredients.push({ qty: m[1].trim(), unit: (m[2] || "").toLowerCase(), name: m[3].replace(/\s*\(.*?\)\s*/g, " ").trim() });
+        out.ingredients.push({
+          qty: m[1].trim(),
+          unit: (m[2] || "").toLowerCase(),
+          name: m[3].replace(/\s*\(.*?\)\s*/g, " ").trim(),
+        });
       } else if (cleaned.split(/\s+/).length <= 6 && !/[.]$/.test(cleaned)) {
         // short qty-less lines like "Salt to taste"; longer prose is not an ingredient
         out.ingredients.push({ qty: "", unit: "", name: cleaned });
       }
       continue;
- }
+    }
     if (mode !== "steps" && m && cleaned.length < 120) {
-      out.ingredients.push({ qty: m[1].trim(), unit: (m[2] || "").toLowerCase(), name: m[3].replace(/\s*\(.*?\)\s*/g, " ").trim() });
+      out.ingredients.push({
+        qty: m[1].trim(),
+        unit: (m[2] || "").toLowerCase(),
+        name: m[3].replace(/\s*\(.*?\)\s*/g, " ").trim(),
+      });
       continue;
     }
-    if (/^(print|share|save|join|subscribe|follow|watch|jump to|advertisement)\b/i.test(cleaned)) continue;
+    if (
+      /^(print|share|save|join|subscribe|follow|watch|jump to|advertisement)\b/i.test(
+        cleaned,
+      )
+    )
+      continue;
     if (mode === "steps" || cleaned.length >= 120 || /[.;]$/.test(cleaned)) {
       out.steps.push(cleaned);
     } else if (mode === null && !out.title) {
@@ -105,15 +177,20 @@ export function extractJsonLdRecipe(html) {
   const doc = new DOMParser().parseFromString(html, "text/html");
   for (const el of doc.querySelectorAll('script[type="application/ld+json"]')) {
     try {
-      const data = JSON.parse(el.textContent.replace(/^\s*<!\[CDATA\[|\]\]>\s*$/g, ""));
+      const data = JSON.parse(
+        el.textContent.replace(/^\s*<!\[CDATA\[|\]\]>\s*$/g, ""),
+      );
       const queue = Array.isArray(data) ? data : [data];
       while (queue.length) {
         const node = queue.shift();
         if (!node || typeof node !== "object") continue;
-        if ((node["@type"] ?? []).toString().toLowerCase().includes("recipe")) return node;
+        if ((node["@type"] ?? []).toString().toLowerCase().includes("recipe"))
+          return node;
         queue.push(...Object.values(node).flat());
       }
-    } catch { /* malformed ld+json — try next block */ }
+    } catch {
+      /* malformed ld+json — try next block */
+    }
   }
   return null;
 }
@@ -128,7 +205,8 @@ export function jsonLdToDraft(r) {
   const walk = (n) => {
     if (typeof n === "string") steps.push(n.replace(/<[^>]*>/g, "").trim());
     else if (Array.isArray(n)) n.forEach(walk);
-    else if (n && typeof n === "object") walk(n.itemListElement ?? n.text ?? n.name);
+    else if (n && typeof n === "object")
+      walk(n.itemListElement ?? n.text ?? n.name);
   };
   walk(r.recipeInstructions ?? []);
   steps = steps.filter(Boolean);
@@ -146,19 +224,63 @@ export function jsonLdToDraft(r) {
 function parseLine(line) {
   const m = line.match(ING_RE);
   if (!m) return null;
-  return { qty: m[1].trim(), unit: (m[2] || "").toLowerCase(), name: m[3].replace(/\s*\(.*?\)\s*/g, " ").trim() };
+  return {
+    qty: m[1].trim(),
+    unit: (m[2] || "").toLowerCase(),
+    name: m[3].replace(/\s*\(.*?\)\s*/g, " ").trim(),
+  };
+}
+
+/**
+ * Static confidence pass: tags for parts the pure-static parser could not
+ * handle confidently — i.e. where an AI translation pass
+ * (`npx gram import <url> --pick-model`) would help.
+ */
+export function aiNeededTags(draft) {
+  const tags = [];
+  if (!draft.title) tags.push("No title detected");
+  if (draft.ingredients.length) {
+    const noQty = draft.ingredients.filter((i) => !i.qty).length;
+    if (noQty)
+      tags.push(`${noQty} ingredient(s) without a quantity (e.g. "to taste")`);
+    const METRIC =
+      /^(g|kg|mg|ml|l|cl|dl|fl\s*oz|pinch|clove|cloves|slice|slices|can|bunch|handful)s?$/;
+    const unmapped = [
+      ...new Set(
+        draft.ingredients
+          .filter(
+            (i) => i.qty && i.unit && !UNIT_MAP[i.unit] && !METRIC.test(i.unit),
+          )
+          .map((i) => i.unit),
+      ),
+    ];
+    if (unmapped.length)
+      tags.push(`Unfamiliar unit(s): ${unmapped.join(", ")}`);
+  } else tags.push("No ingredient list detected — AI extraction recommended");
+  if (!draft.steps.length)
+    tags.push("No instruction steps detected — AI extraction recommended");
+  return tags;
+}
+
+/** Extraction-level failure: static pass likely produced garbage. */
+export function hasHardGaps(draft) {
+  return !draft.title || !draft.ingredients.length || !draft.steps.length;
 }
 
 /** Draft → full .gram file source. */
 export function draftToGram(draft, meta = {}) {
   const title = draft.title || meta.title || "Imported recipe";
   const portions = meta.portions || "";
+  const tags = aiNeededTags(draft);
+  const tagComment = hasHardGaps(draft)
+    ? `# review: ${tags.join("; ")}\n# tip: npx gram import <url> --pick-model for an AI-assisted translation\n`
+    : "";
   const ingLines = draft.ingredients.map((i) => {
     const q = i.qty ? `{${toGramQty(i.qty, i.unit)}}` : "{}";
     return `- @${slugify(i.name)}${q} — ${i.name}`;
   });
   const stepLines = draft.steps.map((s, idx) => `[Step ${idx + 1}] ${s}`);
-  return `---
+  return `${tagComment}---
 title: ${title}
 portions: ${portions || 4}
 category: Imported
@@ -169,15 +291,23 @@ source: "${meta.source ?? ""}"
 
 ${ingLines.join("\n")}
 
-## Steps ~{30 min}
+## Steps
 
 ${stepLines.join("\n\n")}
 `;
 }
 
 // --- self-check ---
-if (typeof process !== "undefined" && process.argv[1]?.endsWith("import-parser.mjs")) {
-  const assert = (cond, msg) => { if (!cond) { console.error("FAIL:", msg); process.exitCode = 1; } };
+if (
+  typeof process !== "undefined" &&
+  process.argv[1]?.endsWith("import-parser.mjs")
+) {
+  const assert = (cond, msg) => {
+    if (!cond) {
+      console.error("FAIL:", msg);
+      process.exitCode = 1;
+    }
+  };
 
   const d = parseRecipeText(`# Vegan Pad Thai
 
@@ -194,15 +324,29 @@ if (typeof process !== "undefined" && process.argv[1]?.endsWith("import-parser.m
 1. Soak the noodles.
 2. Stir fry everything. Serve hot.`);
   assert(d.title === "Vegan Pad Thai", "title");
-  assert(d.ingredients.length === 5, `ingredients count ${d.ingredients.length}`);
-  assert(d.ingredients[0].qty === "112" && d.ingredients[0].unit === "g" && d.ingredients[0].name === "dry rice noodles", JSON.stringify(d.ingredients[0]));
-  assert(toGramQty("2", "cups") === "480 ml", `cup map ${toGramQty("2", "cups")}`);
+  assert(
+    d.ingredients.length === 5,
+    `ingredients count ${d.ingredients.length}`,
+  );
+  assert(
+    d.ingredients[0].qty === "112" &&
+      d.ingredients[0].unit === "g" &&
+      d.ingredients[0].name === "dry rice noodles",
+    JSON.stringify(d.ingredients[0]),
+  );
+  assert(
+    toGramQty("2", "cups") === "480 ml",
+    `cup map ${toGramQty("2", "cups")}`,
+  );
   assert(toGramQty("1 ½", "oz") === "42 g", `oz map ${toGramQty("1 ½", "oz")}`);
   assert(d.steps.length === 2, `steps ${d.steps.length}`);
 
   const gram = draftToGram(d, { portions: 2, source: "https://example.com" });
   assert(gram.includes("title: Vegan Pad Thai"), "gram title");
-  assert(gram.includes("@dry-rice-noodles{112 g}"), `gram ing: ${gram.split("\n")[12]}`);
+  assert(
+    gram.includes("@dry-rice-noodles{112 g}"),
+    `gram ing: ${gram.split("\n")[12]}`,
+  );
   assert(gram.includes("@spinach{480 ml}"), "gram cup conversion");
   assert(gram.includes("[Step 1] Soak"), "gram step");
 
@@ -218,5 +362,41 @@ if (typeof process !== "undefined" && process.argv[1]?.endsWith("import-parser.m
     assert(d2.steps[0] === "Fry.", "jsonld steps");
   }
 
-  console.log(process.exitCode ? "SELF-CHECK FAILED" : "import-parser self-check OK");
+  // AI-needed tagging
+  assert(!hasHardGaps(d), "clean draft has no hard gaps");
+  const dTags = aiNeededTags(d);
+  assert(
+    dTags.some((t) => /quantity/.test(t)),
+    `salt-to-taste flagged soft: ${dTags}`,
+  );
+  const messy = parseRecipeText(
+    "Random prose paragraph about my grandmother and food memories.",
+  );
+  const mt = aiNeededTags(messy);
+  assert(hasHardGaps(messy), "messy draft flagged hard");
+  assert(
+    mt.some((t) => /ingredient/i.test(t)),
+    `messy draft tagged for ingredients: ${mt}`,
+  );
+  assert(
+    mt.some((t) => /instruction/i.test(t)) || mt.some((t) => /ingredient/i.test(t)),
+    `messy draft tagged for extraction gaps: ${mt}`,
+  );
+  const noSteps = parseRecipeText("# Soup\n\n## Ingredients\n\n- 200 g tofu");
+  assert(
+    aiNeededTags(noSteps).some((t) => /instruction/i.test(t)),
+    `missing steps flagged: ${aiNeededTags(noSteps)}`,
+  );
+  assert(
+    draftToGram(messy).includes("# review:"),
+    "tags emitted as review comment in .gram",
+  );
+  assert(
+    !draftToGram(d).includes("# review:"),
+    "clean draft has no review comment",
+  );
+
+  console.log(
+    process.exitCode ? "SELF-CHECK FAILED" : "import-parser self-check OK",
+  );
 }

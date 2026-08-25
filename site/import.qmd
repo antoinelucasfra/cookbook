@@ -4,7 +4,7 @@ title: Import
 
 ## Import a recipe
 
-Turn any recipe into a Gram draft: paste the raw recipe text below, or give a web link — the page fetches it, extracts schema.org Recipe JSON-LD when available (falling back to plain-text parsing), and converts quantities to grams/millilitres.
+Turn any recipe into a Gram draft: paste the raw recipe text below, or give a web link — the page fetches it, extracts schema.org Recipe JSON-LD when available (falling back to plain-text parsing), and converts quantities to grams/millilitres. Anything the static parser couldn't handle confidently is tagged below the draft — those are the spots where an AI translation pass would help.
 
 For higher-fidelity AI-assisted conversion from a URL or YouTube video, use the CLI instead: `npx gram import <url> --pick-model` (needs an AI provider key).
 
@@ -26,6 +26,8 @@ For higher-fidelity AI-assisted conversion from a URL or YouTube video, use the 
 </form>
 
 <p id="import-status" role="status"></p>
+
+<div id="import-tags" class="import-tags" hidden></div>
 
 <div id="import-output" hidden>
   <h3>Gram draft (<code>.gram</code>)</h3>

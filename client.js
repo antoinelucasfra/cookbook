@@ -6,6 +6,7 @@ import {
   extractJsonLdRecipe,
   jsonLdToDraft,
   draftToGram,
+  aiNeededTags,
 } from "./import-parser.mjs";
 
 function initApp(root) {
@@ -200,10 +201,28 @@ function initImport() {
 
   function emit(draft, meta) {
     gramText = draftToGram(draft, meta);
+    const tags = aiNeededTags(draft);
     out.querySelector("pre").textContent = gramText;
+    const tagBox = out.querySelector("#import-tags");
+    tagBox.replaceChildren();
+    if (tags.length) {
+      const p = document.createElement("p");
+      p.className = "import-tags-title";
+      p.textContent = "⚠ Needs review — AI translation recommended for these:";
+      const ul = document.createElement("ul");
+      for (const t of tags) {
+        const li = document.createElement("li");
+        li.textContent = t;
+        ul.append(li);
+      }
+      const tip = document.createElement("p");
+      tip.textContent = "Try `npx gram import <url> --pick-model` for AI-assisted conversion.";
+      tagBox.append(p, ul, tip);
+    }
+    tagBox.hidden = !tags.length;
     out.hidden = false;
     show(
-      `Parsed ${draft.ingredients.length} ingredients and ${draft.steps.length} steps. Review the draft below — quantities are converted to g/ml; rename slugs and fix the ingredient database after saving.`,
+      `Parsed ${draft.ingredients.length} ingredients and ${draft.steps.length} steps.${tags.length ? ` ${tags.length} item(s) flagged for review.` : " Looks like a clean static translation."}`, tags.length > 0 && (!draft.ingredients.length || !draft.steps.length),
     );
   }
 

@@ -232,3 +232,15 @@ table.recipe-snippet {
 #import-status.error {
   color: #b91c1c;
 }
+#import-tags {
+  border: 1px solid #fbbf24;
+  background: #fffbeb;
+  border-radius: 6px;
+  padding: 0.75rem 1rem;
+  margin: 0.75rem 0;
+  max-width: 720px;
+}
+#import-tags .import-tags-title {
+  font-weight: 600;
+  margin-top: 0;
+}

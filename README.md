@@ -33,5 +33,10 @@ Two paths:
 2. **Without AI** — the **Import** tab on the website: paste raw recipe text or a
    URL; it extracts schema.org Recipe JSON-LD when present, falls back to plain-text
    parsing, converts cups/tbsp/tsp/oz/lb to ml/g and emits a downloadable `.gram`
-   draft. Review it, save under `recipes/`, extend `.gram/ingredients.yaml` with any
-   missing ingredients, then `npx gram check`.
+   draft.
+
+The static pass tags what it could not handle confidently (missing title,
+ingredients or steps; quantities missing; unfamiliar units) both in the UI and as
+a `# review:` comment in the draft — those flags mean an AI translation pass is
+recommended. Review the draft, save under `recipes/`, extend
+`.gram/ingredients.yaml` with any missing ingredients, then `npx gram check`.
