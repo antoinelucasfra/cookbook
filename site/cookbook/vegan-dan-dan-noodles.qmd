@@ -1,0 +1,8 @@
+---
+title: "Vegan Dan Dan Noodles"
+category: "Chinese"
+total_time: "41.5 min"
+portions: "4"
+---
+
+{{< recipe vegan-dan-dan-noodles >}}

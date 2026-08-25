@@ -1,0 +1,8 @@
+---
+title: "Vegan Thai Green Curry Tofu"
+category: "Thai"
+total_time: "44 min"
+portions: "4"
+---
+
+{{< recipe vegan-thai-green-curry-tofu >}}

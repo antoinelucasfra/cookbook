@@ -1,6 +1,12 @@
 // client.js — recipe interactivity: scale switching + cook mode
 // Bundled with esbuild (IIFE) → site/recipe-app.js
 import { toHTML, toGanttHTML } from "@gram-lang/renderer";
+import {
+  parseRecipeText,
+  extractJsonLdRecipe,
+  jsonLdToDraft,
+  draftToGram,
+} from "./import-parser.mjs";
 
 function initApp(root) {
   let data;
@@ -159,3 +165,92 @@ async function initBrowse() {
   render();
 }
 initBrowse();
+
+// --- Import page: URL / raw text → .gram draft ---
+async function fetchPage(url) {
+  // direct first (CORS-permitting sites), then a markdown-reading proxy
+  // ponytail: single proxy fallback; add more here if r.jina.ai rate-limits
+  const attempts = [url, `https://r.jina.ai/${url}`];
+  let lastErr;
+  for (const u of attempts) {
+    try {
+      const res = await fetch(u);
+      if (!res.ok) throw new Error(`HTTP ${res.status}`);
+      return await res.text();
+    } catch (e) {
+      lastErr = e;
+    }
+  }
+  throw lastErr ?? new Error("fetch failed");
+}
+
+function initImport() {
+  const form = document.querySelector("#import-form");
+  if (!form) return;
+  const urlIn = document.querySelector("#import-url");
+  const textEl = document.querySelector("#import-text");
+  const status = document.querySelector("#import-status");
+  const out = document.querySelector("#import-output");
+  let gramText = "";
+
+  function show(msg, isError = false) {
+    status.textContent = msg;
+    status.classList.toggle("error", isError);
+  }
+
+  function emit(draft, meta) {
+    gramText = draftToGram(draft, meta);
+    out.querySelector("pre").textContent = gramText;
+    out.hidden = false;
+    show(
+      `Parsed ${draft.ingredients.length} ingredients and ${draft.steps.length} steps. Review the draft below — quantities are converted to g/ml; rename slugs and fix the ingredient database after saving.`,
+    );
+  }
+
+  form.addEventListener("submit", async (e) => {
+    e.preventDefault();
+    out.hidden = true;
+    const url = urlIn.value.trim();
+    const raw = textEl.value.trim();
+    try {
+      if (raw && !url) {
+        emit(parseRecipeText(raw), {});
+        return;
+      }
+      if (!url) return show("Enter a recipe URL or paste the recipe text.", true);
+      if (!/^https?:\/\//.test(url)) return show("URL must start with http(s)://", true);
+      show("Fetching…");
+      const body = await fetchPage(url);
+      let recipe = null;
+      try {
+        recipe = extractJsonLdRecipe(body);
+      } catch {
+        /* plain-text body (e.g. r.jina.ai markdown) */
+      }
+      if (recipe) {
+        const draft = jsonLdToDraft(recipe);
+        if (!draft.title) draft.title = parseRecipeText("").title || url;
+        emit(draft, { source: url, portions: String(recipe.recipeYield ?? "") });
+      } else {
+        emit(parseRecipeText(body, ""), { source: url });
+      }
+    } catch (err) {
+      show(`Import failed: ${err.message}. Paste the recipe text instead.`, true);
+    }
+  });
+
+  document.querySelector("#import-copy")?.addEventListener("click", async () => {
+    await navigator.clipboard.writeText(gramText);
+    show("Copied to clipboard.");
+  });
+  document.querySelector("#import-download")?.addEventListener("click", () => {
+    const title = gramText.match(/^title: (.+)$/m)?.[1] ?? "recipe";
+    const slug = title.toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/^-+|-+$/g, "");
+    const a = document.createElement("a");
+    a.href = URL.createObjectURL(new Blob([gramText], { type: "text/plain" }));
+    a.download = `${slug}.gram`;
+    a.click();
+    URL.revokeObjectURL(a.href);
+  });
+}
+initImport();

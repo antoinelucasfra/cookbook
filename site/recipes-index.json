@@ -48,11 +48,35 @@
     "source": "Genovese style"
   },
   {
+    "slug": "vegan-thai-green-curry-tofu",
+    "title": "Vegan Thai Green Curry Tofu",
+    "category": "Thai",
+    "time": 44,
+    "portions": "4",
+    "source": "https://cinnamonsnail.com/vegan-green-curry-tofu/"
+  },
+  {
     "slug": "tomato-soup",
     "title": "Tomato Soup",
     "category": "Soup",
     "time": 52,
     "portions": "4",
     "source": "Weeknight staple"
+  },
+  {
+    "slug": "vegan-dan-dan-noodles",
+    "title": "Vegan Dan Dan Noodles",
+    "category": "Chinese",
+    "time": 41.5,
+    "portions": "4",
+    "source": "https://www.connoisseurusveg.com/vegan-dan-dan-noodles/"
+  },
+  {
+    "slug": "vegan-pad-thai-pad-mee-korat",
+    "title": "Vegan Pad Thai (Pad Mee Korat)",
+    "category": "Thai",
+    "time": 140,
+    "portions": "2",
+    "source": "https://hot-thai-kitchen.com/vegan-pad-thai/"
   }
 ]

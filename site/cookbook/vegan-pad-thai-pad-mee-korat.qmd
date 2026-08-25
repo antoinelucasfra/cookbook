@@ -1,0 +1,8 @@
+---
+title: "Vegan Pad Thai (Pad Mee Korat)"
+category: "Thai"
+total_time: "140 min"
+portions: "2"
+---
+
+{{< recipe vegan-pad-thai-pad-mee-korat >}}

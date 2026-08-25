@@ -1,0 +1,38 @@
+---
+title: Import
+---
+
+## Import a recipe
+
+Turn any recipe into a Gram draft: paste the raw recipe text below, or give a web link — the page fetches it, extracts schema.org Recipe JSON-LD when available (falling back to plain-text parsing), and converts quantities to grams/millilitres.
+
+For higher-fidelity AI-assisted conversion from a URL or YouTube video, use the CLI instead: `npx gram import <url> --pick-model` (needs an AI provider key).
+
+<form id="import-form" class="import-form">
+  <label for="import-url">Recipe URL</label>
+  <input id="import-url" type="url" placeholder="https://example.com/recipe" />
+  <label for="import-text">…or paste the raw recipe text</label>
+  <textarea id="import-text" rows="8" placeholder="# Recipe title
+
+## Ingredients
+
+- 200 g tofu
+- 2 cups spinach
+
+## Instructions
+
+1. Fry the tofu."></textarea>
+  <button type="submit">Convert to Gram</button>
+</form>
+
+<p id="import-status" role="status"></p>
+
+<div id="import-output" hidden>
+  <h3>Gram draft (<code>.gram</code>)</h3>
+  <pre><code></code></pre>
+  <div class="import-actions">
+    <button id="import-download" type="button">Download .gram</button>
+    <button id="import-copy" type="button">Copy to clipboard</button>
+  </div>
+  <p>Save the file as <code>recipes/&lt;slug&gt;.gram</code>, add missing ingredients to <code>.gram/ingredients.yaml</code>, then run <code>npx gram check "recipes/**/*.gram"</code> and rebuild.</p>
+</div>

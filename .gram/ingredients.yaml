@@ -1,44 +1,54 @@
 ingredients:
   flour:
-    name: "All-purpose flour"
-    aliases: ["farine", "flour"]
-    category: "Grains"
+    name: All-purpose flour
+    aliases:
+      - farine
+      - flour
+    category: Grains
     physical:
       density: 0.59
-      yield: 1.0
+      yield: 1
     nutrition:
       calories: 364
       protein: 10.3
       carbs: 76.3
-      fat: 1.0
+      fat: 1
+    name_fr: Farine (T55)
   milk:
-    name: "Milk"
-    aliases: ["lait"]
-    category: "Dairy"
+    name: Milk
+    aliases:
+      - lait
+    category: Dairy
     physical:
       density: 1.03
-      yield: 1.0
+      yield: 1
     nutrition:
       calories: 61
       protein: 3.2
       carbs: 4.8
       fat: 3.3
+    name_fr: Lait
   egg:
-    name: "Egg"
-    aliases: ["eggs", "œuf", "œufs"]
-    category: "Eggs"
+    name: Egg
+    aliases:
+      - eggs
+      - œuf
+      - œufs
+    category: Eggs
     physical:
       unit_weight: 60
-      yield: 1.0
+      yield: 1
     nutrition:
       calories: 143
       protein: 12.6
       carbs: 0.7
       fat: 9.5
+    name_fr: Œuf
   sugar:
-    name: "Sugar"
-    aliases: ["sucre"]
-    category: "Sugars"
+    name: Sugar
+    aliases:
+      - sucre
+    category: Sugars
     physical:
       density: 0.85
     nutrition:
@@ -46,10 +56,12 @@ ingredients:
       protein: 0
       carbs: 100
       fat: 0
+    name_fr: Sucre
   butter:
-    name: "Butter"
-    aliases: ["beurre"]
-    category: "Fats"
+    name: Butter
+    aliases:
+      - beurre
+    category: Fats
     physical:
       density: 0.96
     nutrition:
@@ -57,37 +69,52 @@ ingredients:
       protein: 0.9
       carbs: 0.1
       fat: 81
+    name_fr: Beurre
   baking-powder:
-    name: "Baking powder"
-    aliases: ["levure chimique"]
+    name: Baking powder
+    aliases:
+      - levure chimique
     physical:
       density: 0.9
+    name_fr: Levure chimique
   salt:
-    name: "Salt"
-    aliases: ["sel"]
+    name: Salt
+    aliases:
+      - sel
     physical:
       density: 2.16
+    name_fr: Sel
   cling-film:
-    name: "Cling film"
-    aliases: ["film alimentaire"]
+    name: Cling film
+    aliases:
+      - film alimentaire
+    name_fr: Film alimentaire
   food-processor:
-    name: "Food processor"
-    aliases: ["robot"]
-
+    name: Food processor
+    aliases:
+      - robot
+    name_fr: Robot pâtissier
   vanilla-extract:
-    name: "Vanilla extract"
-    aliases: ["extrait de vanille"]
+    name: Vanilla extract
+    aliases:
+      - extrait de vanille
+    name_fr: Extrait de vanille
   buttermilk:
-    name: "Buttermilk"
-    aliases: ["lait ribot"]
+    name: Buttermilk
+    aliases:
+      - lait ribot
     physical:
       density: 1.04
+    name_fr: Babeurre
   vanilla-bean:
-    name: "Vanilla bean"
-    aliases: ["gousse de vanille"]
+    name: Vanilla bean
+    aliases:
+      - gousse de vanille
+    name_fr: Gousse de vanille
   egg-yolk:
-    name: "Egg yolk"
-    aliases: ["jaune d'œuf"]
+    name: Egg yolk
+    aliases:
+      - jaune d'œuf
     physical:
       unit_weight: 18
     nutrition:
@@ -95,14 +122,18 @@ ingredients:
       protein: 15.9
       carbs: 3.6
       fat: 26.5
+    name_fr: Jaune d'œuf
   rum:
-    name: "Rum"
-    aliases: ["rhum"]
+    name: Rum
+    aliases:
+      - rhum
     physical:
       density: 0.94
+    name_fr: Rhum
   lemon:
-    name: "Lemon"
-    aliases: ["citron"]
+    name: Lemon
+    aliases:
+      - citron
     physical:
       unit_weight: 100
       density: 1.03
@@ -112,21 +143,29 @@ ingredients:
       protein: 1.1
       carbs: 9.3
       fat: 0.3
+    name_fr: Citron
   lemon-juice:
-    name: "Lemon juice"
-    aliases: ["jus de citron"]
+    name: Lemon juice
+    aliases:
+      - jus de citron
     physical:
       density: 1.03
+    name_fr: Jus de citron
   lemon-zest:
-    name: "Lemon zest"
-    aliases: ["zeste de citron"]
+    name: Lemon zest
+    aliases:
+      - zeste de citron
+    name_fr: Zeste de citron
   tart-ring:
-    name: "Tart ring"
+    name: Tart ring
     is_cookware: true
+    name_fr: Cercle à tarte
   cocoa:
-    name: "Cocoa powder"
-    aliases: ["cacao", "cacao powder"]
-    category: "Sugars"
+    name: Cocoa powder
+    aliases:
+      - cacao
+      - cacao powder
+    category: Sugars
     physical:
       density: 0.55
     nutrition:
@@ -134,10 +173,13 @@ ingredients:
       protein: 19.6
       carbs: 57.9
       fat: 13.7
+    name_fr: Cacao en poudre
   chocolate:
-    name: "Dark chocolate"
-    aliases: ["chocolat noir", "chocolat"]
-    category: "Sugars"
+    name: Dark chocolate
+    aliases:
+      - chocolat noir
+      - chocolat
+    category: Sugars
     physical:
       density: 1.3
     nutrition:
@@ -145,15 +187,21 @@ ingredients:
       protein: 4.9
       carbs: 61
       fat: 31
+    name_fr: Chocolat noir
   coffee:
-    name: "Strong coffee"
-    aliases: ["café", "espresso"]
+    name: Strong coffee
+    aliases:
+      - café
+      - espresso
     physical:
-      density: 1.0
+      density: 1
+    name_fr: Café fort
   olive-oil:
-    name: "Olive oil"
-    aliases: ["huile d'olive", "oil"]
-    category: "Fats"
+    name: Olive oil
+    aliases:
+      - huile d'olive
+      - oil
+    category: Fats
     physical:
       density: 0.91
     nutrition:
@@ -161,10 +209,13 @@ ingredients:
       protein: 0
       carbs: 0
       fat: 100
+    name_fr: Huile d'olive
   garlic:
-    name: "Garlic clove"
-    aliases: ["ail", "garlic"]
-    category: "Vegetables"
+    name: Garlic clove
+    aliases:
+      - ail
+      - garlic
+    category: Vegetables
     physical:
       unit_weight: 6
     nutrition:
@@ -172,10 +223,13 @@ ingredients:
       protein: 6.4
       carbs: 33
       fat: 0.5
+    name_fr: Gousse d'ail
   onion:
-    name: "Onion"
-    aliases: ["oignon", "onions"]
-    category: "Vegetables"
+    name: Onion
+    aliases:
+      - oignon
+      - onions
+    category: Vegetables
     physical:
       unit_weight: 150
     nutrition:
@@ -183,10 +237,14 @@ ingredients:
       protein: 1.1
       carbs: 9.3
       fat: 0.1
+    name_fr: Oignon
   tomato:
-    name: "Tomato"
-    aliases: ["tomate", "tomatoes", "canned tomatoes"]
-    category: "Vegetables"
+    name: Tomato
+    aliases:
+      - tomate
+      - tomatoes
+      - canned tomatoes
+    category: Vegetables
     physical:
       unit_weight: 120
       density: 1.03
@@ -195,15 +253,21 @@ ingredients:
       protein: 0.9
       carbs: 3.9
       fat: 0.2
+    name_fr: Tomate
   vegetable-stock:
-    name: "Vegetable stock"
-    aliases: ["bouillon", "broth"]
+    name: Vegetable stock
+    aliases:
+      - bouillon
+      - broth
     physical:
-      density: 1.0
+      density: 1
+    name_fr: Bouillon de légumes
   cream:
-    name: "Heavy cream"
-    aliases: ["crème", "crème liquide"]
-    category: "Dairy"
+    name: Heavy cream
+    aliases:
+      - crème
+      - crème liquide
+    category: Dairy
     physical:
       density: 0.98
     nutrition:
@@ -211,10 +275,13 @@ ingredients:
       protein: 2.1
       carbs: 2.8
       fat: 36
+    name_fr: Crème liquide entière
   basil:
-    name: "Fresh basil"
-    aliases: ["basilic", "basil leaves"]
-    category: "Herbs"
+    name: Fresh basil
+    aliases:
+      - basilic
+      - basil leaves
+    category: Herbs
     physical:
       unit_weight: 1
     nutrition:
@@ -222,10 +289,13 @@ ingredients:
       protein: 3.2
       carbs: 2.7
       fat: 0.6
+    name_fr: Basilic frais
   pine-nuts:
-    name: "Pine nuts"
-    aliases: ["pignons", "pine nut"]
-    category: "Nuts"
+    name: Pine nuts
+    aliases:
+      - pignons
+      - pine nut
+    category: Nuts
     physical:
       density: 0.6
     nutrition:
@@ -233,10 +303,13 @@ ingredients:
       protein: 13.7
       carbs: 13.1
       fat: 68.4
+    name_fr: Pignons de pin
   parmesan:
-    name: "Parmesan"
-    aliases: ["parmesan cheese", "parmigiano"]
-    category: "Dairy"
+    name: Parmesan
+    aliases:
+      - parmesan cheese
+      - parmigiano
+    category: Dairy
     physical:
       density: 1.2
     nutrition:
@@ -244,10 +317,13 @@ ingredients:
       protein: 38
       carbs: 4.1
       fat: 29
+    name_fr: Parmesan
   pasta:
-    name: "Spaghetti"
-    aliases: ["pasta", "spaghetti"]
-    category: "Grains"
+    name: Spaghetti
+    aliases:
+      - pasta
+      - spaghetti
+    category: Grains
     physical:
       density: 0.7
     nutrition:
@@ -255,3 +331,436 @@ ingredients:
       protein: 13
       carbs: 75
       fat: 1.5
+    name_fr: Spaghettis
+  water:
+    name: Water
+    aliases:
+      - eau
+      - hot water
+      - boiling water
+    physical:
+      density: 1
+    name_fr: Eau
+  rice-noodles:
+    name: Dry rice noodles
+    aliases:
+      - rice noodles
+      - rice vermicelli
+    category: Grains
+    physical:
+      density: 0.5
+    nutrition:
+      calories: 364
+      protein: 6.4
+      carbs: 80
+      fat: 0.3
+    name_fr: Nouilles de riz sèches
+  fresh-noodles:
+    name: Fresh wheat noodles
+    aliases:
+      - fresh noodles
+      - ramen noodles
+    category: Grains
+    physical:
+      density: 1
+    nutrition:
+      calories: 288
+      protein: 10
+      carbs: 56
+      fat: 2.5
+    name_fr: Nouilles fraîches
+  soy-sauce:
+    name: Soy sauce
+    aliases:
+      - tamari
+    physical:
+      density: 1.15
+    nutrition:
+      calories: 53
+      protein: 8.1
+      carbs: 4.9
+      fat: 0.6
+    name_fr: Sauce soja
+  soybean-paste:
+    name: Fermented soybean paste (tao jiew)
+    aliases:
+      - tao jiew
+      - miso
+      - doenjang
+    physical:
+      density: 1.1
+    nutrition:
+      calories: 130
+      protein: 10
+      carbs: 16
+      fat: 3
+    name_fr: Pâte de soja fermentée (tao jiew)
+  tamarind-paste:
+    name: Tamarind paste
+    aliases:
+      - tamarind concentrate
+    physical:
+      density: 1.3
+    nutrition:
+      calories: 239
+      protein: 2.8
+      carbs: 62
+      fat: 0.6
+    name_fr: Pâte de tamarin
+  chili-flakes:
+    name: Chili flakes
+    aliases:
+      - red pepper flakes
+      - pepper flakes
+    physical:
+      density: 0.5
+    nutrition:
+      calories: 282
+      protein: 13
+      carbs: 50
+      fat: 14
+    name_fr: Flocons de piment
+  vegetable-oil:
+    name: Neutral vegetable oil
+    aliases:
+      - canola oil
+      - sunflower oil
+      - avocado oil
+      - neutral oil
+    category: Fats
+    physical:
+      density: 0.92
+    nutrition:
+      calories: 884
+      protein: 0
+      carbs: 0
+      fat: 100
+    name_fr: Huile végétale neutre
+  peanut-oil:
+    name: Peanut oil
+    category: Fats
+    physical:
+      density: 0.92
+    nutrition:
+      calories: 884
+      protein: 0
+      carbs: 0
+      fat: 100
+    name_fr: Huile d'arachide
+  chili-oil:
+    name: Chili oil
+    aliases:
+      - chilli oil
+    category: Fats
+    physical:
+      density: 0.92
+    nutrition:
+      calories: 884
+      protein: 0
+      carbs: 0
+      fat: 100
+    name_fr: Huile de piment
+  pressed-tofu:
+    name: Pressed tofu
+    aliases:
+      - bean curd
+    category: Protein
+    physical:
+      density: 1.2
+    nutrition:
+      calories: 190
+      protein: 20
+      carbs: 4
+      fat: 11
+    name_fr: Tofu pressé
+  tofu:
+    name: Firm tofu
+    aliases:
+      - extra firm tofu
+      - super-firm tofu
+      - firm bean curd
+    category: Protein
+    physical:
+      density: 1.05
+    nutrition:
+      calories: 144
+      protein: 17
+      carbs: 2.8
+      fat: 8.7
+    name_fr: Tofu ferme
+  shiitake:
+    name: Shiitake mushrooms
+    aliases:
+      - shiitake mushrooms
+      - shiitakes
+    category: Vegetables
+    physical:
+      density: 0.45
+    nutrition:
+      calories: 34
+      protein: 2.2
+      carbs: 6.8
+      fat: 0.5
+    name_fr: Champignons shiitakés
+  shallot:
+    name: Shallot
+    aliases:
+      - shallots
+      - échalote
+      - red onions
+    category: Vegetables
+    physical:
+      unit_weight: 40
+    nutrition:
+      calories: 72
+      protein: 2.5
+      carbs: 16.8
+      fat: 0.1
+    name_fr: Échalote
+  scallions:
+    name: Scallions
+    aliases:
+      - green onions
+      - spring onions
+    category: Vegetables
+    physical:
+      unit_weight: 15
+    nutrition:
+      calories: 32
+      protein: 1.8
+      carbs: 7.3
+      fat: 0.2
+    name_fr: Ciboule
+  garlic-chives:
+    name: Garlic chives
+    aliases:
+      - chinese chives
+    category: Herbs
+    physical:
+      unit_weight: 1
+    nutrition:
+      calories: 32
+      protein: 2.4
+      carbs: 5.9
+      fat: 0.3
+    name_fr: Ciboule de Chine
+  bean-sprouts:
+    name: Mung bean sprouts
+    aliases:
+      - bean sprout
+      - soybean sprouts
+    category: Vegetables
+    physical:
+      density: 0.35
+    nutrition:
+      calories: 30
+      protein: 3
+      carbs: 5.9
+      fat: 0.2
+    name_fr: Pousses de soja
+  spinach:
+    name: Fresh spinach
+    aliases:
+      - épinards
+    category: Vegetables
+    physical:
+      density: 0.3
+    nutrition:
+      calories: 23
+      protein: 2.9
+      carbs: 3.6
+      fat: 0.4
+    name_fr: Épinards frais
+  palm-sugar:
+    name: Palm sugar
+    aliases:
+      - coconut sugar
+    category: Sugars
+    physical:
+      density: 0.85
+    nutrition:
+      calories: 375
+      protein: 0
+      carbs: 95
+      fat: 0
+    name_fr: Sucre de palme
+  brown-sugar:
+    name: Brown sugar
+    aliases:
+      - sucre brun
+      - cassonade
+    category: Sugars
+    physical:
+      density: 0.85
+    nutrition:
+      calories: 380
+      protein: 0
+      carbs: 98
+      fat: 0
+    name_fr: Sucre roux
+  roasted-peanuts:
+    name: Roasted peanuts
+    aliases:
+      - peanuts
+      - cacahuètes
+    category: Nuts
+    physical:
+      density: 0.6
+    nutrition:
+      calories: 587
+      protein: 24
+      carbs: 16
+      fat: 50
+    name_fr: Cacahuètes grillées
+  sesame-paste:
+    name: Chinese sesame paste
+    aliases:
+      - sesame paste
+      - tahini
+    physical:
+      density: 1.1
+    nutrition:
+      calories: 595
+      protein: 17
+      carbs: 21
+      fat: 54
+    name_fr: Pâte de sésame chinoise
+  sichuan-peppercorns:
+    name: Sichuan peppercorns
+    aliases:
+      - sichuan pepper
+    physical:
+      density: 0.5
+    name_fr: Poivre du Sichuan
+  five-spice:
+    name: Chinese five spice
+    aliases:
+      - five spice powder
+    physical:
+      density: 0.6
+    name_fr: Cinq-épices
+  hoisin-sauce:
+    name: Hoisin sauce
+    physical:
+      density: 1.2
+    nutrition:
+      calories: 240
+      protein: 3.5
+      carbs: 55
+      fat: 1
+    name_fr: Sauce hoisin
+  green-curry-paste:
+    name: Thai green curry paste
+    aliases:
+      - green curry paste
+    physical:
+      density: 1
+    nutrition:
+      calories: 120
+      protein: 3
+      carbs: 12
+      fat: 7
+    name_fr: Pâte de curry vert thaï
+  coconut-milk:
+    name: Coconut milk
+    aliases:
+      - lait de coco
+    physical:
+      density: 1
+    nutrition:
+      calories: 197
+      protein: 2
+      carbs: 2.8
+      fat: 21
+    name_fr: Lait de coco
+  red-bell-pepper:
+    name: Red bell pepper
+    aliases:
+      - red pepper
+      - poivron rouge
+    category: Vegetables
+    physical:
+      unit_weight: 160
+    nutrition:
+      calories: 31
+      protein: 1
+      carbs: 6
+      fat: 0.3
+    name_fr: Poivron rouge
+  green-bell-pepper:
+    name: Green bell pepper
+    aliases:
+      - green pepper
+      - poivron vert
+    category: Vegetables
+    physical:
+      unit_weight: 160
+    nutrition:
+      calories: 20
+      protein: 0.9
+      carbs: 4.6
+      fat: 0.2
+    name_fr: Poivron vert
+  green-beans:
+    name: Green beans
+    aliases:
+      - haricots verts
+    category: Vegetables
+    physical:
+      density: 0.5
+    nutrition:
+      calories: 31
+      protein: 1.8
+      carbs: 7
+      fat: 0.2
+    name_fr: Haricots verts
+  baby-corn:
+    name: Baby corn
+    category: Vegetables
+    physical:
+      density: 0.5
+    nutrition:
+      calories: 26
+      protein: 1.1
+      carbs: 5.5
+      fat: 0.3
+    name_fr: Mini maïs
+  thai-basil:
+    name: Thai basil leaves
+    aliases:
+      - thai basil
+    category: Herbs
+    physical:
+      unit_weight: 1
+    nutrition:
+      calories: 23
+      protein: 3.2
+      carbs: 2.7
+      fat: 0.6
+    name_fr: Basilic thaï
+  lime-juice:
+    name: Lime juice
+    aliases:
+      - jus de citron vert
+    physical:
+      density: 1.03
+    nutrition:
+      calories: 25
+      protein: 0.4
+      carbs: 8.4
+      fat: 0.2
+    name_fr: Jus de citron vert
+  jasmine-rice:
+    name: Jasmine rice (cooked)
+    aliases:
+      - cooked jasmine rice
+      - riz jasmin
+    category: Grains
+    physical:
+      density: 0.85
+    nutrition:
+      calories: 129
+      protein: 2.7
+      carbs: 28
+      fat: 0.3
+    name_fr: Riz jasmin (cuit)

@@ -13,6 +13,8 @@ website:
         text: Recipes
       - href: browse.qmd
         text: Browse
+      - href: import.qmd
+        text: Import
   page-footer: "Cooked with [Gram](https://gram-lang.org) + Quarto"
 
 format:

@@ -197,3 +197,38 @@ table.recipe-snippet {
 .browse-table tbody tr:hover {
   background: #f0fdf4;
 }
+
+/* Import page */
+.import-form {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  max-width: 720px;
+}
+.import-form input,
+.import-form textarea {
+  padding: 0.5rem 0.75rem;
+  border: 1px solid #d1d5db;
+  border-radius: 6px;
+  font: inherit;
+}
+.import-form textarea {
+  font-family: ui-monospace, monospace;
+  font-size: 0.875rem;
+}
+#import-output pre {
+  background: #f8fafc;
+  border: 1px solid #e5e7eb;
+  border-radius: 6px;
+  padding: 1rem;
+  overflow-x: auto;
+  white-space: pre-wrap;
+}
+.import-actions {
+  display: flex;
+  gap: 0.5rem;
+  margin: 0.75rem 0;
+}
+#import-status.error {
+  color: #b91c1c;
+}
