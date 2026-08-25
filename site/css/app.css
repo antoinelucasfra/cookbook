@@ -188,8 +188,12 @@ table.recipe-snippet {
   user-select: none;
   white-space: nowrap;
 }
-.browse-table th.sort-asc::after { content: " ▲"; }
-.browse-table th.sort-desc::after { content: " ▼"; }
+.browse-table th.sort-asc::after {
+  content: " ▲";
+}
+.browse-table th.sort-desc::after {
+  content: " ▼";
+}
 .browse-table tbody tr:hover {
   background: #f0fdf4;
 }

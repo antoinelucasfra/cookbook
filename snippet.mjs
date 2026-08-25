@@ -8,7 +8,10 @@ function textOf(content, names) {
   return content
     .map((t) => {
       if (typeof t === "string") return t;
-      if (t.quantity) return `${t.quantity.text ?? t.quantity.value ?? ""} ${t.unit}`.trim() + " ";
+      if (t.quantity)
+        return (
+          `${t.quantity.text ?? t.quantity.value ?? ""} ${t.unit}`.trim() + " "
+        );
       if (t.name || names.has(t.id)) return (t.name ?? names.get(t.id)) + " ";
       return "";
     })
@@ -23,10 +26,14 @@ function tokensOf(step) {
 }
 
 function esc(s) {
-  return String(s).replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
+  return String(s)
+    .replace(/&/g, "&amp;")
+    .replace(/</g, "&lt;")
+    .replace(/>/g, "&gt;");
 }
 
-const qtyText = (q, unit) => (q == null ? "" : `${q.text ?? q.value ?? q} ${unit ?? ""}`.trim());
+const qtyText = (q, unit) =>
+  q == null ? "" : `${q.text ?? q.value ?? q} ${unit ?? ""}`.trim();
 
 // One section → { notes: [string], groups: [{action, lines[]}], cooks: [string] }
 function sectionSnippet(section, names) {
@@ -53,7 +60,9 @@ function sectionSnippet(section, names) {
       (/^(In|To|On|For)\b/.test(txt) && txt.includes(",")
         ? txt.split(",")[1].trim().split(/\s+/)[0]
         : txt.split(/\s+/)[0]);
-    const actionCap = action ? action[0].toUpperCase() + action.slice(1) : "Step";
+    const actionCap = action
+      ? action[0].toUpperCase() + action.slice(1)
+      : "Step";
 
     if (isCook) {
       cooks.push([actionCap, ...temps, ...timers].filter(Boolean).join(" · "));
@@ -71,24 +80,30 @@ export function toSnippetHTML(result) {
     // ponytail: base-module intermediates get "pate$crumbs" ids — show last segment only
     names.set(id, i.name?.includes("$") ? i.name.split("$").pop() : i.name);
   }
-  for (const i of result.shopping_list ?? []) if (i.name) names.set(i.id, i.name);
-  for (const [id, c] of Object.entries(result.registry?.cookware ?? {})) if (!names.has(id)) names.set(id, c.name);
+  for (const i of result.shopping_list ?? [])
+    if (i.name) names.set(i.id, i.name);
+  for (const [id, c] of Object.entries(result.registry?.cookware ?? {}))
+    if (!names.has(id)) names.set(id, c.name);
 
   const parts = [];
   for (const section of result.sections ?? []) {
     const { notes, groups, cooks } = sectionSnippet(section, names);
     const cols = groups.length + (cooks.length ? 1 : 0);
     if (cols === 0) {
-      if (notes.length) parts.push(`<tr><td class="sn-note">${esc(notes.join(" "))}</td></tr>`);
+      if (notes.length)
+        parts.push(`<tr><td class="sn-note">${esc(notes.join(" "))}</td></tr>`);
       continue;
     }
-    for (const n of notes) parts.push(`<tr><td class="sn-note" colspan="${cols}">${esc(n)}</td></tr>`);
+    for (const n of notes)
+      parts.push(
+        `<tr><td class="sn-note" colspan="${cols}">${esc(n)}</td></tr>`,
+      );
     parts.push("<tr>");
     for (const g of groups) {
       parts.push(
         `<td class="sn-group"><div class="sn-action">${esc(g.action)}</div><ul class="sn-ings">` +
           g.lines.map((l) => `<li>${esc(l)}</li>`).join("") +
-          "</ul></td>"
+          "</ul></td>",
       );
     }
     if (cooks.length) {
@@ -110,16 +125,30 @@ if (process.argv[1]?.endsWith("snippet.mjs")) {
     return raw.ingredients ?? raw;
   })();
 
-  const assert = (c, msg) => { if (!c) { console.error("FAIL:", msg); process.exit(1); } };
+  const assert = (c, msg) => {
+    if (!c) {
+      console.error("FAIL:", msg);
+      process.exit(1);
+    }
+  };
 
-  const r = (await runPipeline("recipes/pancakes.gram", { db: DB })).analyzed.result;
+  const r = (await runPipeline("recipes/pancakes.gram", { db: DB })).analyzed
+    .result;
   const h = toSnippetHTML(r);
   assert(h.includes("recipe-snippet"), "snippet table rendered");
-  assert(h.includes("160 g All-purpose flour"), "scaled ingredient line with nice name");
+  assert(
+    h.includes("160 g All-purpose flour"),
+    "scaled ingredient line with nice name",
+  );
   assert(h.includes("Whisk"), "action column header");
 
-  const c = toSnippetHTML((await runPipeline("recipes/canneles.gram", { db: DB })).analyzed.result);
-  assert(c.includes("180 °C") && c.includes("50 min"), "cook cell with temp+time");
+  const c = toSnippetHTML(
+    (await runPipeline("recipes/canneles.gram", { db: DB })).analyzed.result,
+  );
+  assert(
+    c.includes("180 °C") && c.includes("50 min"),
+    "cook cell with temp+time",
+  );
   assert(c.includes("24 h") === false || true, "no crash on passive timers");
   assert(c.split("sn-action").length > 3, "multiple action groups");
 

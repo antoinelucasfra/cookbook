@@ -2,6 +2,16 @@
 title: Browse
 ---
 
+## How to use this cookbook
+
+Every recipe is written in [Gram](https://gram-lang.org) and rendered three ways:
+
+- **Quick overview** — a table at the top of each recipe page: columns are the actions (Mix, Heat, Bake…), rows list what goes into them (quantities scale automatically), and the right cell shows temperature and time. It's the whole recipe in one glance.
+- **Full steps** — detailed step-by-step instructions with intermediate mixes and a timeline chart.
+- **Cook mode** — click *Start cooking* on any recipe page to walk through steps hands-free; the current step stays centered while you work.
+
+Use the **scale buttons** (½×–3×) on a recipe page to adjust portions; every quantity, the overview table, and timings update instantly. The table below filters and sorts all recipes by title, category, time, or portions.
+
 <div class="browse-controls">
   <input id="browse-search" type="search" placeholder="Search recipes…" aria-label="Search recipes" />
   <select id="browse-category" aria-label="Filter by category">

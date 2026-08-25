@@ -91,7 +91,7 @@ async function initBrowse() {
   if (!table) return;
   let recipes;
   try {
-    recipes = await (await fetch("/recipes-index.json")).json();
+    recipes = await (await fetch("recipes-index.json")).json();
   } catch {
     table.textContent = "Failed to load recipe index.";
     return;
@@ -131,7 +131,7 @@ async function initBrowse() {
           return c;
         };
         const link = document.createElement("a");
-        link.href = `/cookbook/${r.slug}.html`;
+        link.href = `cookbook/${r.slug}.html`;
         link.textContent = r.title;
         const titleTd = document.createElement("td");
         titleTd.append(link);

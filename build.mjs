@@ -1,6 +1,12 @@
 // build.mjs — .gram recipes → Quarto site data
 // Usage: node build.mjs
-import { readdirSync, mkdirSync, writeFileSync, readFileSync, rmSync } from "node:fs";
+import {
+  readdirSync,
+  mkdirSync,
+  writeFileSync,
+  readFileSync,
+  rmSync,
+} from "node:fs";
 import { join } from "node:path";
 import { runPipeline } from "@gram-lang/cli";
 import { toHTML, toGanttHTML } from "@gram-lang/renderer";
@@ -20,7 +26,7 @@ function listGram(dir) {
       ? listGram(join(dir, e.name))
       : e.name.endsWith(".gram")
         ? [join(dir, e.name)]
-        : []
+        : [],
   );
 }
 
@@ -39,8 +45,15 @@ for (const file of listGram("recipes").filter((f) => !f.includes("bases/"))) {
       scaleFactor: s === 1 ? undefined : s,
     });
     const r = analyzed.result;
-    const clean = { ...r, meta: { title: r.title, portions: r.meta?.portions } };
-    scales[String(s)] = { html: toHTML(clean), gantt: toGanttHTML(clean), snippet: toSnippetHTML(r) };
+    const clean = {
+      ...r,
+      meta: { title: r.title, portions: r.meta?.portions },
+    };
+    scales[String(s)] = {
+      html: toHTML(clean),
+      gantt: toGanttHTML(clean),
+      snippet: toSnippetHTML(r),
+    };
     if (s === 1) {
       var base = r;
     }
@@ -79,7 +92,7 @@ portions: "${base.meta?.portions ?? ""}"
 ---
 
 {{< recipe ${slug} >}}
-`
+`,
   );
 
   index.push({
