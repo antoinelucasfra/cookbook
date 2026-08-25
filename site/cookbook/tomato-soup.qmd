@@ -1,0 +1,8 @@
+---
+title: "Tomato Soup"
+category: "Soup"
+total_time: "52 min"
+portions: "4"
+---
+
+{{< recipe tomato-soup >}}

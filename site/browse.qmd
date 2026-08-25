@@ -1,0 +1,24 @@
+---
+title: Browse
+---
+
+<div class="browse-controls">
+  <input id="browse-search" type="search" placeholder="Search recipes…" aria-label="Search recipes" />
+  <select id="browse-category" aria-label="Filter by category">
+    <option value="">All categories</option>
+  </select>
+  <span id="browse-count" class="browse-count"></span>
+</div>
+
+<table id="browse-table" class="browse-table">
+  <thead>
+    <tr>
+      <th data-sort="title">Title</th>
+      <th data-sort="category">Category</th>
+      <th data-sort="time">Total time</th>
+      <th data-sort="portions">Portions</th>
+      <th>Source</th>
+    </tr>
+  </thead>
+  <tbody></tbody>
+</table>

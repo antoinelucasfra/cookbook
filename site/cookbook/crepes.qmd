@@ -1,0 +1,8 @@
+---
+title: "Crêpes"
+category: "Breakfast"
+total_time: "47.5 min"
+portions: "4"
+---
+
+{{< recipe crepes >}}

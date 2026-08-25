@@ -4,6 +4,7 @@ import { readdirSync, mkdirSync, writeFileSync, readFileSync, rmSync } from "nod
 import { join } from "node:path";
 import { runPipeline } from "@gram-lang/cli";
 import { toHTML, toGanttHTML } from "@gram-lang/renderer";
+import { toSnippetHTML } from "./snippet.mjs";
 import { load } from "js-yaml";
 
 const DB = (() => {
@@ -39,7 +40,7 @@ for (const file of listGram("recipes").filter((f) => !f.includes("bases/"))) {
     });
     const r = analyzed.result;
     const clean = { ...r, meta: { title: r.title, portions: r.meta?.portions } };
-    scales[String(s)] = { html: toHTML(clean), gantt: toGanttHTML(clean) };
+    scales[String(s)] = { html: toHTML(clean), gantt: toGanttHTML(clean), snippet: toSnippetHTML(r) };
     if (s === 1) {
       var base = r;
     }
@@ -57,6 +58,10 @@ for (const file of listGram("recipes").filter((f) => !f.includes("bases/"))) {
     <summary>Cook mode active — <span class="cook-step-label"></span></summary>
     <button class="cook-next">Next step →</button>
     <button class="cook-exit">Exit</button>
+  </details>
+  <details class="snippet-box" open>
+    <summary>⚡ Quick overview</summary>
+    <div class="snippet-slot">${scales["1"].snippet}</div>
   </details>
   <div class="recipe-render"></div>
   <details class="gantt-details"><summary>⏱ Timeline</summary><div class="gantt-render"></div></details>
@@ -83,6 +88,7 @@ portions: "${base.meta?.portions ?? ""}"
     category: base.meta?.category ?? "Uncategorized",
     time: base.metrics?.totalTime ?? 0,
     portions: base.meta?.portions ?? "",
+    source: base.meta?.source ?? "",
   });
   console.log(`✓ ${slug} (${base.metrics?.totalTime ?? "?"} min)`);
 }

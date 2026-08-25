@@ -123,3 +123,135 @@ ingredients:
   tart-ring:
     name: "Tart ring"
     is_cookware: true
+  cocoa:
+    name: "Cocoa powder"
+    aliases: ["cacao", "cacao powder"]
+    category: "Sugars"
+    physical:
+      density: 0.55
+    nutrition:
+      calories: 228
+      protein: 19.6
+      carbs: 57.9
+      fat: 13.7
+  chocolate:
+    name: "Dark chocolate"
+    aliases: ["chocolat noir", "chocolat"]
+    category: "Sugars"
+    physical:
+      density: 1.3
+    nutrition:
+      calories: 546
+      protein: 4.9
+      carbs: 61
+      fat: 31
+  coffee:
+    name: "Strong coffee"
+    aliases: ["café", "espresso"]
+    physical:
+      density: 1.0
+  olive-oil:
+    name: "Olive oil"
+    aliases: ["huile d'olive", "oil"]
+    category: "Fats"
+    physical:
+      density: 0.91
+    nutrition:
+      calories: 884
+      protein: 0
+      carbs: 0
+      fat: 100
+  garlic:
+    name: "Garlic clove"
+    aliases: ["ail", "garlic"]
+    category: "Vegetables"
+    physical:
+      unit_weight: 6
+    nutrition:
+      calories: 149
+      protein: 6.4
+      carbs: 33
+      fat: 0.5
+  onion:
+    name: "Onion"
+    aliases: ["oignon", "onions"]
+    category: "Vegetables"
+    physical:
+      unit_weight: 150
+    nutrition:
+      calories: 40
+      protein: 1.1
+      carbs: 9.3
+      fat: 0.1
+  tomato:
+    name: "Tomato"
+    aliases: ["tomate", "tomatoes", "canned tomatoes"]
+    category: "Vegetables"
+    physical:
+      unit_weight: 120
+      density: 1.03
+    nutrition:
+      calories: 18
+      protein: 0.9
+      carbs: 3.9
+      fat: 0.2
+  vegetable-stock:
+    name: "Vegetable stock"
+    aliases: ["bouillon", "broth"]
+    physical:
+      density: 1.0
+  cream:
+    name: "Heavy cream"
+    aliases: ["crème", "crème liquide"]
+    category: "Dairy"
+    physical:
+      density: 0.98
+    nutrition:
+      calories: 340
+      protein: 2.1
+      carbs: 2.8
+      fat: 36
+  basil:
+    name: "Fresh basil"
+    aliases: ["basilic", "basil leaves"]
+    category: "Herbs"
+    physical:
+      unit_weight: 1
+    nutrition:
+      calories: 23
+      protein: 3.2
+      carbs: 2.7
+      fat: 0.6
+  pine-nuts:
+    name: "Pine nuts"
+    aliases: ["pignons", "pine nut"]
+    category: "Nuts"
+    physical:
+      density: 0.6
+    nutrition:
+      calories: 673
+      protein: 13.7
+      carbs: 13.1
+      fat: 68.4
+  parmesan:
+    name: "Parmesan"
+    aliases: ["parmesan cheese", "parmigiano"]
+    category: "Dairy"
+    physical:
+      density: 1.2
+    nutrition:
+      calories: 431
+      protein: 38
+      carbs: 4.1
+      fat: 29
+  pasta:
+    name: "Spaghetti"
+    aliases: ["pasta", "spaghetti"]
+    category: "Grains"
+    physical:
+      density: 0.7
+    nutrition:
+      calories: 371
+      protein: 13
+      carbs: 75
+      fat: 1.5

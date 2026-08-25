@@ -1,0 +1,3 @@
+{
+  "ignore": ["site/_site/**", "node_modules/**", "dist/**"]
+}

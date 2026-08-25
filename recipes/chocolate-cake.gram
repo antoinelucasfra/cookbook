@@ -1,0 +1,28 @@
+---
+title: Chocolate Cake
+portions: 8
+category: Dessert
+source: "Classic brownie-style"
+---
+
+## Prep
+
+[Preheat] Preheat the oven to ^{175°C}.
+
+[Line] Butter and flour a #square pan{}.
+
+## Batter ->&batter
+
+[Melt] Melt the @butter{115 g} in a #saucepan{}. ->&melted butter{}
+
+[Mix] In a #mixing bowl{}, stir the @sugar{200 g}, the @vanilla extract{1 tsp} and the @coffee{60 ml}. ->&sugar mix{}
+
+[Add eggs] Whisk the @egg{2} into the &sugar mix{}.
+
+[Fold] Fold the &melted butter{}, the @flour{80 g}, the @cocoa{60 g}, the @baking-powder{1/4 tsp} and the @salt{1/4 tsp} into the batter.
+
+## Baking
+
+[Fill] Pour the &batter into the #square pan.
+
+[Bake] Bake at ^{175°C} for ~{35 min}, until a skewer comes out clean.

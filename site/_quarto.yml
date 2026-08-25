@@ -3,6 +3,7 @@ project:
   output-dir: _site
   resources:
     - recipe-app.js
+    - recipes-index.json
 
 website:
   title: "Cookbook"
@@ -10,6 +11,8 @@ website:
     left:
       - href: index.qmd
         text: Recipes
+      - href: browse.qmd
+        text: Browse
   page-footer: "Cooked with [Gram](https://gram-lang.org) + Quarto"
 
 format:

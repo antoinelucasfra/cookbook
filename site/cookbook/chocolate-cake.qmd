@@ -1,0 +1,8 @@
+---
+title: "Chocolate Cake"
+category: "Dessert"
+total_time: "65 min"
+portions: "8"
+---
+
+{{< recipe chocolate-cake >}}

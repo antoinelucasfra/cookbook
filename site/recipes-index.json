@@ -4,20 +4,55 @@
     "title": "Cannelés",
     "category": "Pastry",
     "time": 1516,
-    "portions": "10"
+    "portions": "10",
+    "source": "Bordeaux classic"
+  },
+  {
+    "slug": "chocolate-cake",
+    "title": "Chocolate Cake",
+    "category": "Dessert",
+    "time": 65,
+    "portions": "8",
+    "source": "Classic brownie-style"
+  },
+  {
+    "slug": "crepes",
+    "title": "Crêpes",
+    "category": "Breakfast",
+    "time": 47.5,
+    "portions": "4",
+    "source": "French classic"
   },
   {
     "slug": "lemon-tart",
     "title": "Lemon Tart",
     "category": "Pastry",
     "time": 334,
-    "portions": "8"
+    "portions": "8",
+    "source": ""
   },
   {
     "slug": "pancakes",
     "title": "Pancakes",
     "category": "Breakfast",
     "time": 17,
-    "portions": "2"
+    "portions": "2",
+    "source": ""
+  },
+  {
+    "slug": "pesto-pasta",
+    "title": "Pesto Pasta",
+    "category": "Pasta",
+    "time": 27,
+    "portions": "2",
+    "source": "Genovese style"
+  },
+  {
+    "slug": "tomato-soup",
+    "title": "Tomato Soup",
+    "category": "Soup",
+    "time": 52,
+    "portions": "4",
+    "source": "Weeknight staple"
   }
 ]

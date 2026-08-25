@@ -1,0 +1,8 @@
+---
+title: "Pesto Pasta"
+category: "Pasta"
+total_time: "27 min"
+portions: "2"
+---
+
+{{< recipe pesto-pasta >}}

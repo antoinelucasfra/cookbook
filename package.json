@@ -8,6 +8,8 @@
     "build:js": "esbuild client.js --bundle --format=iife --outfile=site/recipe-app.js --minify",
     "build:css": "cp node_modules/@gram-lang/renderer/gram.css node_modules/@gram-lang/renderer/gantt.css site/css/",
     "build": "npm run build:data && npm run build:js && cd site && quarto render",
+    "check": "gram check \"recipes/**/*.gram\"",
+    "test": "node snippet.mjs",
     "serve": "python3 -m http.server 8801 -d site/_site"
   },
   "keywords": [],
@@ -20,5 +22,8 @@
     "@gram-lang/renderer": "^1.2.0",
     "esbuild": "^0.28.2",
     "js-yaml": "^5.3.0"
+  },
+  "allowScripts": {
+    "esbuild@0.28.2": true
   }
 }

@@ -1,0 +1,20 @@
+---
+title: Tomato Soup
+portions: 4
+category: Soup
+source: "Weeknight staple"
+---
+
+## Base ->&soup base
+
+[Sauté] Heat the @olive-oil{2 tbsp} in a #pot{} at ^{medium heat}, then sweat the @onion{1}(diced) and the @garlic{2}(minced) for ~{5 min}.
+
+[Simmer] Add the @tomato{800 g}(canned) and the @vegetable-stock{500 ml}. Simmer ~{20 min}. ->&soup base{}
+
+## Finish
+
+[Blend] Blend the &soup base smooth with an #immersion blender{}.
+
+[Enrich] Stir in the @cream{100 ml} and season with the @salt{1 tsp}.
+
+[Serve] Serve hot, topped with @basil{8} leaves.
