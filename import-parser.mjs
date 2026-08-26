@@ -69,6 +69,20 @@ function cleanName(s) {
     .trim();
 }
 
+/** Size descriptors are not units: "2 large eggs" has qty 2, no unit. */
+const SIZE_RE = /^(large|medium|small|whole)s?$/;
+
+/** Split "carrots, diced" into name + prep note so slugs stay DB-clean. */
+function normalizeIng(d) {
+  if (SIZE_RE.test(d.unit || "")) d.unit = "";
+  const parts = d.name.split(/,\s+/);
+  if (parts.length > 1) {
+    d.prep = parts.slice(1).join(", ").replace(/\.$/, "");
+    d.name = parts[0];
+  }
+  return d;
+}
+
 function slugify(s) {
   return (
     s
@@ -179,25 +193,37 @@ export function parseRecipeText(text, titleHint = "") {
     }
     const m = cleaned.match(ING_RE);
     if (mode === "ingredients" && cleaned.length < 120) {
+      if (
+        m &&
+        /^\d{2,3}$/.test(m[1].trim()) &&
+        /^[fc]$/i.test((m[2] || "").toLowerCase())
+      ) {
+        // "400F oven" is an oven-temp fragment, not an ingredient (≥100 rules out cups)
+        continue;
+      }
       if (m) {
-        out.ingredients.push({
-          qty: m[1].trim(),
-          unit: (m[2] || "").toLowerCase(),
-          name: m[3].replace(/\s*\(.*?\)\s*/g, " ").trim(),
-        });
+        out.ingredients.push(
+          normalizeIng({
+            qty: m[1].trim(),
+            unit: (m[2] || "").toLowerCase(),
+            name: m[3].replace(/\s*\(.*?\)\s*/g, " ").trim(),
+          }),
+        );
       } else if (cleaned.split(/\s+/).length <= 6 && !/[.]$/.test(cleaned)) {
         // short qty-less lines like "Salt to taste"; longer prose is not an ingredient
-        out.ingredients.push({ qty: "", unit: "", name: cleaned });
+        out.ingredients.push(normalizeIng({ qty: "", unit: "", name: cleaned }));
       }
       if (out.ingredients.at(-1)?.name === cleaned || m) continue;
       // prose under Ingredients header — fall through to step handling
     }
     if (mode !== "steps" && m && cleaned.length < 120) {
-      out.ingredients.push({
-        qty: m[1].trim(),
-        unit: (m[2] || "").toLowerCase(),
-        name: m[3].replace(/\s*\(.*?\)\s*/g, " ").trim(),
-      });
+      out.ingredients.push(
+        normalizeIng({
+          qty: m[1].trim(),
+          unit: (m[2] || "").toLowerCase(),
+          name: m[3].replace(/\s*\(.*?\)\s*/g, " ").trim(),
+        }),
+      );
       continue;
     }
     // prose after the ingredient list counts as a step; intro prose before
@@ -273,11 +299,11 @@ export function jsonLdToDraft(r) {
 function parseLine(line) {
   const m = line.match(ING_RE);
   if (!m) return null;
-  return {
+  return normalizeIng({
     qty: m[1].trim(),
     unit: (m[2] || "").toLowerCase(),
     name: cleanName(m[3]),
-  };
+  });
 }
 
 /**
@@ -305,6 +331,14 @@ export function aiNeededTags(draft) {
     ];
     if (unmapped.length)
       tags.push(`Unfamiliar unit(s): ${unmapped.join(", ")}`);
+    // mid-step times the trailing-only timer extractor can't place (~{} added later)
+    const timed = draft.steps.filter(
+      (s) =>
+        !s.includes("~{") &&
+        /\d+\s*(hours?|hrs?|minutes?|mins?)\b/i.test(s),
+    ).length;
+    if (timed)
+      tags.push(`${timed} step(s) contain times that need a ~{N min} timer`);
   } else tags.push("No ingredient list detected — AI extraction recommended");
   if (!draft.steps.length)
     tags.push("No instruction steps detected — AI extraction recommended");
@@ -316,9 +350,9 @@ export function hasHardGaps(draft) {
   return !draft.title || !draft.ingredients.length || !draft.steps.length;
 }
 
-/** °F → °C inside step text ("350°F" → "177 °C"). */
+/** °F → °C inside step text ("350°F" or bare "350F" → "177 °C"). */
 function convertTemps(s) {
-  return s.replace(/(\d{2,3})\s*°\s*F\b/gi, (_, f) => {
+  return s.replace(/(\d{2,3})\s*(?:°\s*)?[Ff]\b(?!\w)/g, (_, f) => {
     const c = Math.round(((Number(f) - 32) * 5) / 9);
     return `${c} °C`;
   });
@@ -363,14 +397,14 @@ function addCookware(s) {
 /** Draft → full .gram file source. */
 export function draftToGram(draft, meta = {}) {
   const title = draft.title || meta.title || "Imported recipe";
-  const portions = meta.portions || "";
+  const portions = draft.portions || meta.portions || "";
   const tags = aiNeededTags(draft);
   const tagComment = hasHardGaps(draft)
     ? `# review: ${tags.join("; ")}\n# tip: npx gram import <url> --pick-model for an AI-assisted translation\n`
     : "";
   const ingLines = draft.ingredients.map((i) => {
     const q = i.qty ? `{${toGramQty(i.qty, i.unit)}}` : "{}";
-    return `- @${slugify(i.name)}${q} — ${i.name}`;
+    return `- @${slugify(i.name)}${q}${i.prep ? `(${i.prep})` : ""} — ${i.name}`;
   });
   const stepLines = draft.steps.map((s0, idx) => {
     const [text, timer] = extractTimer(convertTemps(s0));

@@ -44,6 +44,15 @@
       ""
     ).replace(/\s*\([^)]*\)\s*/g, " ").replace(/[()\[\]]/g, "").replace(/\s+/g, " ").replace(/^[-–—,.\s]+/, "").replace(/[-–—,.\s]+$/, "").trim();
   }
+  function normalizeIng(d) {
+    if (SIZE_RE.test(d.unit || "")) d.unit = "";
+    const parts = d.name.split(/,\s+/);
+    if (parts.length > 1) {
+      d.prep = parts.slice(1).join(", ").replace(/\.$/, "");
+      d.name = parts[0];
+    }
+    return d;
+  }
   function slugify(s) {
     return s.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "").replace(/[^a-z0-9]+/g, "-").replace(/^-+|-+$/g, "").slice(0, 40) || "ingredient";
   }
@@ -120,23 +129,30 @@
       }
       const m = cleaned.match(ING_RE);
       if (mode === "ingredients" && cleaned.length < 120) {
+        if (m && /^\d{2,3}$/.test(m[1].trim()) && /^[fc]$/i.test((m[2] || "").toLowerCase())) {
+          continue;
+        }
         if (m) {
-          out.ingredients.push({
-            qty: m[1].trim(),
-            unit: (m[2] || "").toLowerCase(),
-            name: m[3].replace(/\s*\(.*?\)\s*/g, " ").trim()
-          });
+          out.ingredients.push(
+            normalizeIng({
+              qty: m[1].trim(),
+              unit: (m[2] || "").toLowerCase(),
+              name: m[3].replace(/\s*\(.*?\)\s*/g, " ").trim()
+            })
+          );
         } else if (cleaned.split(/\s+/).length <= 6 && !/[.]$/.test(cleaned)) {
-          out.ingredients.push({ qty: "", unit: "", name: cleaned });
+          out.ingredients.push(normalizeIng({ qty: "", unit: "", name: cleaned }));
         }
         if (out.ingredients.at(-1)?.name === cleaned || m) continue;
       }
       if (mode !== "steps" && m && cleaned.length < 120) {
-        out.ingredients.push({
-          qty: m[1].trim(),
-          unit: (m[2] || "").toLowerCase(),
-          name: m[3].replace(/\s*\(.*?\)\s*/g, " ").trim()
-        });
+        out.ingredients.push(
+          normalizeIng({
+            qty: m[1].trim(),
+            unit: (m[2] || "").toLowerCase(),
+            name: m[3].replace(/\s*\(.*?\)\s*/g, " ").trim()
+          })
+        );
         continue;
       }
       if (mode === "steps" || out.ingredients.length && (cleaned.length >= 120 || /[.;]$/.test(cleaned))) {
@@ -196,11 +212,11 @@
   function parseLine(line) {
     const m = line.match(ING_RE);
     if (!m) return null;
-    return {
+    return normalizeIng({
       qty: m[1].trim(),
       unit: (m[2] || "").toLowerCase(),
       name: cleanName(m[3])
-    };
+    });
   }
   function aiNeededTags(draft) {
     const tags = [];
@@ -219,6 +235,11 @@
       ];
       if (unmapped.length)
         tags.push(`Unfamiliar unit(s): ${unmapped.join(", ")}`);
+      const timed = draft.steps.filter(
+        (s) => !s.includes("~{") && /\d+\s*(hours?|hrs?|minutes?|mins?)\b/i.test(s)
+      ).length;
+      if (timed)
+        tags.push(`${timed} step(s) contain times that need a ~{N min} timer`);
     } else tags.push("No ingredient list detected \u2014 AI extraction recommended");
     if (!draft.steps.length)
       tags.push("No instruction steps detected \u2014 AI extraction recommended");
@@ -228,7 +249,7 @@
     return !draft.title || !draft.ingredients.length || !draft.steps.length;
   }
   function convertTemps(s) {
-    return s.replace(/(\d{2,3})\s*°\s*F\b/gi, (_, f) => {
+    return s.replace(/(\d{2,3})\s*(?:°\s*)?[Ff]\b(?!\w)/g, (_, f) => {
       const c = Math.round((Number(f) - 32) * 5 / 9);
       return `${c} \xB0C`;
     });
@@ -252,14 +273,14 @@
   }
   function draftToGram(draft, meta = {}) {
     const title = draft.title || meta.title || "Imported recipe";
-    const portions = meta.portions || "";
+    const portions = draft.portions || meta.portions || "";
     const tags = aiNeededTags(draft);
     const tagComment = hasHardGaps(draft) ? `# review: ${tags.join("; ")}
 # tip: npx gram import <url> --pick-model for an AI-assisted translation
 ` : "";
     const ingLines = draft.ingredients.map((i) => {
       const q = i.qty ? `{${toGramQty(i.qty, i.unit)}}` : "{}";
-      return `- @${slugify(i.name)}${q} \u2014 ${i.name}`;
+      return `- @${slugify(i.name)}${q}${i.prep ? `(${i.prep})` : ""} \u2014 ${i.name}`;
     });
     const stepLines = draft.steps.map((s0, idx) => {
       const [text, timer] = extractTimer(convertTemps(s0));
@@ -282,7 +303,7 @@ ${ingLines.join("\n")}
 ${stepLines.join("\n\n")}
 `;
   }
-  var UNIT_MAP, QTY, ING_RE, TIME_RE, COOKWARE_RE;
+  var UNIT_MAP, QTY, ING_RE, SIZE_RE, TIME_RE, COOKWARE_RE;
   var init_import_parser = __esm({
     "import-parser.mjs"() {
       UNIT_MAP = {
@@ -315,6 +336,7 @@ ${stepLines.join("\n\n")}
       ING_RE = new RegExp(
         `^(${QTY}(?:\\s*(?:to|-|\u2013)\\s*${QTY})?)\\s*([a-zA-Z.]+)?\\.?\\s+(.+)$`
       );
+      SIZE_RE = /^(large|medium|small|whole)s?$/;
       TIME_RE = /[,;]?\s*(?:for |about )?(\d+)(?:\s*(?:to|-|–)\s*(\d+))?\s*(hours?|hrs?|h|minutes?|mins?|min|seconds?|secs?)\.?\s*$/i;
       COOKWARE_RE = /\b(dutch oven|baking sheet|baking dish|saucepan|skillet|wok|mixing bowl|pot|pan|bowl|oven)\b/i;
     }

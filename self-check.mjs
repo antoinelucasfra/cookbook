@@ -207,3 +207,25 @@ assert(
 console.log(
   process.exitCode ? "SELF-CHECK FAILED" : "import-parser self-check OK",
 );
+
+// P0 regression cases: portions from draft, size descriptors, prep split, bare °F, temp-fragment lines
+{
+  const d = parseRecipeText(
+    "Soup\n\nServes 6\n\nIngredients:\n- 2 large eggs\n- 2 medium carrots, diced\n- 400F oven\n\nInstructions:\n1. Bake at 400F for 15 minutes.",
+  );
+  const g = draftToGram(d);
+  assert(g.includes("portions: 6"), `draft portions: ${g.match(/portions: \d+/)?.[0]}`);
+  assert(g.includes("@eggs{2}"), `size unit: ${g.match(/@eggs\{[^}]*\}/)?.[0]}`);
+  assert(g.includes("@carrots{2}(diced)"), `prep split: ${g.match(/@carrots.*/)?.[0]}`);
+  assert(!d.ingredients.some((i) => i.name === "oven"), "temp fragment line became ingredient");
+  assert(g.includes("204 °C"), `bare °F convert: ${g.match(/\[Step 1\].*/)?.[0]}`);
+  const tags = aiNeededTags({
+    title: "T",
+    ingredients: [{ qty: "1", unit: "cup", name: "rice" }],
+    steps: ["Simmer for 30 minutes, then rest."],
+  });
+  assert(
+    tags.some((t) => t.includes("timer")),
+    `unextracted-time tag: ${JSON.stringify(tags)}`,
+  );
+}
