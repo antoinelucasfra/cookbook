@@ -379,7 +379,8 @@ if (
     `messy draft tagged for ingredients: ${mt}`,
   );
   assert(
-    mt.some((t) => /instruction/i.test(t)) || mt.some((t) => /ingredient/i.test(t)),
+    mt.some((t) => /instruction/i.test(t)) ||
+      mt.some((t) => /ingredient/i.test(t)),
     `messy draft tagged for extraction gaps: ${mt}`,
   );
   const noSteps = parseRecipeText("# Soup\n\n## Ingredients\n\n- 200 g tofu");
