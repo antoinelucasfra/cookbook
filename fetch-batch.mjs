@@ -21,9 +21,7 @@ function extractJsonLd(html) {
   let m;
   while ((m = re.exec(html))) {
     try {
-      found.push(
-        JSON.parse(m[1].replace(/^\s*<!\[CDATA\[|\]\]>\s*$/g, "")),
-      );
+      found.push(JSON.parse(m[1].replace(/^\s*<!\[CDATA\[|\]\]>\s*$/g, "")));
     } catch {
       /* malformed block — skip */
     }
@@ -36,7 +34,8 @@ function findRecipe(nodes) {
   while (queue.length) {
     const n = queue.shift();
     if (!n || typeof n !== "object") continue;
-    if ((n["@type"] ?? []).toString().toLowerCase().includes("recipe")) return n;
+    if ((n["@type"] ?? []).toString().toLowerCase().includes("recipe"))
+      return n;
     queue.push(...Object.values(n).flat());
   }
   return null;
@@ -74,7 +73,9 @@ const lines = readFileSync(LIST, "utf8")
   .filter((l) => l && !l.startsWith("#"));
 
 for (const url of lines) {
-  const slug = slugify(url.replace(/^https?:\/\/[^/]+\//, "").replace(/\/$/, ""));
+  const slug = slugify(
+    url.replace(/^https?:\/\/[^/]+\//, "").replace(/\/$/, ""),
+  );
   const dest = `${OUT}/${slug}.gram`;
   if (existsSync(dest)) {
     console.log(`skip ${slug}`);
@@ -88,8 +89,14 @@ for (const url of lines) {
       if (r) draft = jsonLdToDraft(r);
     }
     if (!draft || hasHardGaps(draft))
-      draft = parseRecipeText(page, decodeURIComponent(slug).replace(/-/g, " "));
-    const gram = draftToGram(draft, { source: url, portions: draft.meta?.portions ?? draft.portions });
+      draft = parseRecipeText(
+        page,
+        decodeURIComponent(slug).replace(/-/g, " "),
+      );
+    const gram = draftToGram(draft, {
+      source: url,
+      portions: draft.meta?.portions ?? draft.portions,
+    });
     writeFileSync(dest, gram);
     console.log(
       `ok ${slug}: ${draft.ingredients.length} ing / ${draft.steps.length} steps`,

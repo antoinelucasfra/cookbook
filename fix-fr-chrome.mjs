@@ -1,7 +1,14 @@
 // fix-fr-chrome.mjs — post-quarto-render pass: swap site-chrome strings to
 // French under _site/fr/ (navbar/footer/title are site-wide config, not
 // per-directory overridable). Idempotent. Run from repo root after quarto render.
-import { readFileSync, writeFileSync, readdirSync, statSync, copyFileSync, existsSync } from "node:fs";
+import {
+  readFileSync,
+  writeFileSync,
+  readdirSync,
+  statSync,
+  copyFileSync,
+  existsSync,
+} from "node:fs";
 import { join, dirname } from "node:path";
 
 const ROOT = "site/_site/fr";

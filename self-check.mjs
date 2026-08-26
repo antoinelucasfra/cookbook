@@ -179,15 +179,22 @@ const cw = draftToGram({
   ingredients: [],
   steps: ["Fry in a large skillet until golden."],
 });
-assert(cw.includes("large #skillet{}"), `cookware size: ${cw.match(/\[Step 1\].*/)?.[0]}`);
+assert(
+  cw.includes("large #skillet{}"),
+  `cookware size: ${cw.match(/\[Step 1\].*/)?.[0]}`,
+);
 
 // cleanName strips stray parens / "to taste" noise
 const messyIng = jsonLdToDraft({
   name: "X",
   recipeYield: "12 servings, 12 falafel",
   recipeIngredient: ["2 (15-oz) cans chickpeas )", "Sea salt (to taste)"],
-  recipeInstructions: ["Do it."]});
-assert(messyIng.meta.portions === "12", `portions norm ${messyIng.meta.portions}`);
+  recipeInstructions: ["Do it."],
+});
+assert(
+  messyIng.meta.portions === "12",
+  `portions norm ${messyIng.meta.portions}`,
+);
 assert(
   messyIng.ingredients[0].name === "cans chickpeas",
   `stray paren name: "${messyIng.ingredients[0].name}"`,
