@@ -1,3 +1,3 @@
 {
-  "ignore": ["site/_site/**", "site/site_libs/**", "site/recipe-app.js", "node_modules/**", "dist/**"]
+  "ignore": ["site/_site/**", "site/site_libs/**", "site/_includes/**", "site/recipe-app.js", "node_modules/**", "dist/**"]
 }

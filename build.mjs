@@ -110,7 +110,7 @@ async function buildPass({
     <summary>${ui.overview}</summary>
     <div class="snippet-slot">${scales["1"].snippet}</div>
   </details>
-  <div class="recipe-render"></div>
+  <div class="recipe-render"><div class="gram-preview">${scales["1"].html}</div></div>
   <details class="gantt-details"><summary>${ui.timeline}</summary><div class="gantt-render"></div></details>
   <script type="application/json" class="recipe-data">${JSON.stringify(scales).replace(/</g, "\\u003c")}</script>
 </div>`;
