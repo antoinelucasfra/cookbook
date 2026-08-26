@@ -84,7 +84,10 @@ async function buildPass({
         meta: { title: r.title, portions: r.meta?.portions },
       };
       scales[String(s)] = {
-        html: toHTML(clean, { lang }),
+        html: toHTML(clean, { lang }).replace(
+          />(?=\d+(?:\.\d+)?g)/g,
+          "&gt;",
+        ),
         gantt: toGanttHTML(clean, { lang }),
         snippet: toSnippetHTML(r),
       };
