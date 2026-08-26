@@ -1,0 +1,10 @@
+---
+title: "The Best Vegan Lasagna"
+category: "Main Course"
+total_time: "59 min"
+portions: "8"
+---
+
+<nav class="lang-switch" aria-label="Language"><a class="lang-opt" href="../fr/cookbook/lasagne-vegetalienne.html" hreflang="fr" lang="fr">FR</a><span class="lang-opt active" aria-current="true">EN</span></nav>
+
+{{< recipe the-best-vegan-lasagna >}}
