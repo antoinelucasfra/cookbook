@@ -62,7 +62,7 @@ function cleanName(s) {
       "",
     )
     .replace(/\s*\([^)]*\)\s*/g, " ")
-    .replace(/[()\[\]]/g, "")
+    .replace(/[()[\]]/g, "")
     .replace(/\s+/g, " ")
     .replace(/^[-–—,.\s]+/, "")
     .replace(/[-–—,.\s]+$/, "")
@@ -211,7 +211,9 @@ export function parseRecipeText(text, titleHint = "") {
         );
       } else if (cleaned.split(/\s+/).length <= 6 && !/[.]$/.test(cleaned)) {
         // short qty-less lines like "Salt to taste"; longer prose is not an ingredient
-        out.ingredients.push(normalizeIng({ qty: "", unit: "", name: cleaned }));
+        out.ingredients.push(
+          normalizeIng({ qty: "", unit: "", name: cleaned }),
+        );
       }
       if (out.ingredients.at(-1)?.name === cleaned || m) continue;
       // prose under Ingredients header — fall through to step handling
@@ -334,8 +336,7 @@ export function aiNeededTags(draft) {
     // mid-step times the trailing-only timer extractor can't place (~{} added later)
     const timed = draft.steps.filter(
       (s) =>
-        !s.includes("~{") &&
-        /\d+\s*(hours?|hrs?|minutes?|mins?)\b/i.test(s),
+        !s.includes("~{") && /\d+\s*(hours?|hrs?|minutes?|mins?)\b/i.test(s),
     ).length;
     if (timed)
       tags.push(`${timed} step(s) contain times that need a ~{N min} timer`);

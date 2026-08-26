@@ -42,7 +42,7 @@
     return s.replace(
       /\((?:to taste|optional|for (?:garnish|serving)|garnish|divided|plus more)[^)]*\)/gi,
       ""
-    ).replace(/\s*\([^)]*\)\s*/g, " ").replace(/[()\[\]]/g, "").replace(/\s+/g, " ").replace(/^[-–—,.\s]+/, "").replace(/[-–—,.\s]+$/, "").trim();
+    ).replace(/\s*\([^)]*\)\s*/g, " ").replace(/[()[\]]/g, "").replace(/\s+/g, " ").replace(/^[-–—,.\s]+/, "").replace(/[-–—,.\s]+$/, "").trim();
   }
   function normalizeIng(d) {
     if (SIZE_RE.test(d.unit || "")) d.unit = "";
@@ -141,7 +141,9 @@
             })
           );
         } else if (cleaned.split(/\s+/).length <= 6 && !/[.]$/.test(cleaned)) {
-          out.ingredients.push(normalizeIng({ qty: "", unit: "", name: cleaned }));
+          out.ingredients.push(
+            normalizeIng({ qty: "", unit: "", name: cleaned })
+          );
         }
         if (out.ingredients.at(-1)?.name === cleaned || m) continue;
       }
