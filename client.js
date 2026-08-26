@@ -234,7 +234,7 @@ function initImport() {
     gramText = draftToGram(draft, meta);
     const tags = aiNeededTags(draft);
     if (preview) preview.value = gramText;
-    const tagBox = out.querySelector("#import-tags");
+    const tagBox = document.querySelector("#import-tags");
     tagBox.replaceChildren();
     if (tags.length) {
       const p = document.createElement("p");
