@@ -1,0 +1,10 @@
+---
+title: "Fudgy Vegan Brownies"
+category: "Dessert"
+total_time: "92 min"
+portions: "16"
+---
+
+[🇫🇷 Version française](../fr/cookbook/brownies-fondants-vegetaliens.html){.lang-switch}
+
+{{< recipe fudgy-vegan-brownies >}}

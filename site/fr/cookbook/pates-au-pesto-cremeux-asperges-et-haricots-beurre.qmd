@@ -1,0 +1,11 @@
+---
+title: "Pâtes au pesto crémeux, asperges et haricots beurre"
+lang: fr
+category: "Pâtes"
+total_time: "38 min"
+portions: "4"
+---
+
+[🇬🇧 English version](../../cookbook/creamy-pesto-pasta-with-asparagus-butter-beans.html){.lang-switch}
+
+{{< recipe fr/pates-au-pesto-cremeux-asperges-et-haricots-beurre >}}

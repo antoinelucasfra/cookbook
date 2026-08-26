@@ -1,5 +1,13 @@
 [
   {
+    "slug": "vegan-black-bean-walnut-tacos",
+    "title": "Vegan Black Bean & Walnut Tacos",
+    "category": "Tacos",
+    "time": 52,
+    "portions": "6",
+    "source": "https://connoisseurusveg.com/vegan-tacos/"
+  },
+  {
     "slug": "canneles",
     "title": "Cannelés",
     "category": "Pastry",
@@ -32,6 +40,14 @@
     "source": "https://minimalistbaker.com/easy-vegan-falafel/"
   },
   {
+    "slug": "fudgy-vegan-brownies",
+    "title": "Fudgy Vegan Brownies",
+    "category": "Dessert",
+    "time": 92,
+    "portions": "16",
+    "source": "https://www.lovingitvegan.com/vegan-brownies/"
+  },
+  {
     "slug": "hummus",
     "title": "Hummus",
     "category": "Appetizer",
@@ -54,6 +70,14 @@
     "time": 17,
     "portions": "2",
     "source": ""
+  },
+  {
+    "slug": "creamy-pesto-pasta-with-asparagus-butter-beans",
+    "title": "Creamy Pesto Pasta with Asparagus & Butter Beans",
+    "category": "Pasta",
+    "time": 36,
+    "portions": "4",
+    "source": "https://www.cinnamonsnail.com/vegan-pesto-pasta/"
   },
   {
     "slug": "pesto-pasta",

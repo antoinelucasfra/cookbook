@@ -1,0 +1,11 @@
+---
+title: "Tacos aux haricots noirs et noix"
+lang: fr
+category: "Tacos"
+total_time: "52 min"
+portions: "6"
+---
+
+[🇬🇧 English version](../../cookbook/vegan-black-bean-walnut-tacos.html){.lang-switch}
+
+{{< recipe fr/tacos-aux-haricots-noirs-et-noix >}}

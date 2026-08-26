@@ -1,0 +1,10 @@
+---
+title: "Creamy Pesto Pasta with Asparagus & Butter Beans"
+category: "Pasta"
+total_time: "36 min"
+portions: "4"
+---
+
+[🇫🇷 Version française](../fr/cookbook/pates-au-pesto-cremeux-asperges-et-haricots-beurre.html){.lang-switch}
+
+{{< recipe creamy-pesto-pasta-with-asparagus-butter-beans >}}

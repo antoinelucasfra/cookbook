@@ -1,5 +1,13 @@
 [
   {
+    "slug": "tacos-aux-haricots-noirs-et-noix",
+    "title": "Tacos aux haricots noirs et noix",
+    "category": "Tacos",
+    "time": 52,
+    "portions": "6",
+    "source": "https://connoisseurusveg.com/vegan-tacos/"
+  },
+  {
     "slug": "caneles",
     "title": "Canelés",
     "category": "Pâtisserie",
@@ -32,6 +40,14 @@
     "source": "https://minimalistbaker.com/easy-vegan-falafel/"
   },
   {
+    "slug": "brownies-fondants-vegetaliens",
+    "title": "Brownies fondants végétaliens",
+    "category": "Dessert",
+    "time": 91,
+    "portions": "16",
+    "source": "https://www.lovingitvegan.com/vegan-brownies/"
+  },
+  {
     "slug": "houmous",
     "title": "Houmous",
     "category": "Entrée",
@@ -54,6 +70,14 @@
     "time": 17,
     "portions": "2",
     "source": ""
+  },
+  {
+    "slug": "pates-au-pesto-cremeux-asperges-et-haricots-beurre",
+    "title": "Pâtes au pesto crémeux, asperges et haricots beurre",
+    "category": "Pâtes",
+    "time": 38,
+    "portions": "4",
+    "source": "https://www.cinnamonsnail.com/vegan-pesto-pasta/"
   },
   {
     "slug": "pates-au-pesto",
