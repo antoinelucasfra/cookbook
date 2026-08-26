@@ -1,0 +1,10 @@
+---
+title: "Hyderabadi Vegetable Biryani"
+category: "Rice"
+total_time: "121.5 min"
+portions: "6"
+---
+
+[🇫🇷 Version française](../fr/cookbook/biryani-vegetarien-de-hyderabad.html){.lang-switch}
+
+{{< recipe hyderabadi-vegetable-biryani >}}

@@ -1,0 +1,10 @@
+---
+title: "Hummus"
+category: "Appetizer"
+total_time: "21 min"
+portions: "4"
+---
+
+[🇫🇷 Version française](../fr/cookbook/houmous.html){.lang-switch}
+
+{{< recipe hummus >}}

@@ -1,0 +1,11 @@
+---
+title: "Falafels faciles"
+lang: fr
+category: "Plat"
+total_time: "105 min"
+portions: "12"
+---
+
+[🇬🇧 English version](../../cookbook/easy-vegan-falafel.html){.lang-switch}
+
+{{< recipe fr/falafels-faciles >}}

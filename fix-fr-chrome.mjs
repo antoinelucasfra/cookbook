@@ -1,8 +1,8 @@
 // fix-fr-chrome.mjs — post-quarto-render pass: swap site-chrome strings to
 // French under _site/fr/ (navbar/footer/title are site-wide config, not
 // per-directory overridable). Idempotent. Run from repo root after quarto render.
-import { readFileSync, writeFileSync, readdirSync, statSync } from "node:fs";
-import { join } from "node:path";
+import { readFileSync, writeFileSync, readdirSync, statSync, copyFileSync, existsSync } from "node:fs";
+import { join, dirname } from "node:path";
 
 const ROOT = "site/_site/fr";
 const RE = [
@@ -33,6 +33,18 @@ for (const p of walk(ROOT)) {
   }
 }
 console.log(`fr chrome: ${n} files updated`);
+
+// recipe-app.js is referenced relatively by every page but Quarto copies it to
+// _site root only — mirror it into each subdir containing HTML pages.
+const SITE = "site/_site";
+const dirs = new Set(walk(SITE).map((p) => dirname(p)));
+let c = 0;
+for (const d of dirs) {
+  if (d === SITE || existsSync(join(d, "recipe-app.js"))) continue;
+  copyFileSync(join(SITE, "recipe-app.js"), join(d, "recipe-app.js"));
+  c++;
+}
+console.log(`recipe-app.js mirrored into ${c} dirs`);
 
 if (process.argv[1]?.endsWith("fix-fr-chrome.mjs")) {
   const sample = readFileSync(join(ROOT, "index.html"), "utf8");

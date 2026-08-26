@@ -1,0 +1,10 @@
+---
+title: "Vegan Chili"
+category: "Chili"
+total_time: "76 min"
+portions: "6"
+---
+
+[🇫🇷 Version française](../fr/cookbook/chili-vegetalien.html){.lang-switch}
+
+{{< recipe vegan-chili >}}

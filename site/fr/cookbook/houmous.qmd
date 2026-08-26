@@ -1,0 +1,11 @@
+---
+title: "Houmous"
+lang: fr
+category: "Entrée"
+total_time: "21 min"
+portions: "4"
+---
+
+[🇬🇧 English version](../../cookbook/hummus.html){.lang-switch}
+
+{{< recipe fr/houmous >}}

@@ -916,3 +916,538 @@ ingredients:
       carbs: 28
       fat: 0.3
     name_fr: Riz jasmin (cuit)
+
+  chickpeas:
+    name: Chickpeas (canned, drained)
+    aliases:
+      - garbanzo beans
+      - pois chiches
+    category: Legumes
+    physical:
+      density: 1.15
+    nutrition:
+      calories: 164
+      protein: 8.9
+      carbs: 27
+      fat: 2.6
+    name_fr: Pois chiches
+  tahini:
+    name: Tahini
+    aliases:
+      - sesame paste
+      - tahiné
+    category: Condiments
+    physical:
+      density: 1.45
+    nutrition:
+      calories: 595
+      protein: 17
+      carbs: 21
+      fat: 54
+    name_fr: Tahini
+  cumin:
+    name: Ground cumin
+    aliases:
+      - cumin seeds
+      - cumin moulu
+      - graines de cumin
+    category: Spices
+    physical:
+      density: 0.45
+    nutrition:
+      calories: 375
+      protein: 18
+      carbs: 44
+      fat: 22
+    name_fr: Cumin moulu
+  garlic-powder:
+    name: Garlic powder
+    aliases:
+      - ail en poudre
+    category: Spices
+    physical:
+      density: 0.6
+    nutrition:
+      calories: 331
+      protein: 16.6
+      carbs: 72.7
+      fat: 0.7
+    name_fr: Ail en poudre
+  cashews:
+    name: Cashews
+    aliases:
+      - raw cashews
+      - noix de cajou
+    category: Nuts
+    physical:
+      density: 0.62
+    nutrition:
+      calories: 553
+      protein: 18
+      carbs: 30
+      fat: 44
+    name_fr: Noix de cajou
+  vegan-butter:
+    name: Vegan butter
+    aliases:
+      - plant butter
+      - margarine
+      - beurre végétal
+    category: Fats
+    physical:
+      density: 0.95
+    nutrition:
+      calories: 717
+      protein: 0.9
+      carbs: 0.1
+      fat: 81
+    name_fr: Beurre végétal
+  seitan:
+    name: Seitan
+    aliases:
+      - vital wheat gluten
+      - gluten
+    category: Protein
+    physical:
+      density: 1.05
+    nutrition:
+      calories: 141
+      protein: 25
+      carbs: 14
+      fat: 1.9
+    name_fr: Seitan
+  ginger:
+    name: Fresh ginger
+    aliases:
+      - grated ginger
+      - gingembre
+    category: Vegetables
+    physical:
+      density: 1.0
+    nutrition:
+      calories: 80
+      protein: 1.8
+      carbs: 17.8
+      fat: 0.8
+    name_fr: Gingembre
+  garam-masala:
+    name: Garam masala
+    aliases:
+      - mélange garam masala
+    category: Spices
+    physical:
+      density: 0.5
+    nutrition:
+      calories: 379
+      protein: 14
+      carbs: 45
+      fat: 15
+    name_fr: Garam masala
+  paprika:
+    name: Paprika
+    aliases:
+      - paprika moulu
+    category: Spices
+    physical:
+      density: 0.5
+    nutrition:
+      calories: 282
+      protein: 14
+      carbs: 54
+      fat: 13
+    name_fr: Paprika
+  smoked-paprika:
+    name: Smoked paprika
+    aliases:
+      - pimentón
+      - paprika fumé
+    category: Spices
+    physical:
+      density: 0.5
+    nutrition:
+      calories: 282
+      protein: 14
+      carbs: 54
+      fat: 13
+    name_fr: Paprika fumé
+  canned-tomatoes:
+    name: Canned chopped tomatoes
+    aliases:
+      - crushed tomatoes
+      - fire roasted tomatoes
+      - tomates concassées
+    category: Vegetables
+    physical:
+      density: 1.0
+    nutrition:
+      calories: 32
+      protein: 1.6
+      carbs: 7
+      fat: 0.3
+    name_fr: Tomates concassées (boîte)
+  tomato-paste:
+    name: Tomato paste
+    aliases:
+      - concentré de tomates
+    category: Condiments
+    physical:
+      density: 1.1
+    nutrition:
+      calories: 82
+      protein: 4.3
+      carbs: 19
+      fat: 0.5
+    name_fr: Concentré de tomates
+  cilantro:
+    name: Fresh cilantro
+    aliases:
+      - fresh coriander
+      - coriandre fraîche
+    category: Herbs
+    physical:
+      density: 0.15
+    nutrition:
+      calories: 23
+      protein: 2.1
+      carbs: 3.7
+      fat: 0.5
+    name_fr: Coriandre fraîche
+  basmati-rice:
+    name: Basmati rice
+    aliases:
+      - aged basmati rice
+      - riz basmati
+    category: Grains
+    physical:
+      density: 0.85
+    nutrition:
+      calories: 356
+      protein: 8.1
+      carbs: 78
+      fat: 0.9
+    name_fr: Riz basmati
+  celery:
+    name: Celery
+    aliases:
+      - celery stalks
+      - céleri
+    category: Vegetables
+    physical:
+      density: 0.5
+    nutrition:
+      calories: 16
+      protein: 0.7
+      carbs: 3
+      fat: 0.2
+    name_fr: Céleri
+  carrot:
+    name: Carrot
+    aliases:
+      - carrots
+      - carotte
+      - carottes
+    category: Vegetables
+    physical:
+      density: 0.6
+    nutrition:
+      calories: 41
+      protein: 0.9
+      carbs: 9.6
+      fat: 0.2
+    name_fr: Carotte
+  chili-powder:
+    name: Chili powder
+    aliases:
+      - kashmiri red chili powder
+      - piment en poudre
+    category: Spices
+    physical:
+      density: 0.5
+    nutrition:
+      calories: 282
+      protein: 13
+      carbs: 50
+      fat: 14
+    name_fr: Piment en poudre
+  oregano:
+    name: Dried oregano
+    aliases:
+      - origan
+    category: Herbs
+    physical:
+      density: 0.3
+    nutrition:
+      calories: 265
+      protein: 9
+      carbs: 69
+      fat: 4.3
+    name_fr: Origan séché
+  cayenne-pepper:
+    name: Cayenne pepper
+    aliases:
+      - piment de cayenne
+    category: Spices
+    physical:
+      density: 0.5
+    nutrition:
+      calories: 318
+      protein: 12.7
+      carbs: 56.6
+      fat: 8
+    name_fr: Piment de Cayenne
+  kidney-beans:
+    name: Kidney beans (canned, drained)
+    aliases:
+      - haricots rouges
+    category: Legumes
+    physical:
+      density: 1.1
+    nutrition:
+      calories: 127
+      protein: 8.7
+      carbs: 22.8
+      fat: 0.5
+    name_fr: Haricots rouges
+  black-beans:
+    name: Black beans (canned, drained)
+    aliases:
+      - haricots noirs
+    category: Legumes
+    physical:
+      density: 1.1
+    nutrition:
+      calories: 132
+      protein: 8.9
+      carbs: 23.7
+      fat: 0.5
+    name_fr: Haricots noirs
+  avocado:
+    name: Avocado
+    aliases:
+      - avocat
+    category: Fruits
+    physical:
+      density: 0.95
+    nutrition:
+      calories: 160
+      protein: 2
+      carbs: 8.5
+      fat: 14.7
+    name_fr: Avocat
+  parsley:
+    name: Fresh parsley
+    aliases:
+      - persil
+    category: Herbs
+    physical:
+      density: 0.2
+    nutrition:
+      calories: 36
+      protein: 3
+      carbs: 6.3
+      fat: 0.8
+    name_fr: Persil frais
+  sesame-seeds:
+    name: Sesame seeds
+    aliases:
+      - raw sesame seeds
+      - graines de sésame
+    category: Seeds
+    physical:
+      density: 0.65
+    nutrition:
+      calories: 573
+      protein: 17.7
+      carbs: 23.4
+      fat: 49.7
+    name_fr: Graines de sésame
+  cardamom:
+    name: Ground cardamom
+    aliases:
+      - cardamome
+    category: Spices
+    physical:
+      density: 0.4
+    nutrition:
+      calories: 311
+      protein: 10.8
+      carbs: 68.5
+      fat: 6.7
+    name_fr: Cardamome moulue
+  coriander:
+    name: Ground coriander
+    aliases:
+      - coriander seeds
+      - coriandre moulue
+    category: Spices
+    physical:
+      density: 0.45
+    nutrition:
+      calories: 298
+      protein: 12.4
+      carbs: 55
+      fat: 17.8
+    name_fr: Coriandre moulue
+  panko:
+    name: Panko bread crumbs
+    aliases:
+      - breadcrumbs
+      - chapelure
+    category: Grains
+    physical:
+      density: 0.3
+    nutrition:
+      calories: 380
+      protein: 12
+      carbs: 70
+      fat: 4
+    name_fr: Chapelure (panko)
+  cauliflower:
+    name: Cauliflower
+    aliases:
+      - chou-fleur
+    category: Vegetables
+    physical:
+      density: 0.5
+    nutrition:
+      calories: 25
+      protein: 1.9
+      carbs: 5
+      fat: 0.3
+    name_fr: Chou-fleur
+  green-chili:
+    name: Green chili
+    aliases:
+      - green chile
+      - piment vert
+    category: Vegetables
+    physical:
+      density: 0.55
+    nutrition:
+      calories: 40
+      protein: 1.9
+      carbs: 9.5
+      fat: 0.4
+    name_fr: Piment vert
+  saffron:
+    name: Saffron threads
+    aliases:
+      - safran
+    category: Spices
+    physical:
+      density: 0.2
+    nutrition:
+      calories: 310
+      protein: 11
+      carbs: 65
+      fat: 6
+    name_fr: Safran
+  turmeric:
+    name: Ground turmeric
+    aliases:
+      - turmeric powder
+      - curcuma
+    category: Spices
+    physical:
+      density: 0.6
+    nutrition:
+      calories: 354
+      protein: 7.8
+      carbs: 64.9
+      fat: 9.9
+    name_fr: Curcuma moulu
+  curry-leaves:
+    name: Curry leaves
+    aliases:
+      - feuilles de curry
+    category: Herbs
+    physical:
+      density: 0.2
+    nutrition:
+      calories: 10
+      protein: 0.6
+      carbs: 1.8
+      fat: 0.1
+    name_fr: Feuilles de curry
+  peas:
+    name: Frozen peas
+    aliases:
+      - petits pois surgelés
+    category: Vegetables
+    physical:
+      density: 0.75
+    nutrition:
+      calories: 81
+      protein: 5.4
+      carbs: 14.5
+      fat: 0.4
+    name_fr: Petits pois surgelés
+  rosewater:
+    name: Rose water
+    aliases:
+      - eau de rose
+    category: Condiments
+    physical:
+      density: 1.0
+    nutrition:
+      calories: 1
+      protein: 0
+      carbs: 0.1
+      fat: 0
+    name_fr: Eau de rose
+  mint:
+    name: Fresh mint
+    aliases:
+      - mint leaves
+      - menthe
+    category: Herbs
+    physical:
+      density: 0.2
+    nutrition:
+      calories: 44
+      protein: 3.3
+      carbs: 8
+      fat: 0.7
+    name_fr: Menthe fraîche
+  potato:
+    name: Potato
+    aliases:
+      - russet potato
+      - pomme de terre
+    category: Vegetables
+    physical:
+      density: 0.7
+    nutrition:
+      calories: 77
+      protein: 2
+      carbs: 17.5
+      fat: 0.1
+    name_fr: Pomme de terre
+  cloves:
+    name: Whole cloves (spice)
+    aliases:
+      - clous de girofle
+    category: Spices
+    physical:
+      unit_weight: 0.1
+    nutrition:
+      calories: 274
+      protein: 6
+      carbs: 65
+      fat: 13
+    name_fr: Clous de girofle
+  black-pepper:
+    name: Black pepper
+    aliases:
+      - pepper
+      - poivre
+      - poivre noir
+    category: Spices
+    physical:
+      density: 0.5
+    nutrition:
+      calories: 251
+      protein: 10.4
+      carbs: 63.9
+      fat: 3.3
+    name_fr: Poivre noir

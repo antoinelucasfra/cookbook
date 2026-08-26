@@ -1,0 +1,10 @@
+---
+title: "Easy Vegan Falafel"
+category: "Main"
+total_time: "105 min"
+portions: "12"
+---
+
+[🇫🇷 Version française](../fr/cookbook/falafels-faciles.html){.lang-switch}
+
+{{< recipe easy-vegan-falafel >}}

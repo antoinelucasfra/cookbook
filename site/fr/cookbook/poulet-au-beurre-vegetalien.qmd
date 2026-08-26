@@ -1,0 +1,11 @@
+---
+title: "Poulet au beurre végétalien"
+lang: fr
+category: "Curry"
+total_time: "54 min"
+portions: "4"
+---
+
+[🇬🇧 English version](../../cookbook/vegan-butter-chicken.html){.lang-switch}
+
+{{< recipe fr/poulet-au-beurre-vegetalien >}}

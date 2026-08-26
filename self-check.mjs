@@ -169,6 +169,34 @@ assert(
   "clean draft has no review comment",
 );
 
+// cookware wrapping (first mention per step, skipped if step already has one)
+assert(
+  timed.includes("Preheat #oven{} to"),
+  `cookware: ${timed.match(/\[Step 2\].*/)?.[0]}`,
+);
+const cw = draftToGram({
+  title: "T",
+  ingredients: [],
+  steps: ["Fry in a large skillet until golden."],
+});
+assert(cw.includes("large #skillet{}"), `cookware size: ${cw.match(/\[Step 1\].*/)?.[0]}`);
+
+// cleanName strips stray parens / "to taste" noise
+const messyIng = jsonLdToDraft({
+  name: "X",
+  recipeYield: "12 servings, 12 falafel",
+  recipeIngredient: ["2 (15-oz) cans chickpeas )", "Sea salt (to taste)"],
+  recipeInstructions: ["Do it."]});
+assert(messyIng.meta.portions === "12", `portions norm ${messyIng.meta.portions}`);
+assert(
+  messyIng.ingredients[0].name === "cans chickpeas",
+  `stray paren name: "${messyIng.ingredients[0].name}"`,
+);
+assert(
+  messyIng.ingredients[1].name === "Sea salt" && !messyIng.ingredients[1].qty,
+  `to-taste name: "${messyIng.ingredients[1].name}"`,
+);
+
 console.log(
   process.exitCode ? "SELF-CHECK FAILED" : "import-parser self-check OK",
 );

@@ -54,6 +54,21 @@ function fracToNum(s) {
   return uni[s] ?? Number(s);
 }
 
+/** Strip recipe-noise suffixes, stray parens and edge punctuation from a name. */
+function cleanName(s) {
+  return s
+    .replace(
+      /\((?:to taste|optional|for (?:garnish|serving)|garnish|divided|plus more)[^)]*\)/gi,
+      "",
+    )
+    .replace(/\s*\([^)]*\)\s*/g, " ")
+    .replace(/[()\[\]]/g, "")
+    .replace(/\s+/g, " ")
+    .replace(/^[-–—,.\s]+/, "")
+    .replace(/[-–—,.\s]+$/, "")
+    .trim();
+}
+
 function slugify(s) {
   return (
     s
@@ -232,7 +247,7 @@ export function extractJsonLdRecipe(html) {
 export function jsonLdToDraft(r) {
   const ingredients = (r.recipeIngredient ?? r.ingredients ?? []).map((s) => {
     const d = typeof s === "string" ? parseLine(s) : null;
-    return d ?? { qty: "", unit: "", name: String(s) };
+    return d ?? { qty: "", unit: "", name: cleanName(String(s)) };
   });
   let steps = [];
   const walk = (n) => {
@@ -248,7 +263,8 @@ export function jsonLdToDraft(r) {
     ingredients,
     steps,
     meta: {
-      portions: r.recipeYield ?? "",
+      // yields arrive messy ("12 servings, 12 falafel") — first number wins
+      portions: String(r.recipeYield ?? "").match(/\d+/)?.[0] ?? "",
       time: r.totalTime ?? "",
     },
   };
@@ -260,7 +276,7 @@ function parseLine(line) {
   return {
     qty: m[1].trim(),
     unit: (m[2] || "").toLowerCase(),
-    name: m[3].replace(/\s*\(.*?\)\s*/g, " ").trim(),
+    name: cleanName(m[3]),
   };
 }
 
@@ -332,6 +348,18 @@ function extractTimer(s) {
   ];
 }
 
+/** Wrap the first cookware mention in gram syntax: "a large pot" → "a large #pot{}". */
+const COOKWARE_RE =
+  /\b(dutch oven|baking sheet|baking dish|saucepan|skillet|wok|mixing bowl|pot|pan|bowl|oven)\b/i;
+
+function addCookware(s) {
+  if (s.includes("#")) return s;
+  const m = s.match(COOKWARE_RE);
+  return m
+    ? s.replace(m[0], m[0].replace(m[1], `#${m[1].toLowerCase()}{}`))
+    : s;
+}
+
 /** Draft → full .gram file source. */
 export function draftToGram(draft, meta = {}) {
   const title = draft.title || meta.title || "Imported recipe";
@@ -346,7 +374,8 @@ export function draftToGram(draft, meta = {}) {
   });
   const stepLines = draft.steps.map((s0, idx) => {
     const [text, timer] = extractTimer(convertTemps(s0));
-    return `[Step ${idx + 1}] ${timer ? `${text}, ${timer}` : text}`;
+    const body = addCookware(text);
+    return `[Step ${idx + 1}] ${timer ? `${body}, ${timer}` : body}`;
   });
   return `${tagComment}---
 title: ${title}

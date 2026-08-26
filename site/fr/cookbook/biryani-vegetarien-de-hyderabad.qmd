@@ -1,0 +1,11 @@
+---
+title: "Biryani végétarien de Hyderabad"
+lang: fr
+category: "Riz"
+total_time: "125.5 min"
+portions: "6"
+---
+
+[🇬🇧 English version](../../cookbook/hyderabadi-vegetable-biryani.html){.lang-switch}
+
+{{< recipe fr/biryani-vegetarien-de-hyderabad >}}

@@ -24,6 +24,22 @@
     "source": "Classique français"
   },
   {
+    "slug": "falafels-faciles",
+    "title": "Falafels faciles",
+    "category": "Plat",
+    "time": 105,
+    "portions": "12",
+    "source": "https://minimalistbaker.com/easy-vegan-falafel/"
+  },
+  {
+    "slug": "houmous",
+    "title": "Houmous",
+    "category": "Entrée",
+    "time": 21,
+    "portions": "4",
+    "source": "https://simple-veganista.com/homemade-hummus"
+  },
+  {
     "slug": "tarte-au-citron",
     "title": "Tarte au citron",
     "category": "Pâtisserie",
@@ -62,6 +78,30 @@
     "time": 52,
     "portions": "4",
     "source": "Valeur sûre du soir"
+  },
+  {
+    "slug": "biryani-vegetarien-de-hyderabad",
+    "title": "Biryani végétarien de Hyderabad",
+    "category": "Riz",
+    "time": 125.5,
+    "portions": "6",
+    "source": "https://www.cinnamonsnail.com/vegan-biryani/"
+  },
+  {
+    "slug": "poulet-au-beurre-vegetalien",
+    "title": "Poulet au beurre végétalien",
+    "category": "Curry",
+    "time": 54,
+    "portions": "4",
+    "source": "https://connoisseurusveg.com/vegan-butter-chicken/"
+  },
+  {
+    "slug": "chili-vegetalien",
+    "title": "Chili végétalien",
+    "category": "Chili",
+    "time": 76,
+    "portions": "6",
+    "source": "https://www.lovingitvegan.com/vegan-chili/"
   },
   {
     "slug": "nouilles-dan-dan-vegetaliennes",

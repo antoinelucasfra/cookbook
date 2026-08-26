@@ -24,6 +24,22 @@
     "source": "French classic"
   },
   {
+    "slug": "easy-vegan-falafel",
+    "title": "Easy Vegan Falafel",
+    "category": "Main",
+    "time": 105,
+    "portions": "12",
+    "source": "https://minimalistbaker.com/easy-vegan-falafel/"
+  },
+  {
+    "slug": "hummus",
+    "title": "Hummus",
+    "category": "Appetizer",
+    "time": 21,
+    "portions": "4",
+    "source": "https://simple-veganista.com/homemade-hummus"
+  },
+  {
     "slug": "lemon-tart",
     "title": "Lemon Tart",
     "category": "Pastry",
@@ -62,6 +78,30 @@
     "time": 52,
     "portions": "4",
     "source": "Weeknight staple"
+  },
+  {
+    "slug": "hyderabadi-vegetable-biryani",
+    "title": "Hyderabadi Vegetable Biryani",
+    "category": "Rice",
+    "time": 121.5,
+    "portions": "6",
+    "source": "https://www.cinnamonsnail.com/vegan-biryani/"
+  },
+  {
+    "slug": "vegan-butter-chicken",
+    "title": "Vegan Butter Chicken",
+    "category": "Curry",
+    "time": 54,
+    "portions": "4",
+    "source": "https://connoisseurusveg.com/vegan-butter-chicken/"
+  },
+  {
+    "slug": "vegan-chili",
+    "title": "Vegan Chili",
+    "category": "Chili",
+    "time": 76,
+    "portions": "6",
+    "source": "https://www.lovingitvegan.com/vegan-chili/"
   },
   {
     "slug": "vegan-dan-dan-noodles",

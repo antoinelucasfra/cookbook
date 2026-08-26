@@ -38,6 +38,12 @@
     if (frac) return Number(frac[1]) / Number(frac[2]);
     return uni[s] ?? Number(s);
   }
+  function cleanName(s) {
+    return s.replace(
+      /\((?:to taste|optional|for (?:garnish|serving)|garnish|divided|plus more)[^)]*\)/gi,
+      ""
+    ).replace(/\s*\([^)]*\)\s*/g, " ").replace(/[()\[\]]/g, "").replace(/\s+/g, " ").replace(/^[-–—,.\s]+/, "").replace(/[-–—,.\s]+$/, "").trim();
+  }
   function slugify(s) {
     return s.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "").replace(/[^a-z0-9]+/g, "-").replace(/^-+|-+$/g, "").slice(0, 40) || "ingredient";
   }
@@ -165,7 +171,7 @@
   function jsonLdToDraft(r) {
     const ingredients = (r.recipeIngredient ?? r.ingredients ?? []).map((s) => {
       const d = typeof s === "string" ? parseLine(s) : null;
-      return d ?? { qty: "", unit: "", name: String(s) };
+      return d ?? { qty: "", unit: "", name: cleanName(String(s)) };
     });
     let steps = [];
     const walk = (n) => {
@@ -181,7 +187,8 @@
       ingredients,
       steps,
       meta: {
-        portions: r.recipeYield ?? "",
+        // yields arrive messy ("12 servings, 12 falafel") — first number wins
+        portions: String(r.recipeYield ?? "").match(/\d+/)?.[0] ?? "",
         time: r.totalTime ?? ""
       }
     };
@@ -192,7 +199,7 @@
     return {
       qty: m[1].trim(),
       unit: (m[2] || "").toLowerCase(),
-      name: m[3].replace(/\s*\(.*?\)\s*/g, " ").trim()
+      name: cleanName(m[3])
     };
   }
   function aiNeededTags(draft) {
@@ -238,6 +245,11 @@
       timer
     ];
   }
+  function addCookware(s) {
+    if (s.includes("#")) return s;
+    const m = s.match(COOKWARE_RE);
+    return m ? s.replace(m[0], m[0].replace(m[1], `#${m[1].toLowerCase()}{}`)) : s;
+  }
   function draftToGram(draft, meta = {}) {
     const title = draft.title || meta.title || "Imported recipe";
     const portions = meta.portions || "";
@@ -251,7 +263,8 @@
     });
     const stepLines = draft.steps.map((s0, idx) => {
       const [text, timer] = extractTimer(convertTemps(s0));
-      return `[Step ${idx + 1}] ${timer ? `${text}, ${timer}` : text}`;
+      const body = addCookware(text);
+      return `[Step ${idx + 1}] ${timer ? `${body}, ${timer}` : body}`;
     });
     return `${tagComment}---
 title: ${title}
@@ -269,7 +282,7 @@ ${ingLines.join("\n")}
 ${stepLines.join("\n\n")}
 `;
   }
-  var UNIT_MAP, QTY, ING_RE, TIME_RE;
+  var UNIT_MAP, QTY, ING_RE, TIME_RE, COOKWARE_RE;
   var init_import_parser = __esm({
     "import-parser.mjs"() {
       UNIT_MAP = {
@@ -303,6 +316,7 @@ ${stepLines.join("\n\n")}
         `^(${QTY}(?:\\s*(?:to|-|\u2013)\\s*${QTY})?)\\s*([a-zA-Z.]+)?\\.?\\s+(.+)$`
       );
       TIME_RE = /[,;]?\s*(?:for |about )?(\d+)(?:\s*(?:to|-|–)\s*(\d+))?\s*(hours?|hrs?|h|minutes?|mins?|min|seconds?|secs?)\.?\s*$/i;
+      COOKWARE_RE = /\b(dutch oven|baking sheet|baking dish|saucepan|skillet|wok|mixing bowl|pot|pan|bowl|oven)\b/i;
     }
   });
 

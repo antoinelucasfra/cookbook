@@ -1,0 +1,10 @@
+---
+title: "Vegan Butter Chicken"
+category: "Curry"
+total_time: "54 min"
+portions: "4"
+---
+
+[🇫🇷 Version française](../fr/cookbook/poulet-au-beurre-vegetalien.html){.lang-switch}
+
+{{< recipe vegan-butter-chicken >}}
