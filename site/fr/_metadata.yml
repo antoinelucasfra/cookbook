@@ -1,0 +1,13 @@
+website:
+  title: "Recettes"
+  navbar:
+    left:
+      - href: index.qmd
+        text: Recettes
+      - href: browse.qmd
+        text: Parcourir
+      - href: import.qmd
+        text: Importer
+      - href: ../index.qmd
+        text: English 🇬🇧
+  page-footer: "Cuisiné avec [Gram](https://gram-lang.org) + Quarto"

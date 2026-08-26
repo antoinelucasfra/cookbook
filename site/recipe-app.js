@@ -1,29 +1,20 @@
 (() => {
   var __getOwnPropNames = Object.getOwnPropertyNames;
-  var __esm = (fn, res, err) =>
-    function __init() {
-      if (err) throw err[0];
-      try {
-        return fn && (res = (0, fn[__getOwnPropNames(fn)[0]])((fn = 0))), res;
-      } catch (e) {
-        throw ((err = [e]), e);
-      }
-    };
-  var __commonJS = (cb, mod) =>
-    function __require() {
-      try {
-        return (
-          mod ||
-            (0, cb[__getOwnPropNames(cb)[0]])(
-              (mod = { exports: {} }).exports,
-              mod,
-            ),
-          mod.exports
-        );
-      } catch (e) {
-        throw ((mod = 0), e);
-      }
-    };
+  var __esm = (fn, res, err) => function __init() {
+    if (err) throw err[0];
+    try {
+      return fn && (res = (0, fn[__getOwnPropNames(fn)[0]])(fn = 0)), res;
+    } catch (e) {
+      throw err = [e], e;
+    }
+  };
+  var __commonJS = (cb, mod) => function __require() {
+    try {
+      return mod || (0, cb[__getOwnPropNames(cb)[0]])((mod = { exports: {} }).exports, mod), mod.exports;
+    } catch (e) {
+      throw mod = 0, e;
+    }
+  };
 
   // import-parser.mjs
   function fracToNum(s) {
@@ -37,7 +28,7 @@
       "\u215B": 0.125,
       "\u215C": 0.375,
       "\u215D": 0.625,
-      "\u215E": 0.875,
+      "\u215E": 0.875
     };
     const mixedUni = s.match(/^(\d+)\s+([¼½¾⅓⅔⅛⅜⅝⅞])$/);
     if (mixedUni) return Number(mixedUni[1]) + uni[mixedUni[2]];
@@ -48,15 +39,7 @@
     return uni[s] ?? Number(s);
   }
   function slugify(s) {
-    return (
-      s
-        .toLowerCase()
-        .normalize("NFD")
-        .replace(/[\u0300-\u036f]/g, "")
-        .replace(/[^a-z0-9]+/g, "-")
-        .replace(/^-+|-+$/g, "")
-        .slice(0, 40) || "ingredient"
-    );
+    return s.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "").replace(/[^a-z0-9]+/g, "-").replace(/^-+|-+$/g, "").slice(0, 40) || "ingredient";
   }
   function toGramQty(qtyStr, unitStr) {
     const qty = qtyStr.trim();
@@ -77,33 +60,20 @@
       title: titleHint || "",
       ingredients: [],
       steps: [],
-      portions: "",
+      portions: ""
     };
     let mode = null;
     for (const raw of text.split(/\r?\n/)) {
-      const line = raw
-        .replace(/!\[[^\]]*\]\([^)]*\)/g, "")
-        .replace(/\[([^\]]+)\]\([^)]*\)/g, "$1")
-        .replace(/[*_`]/g, "")
-        .trim();
+      const line = raw.replace(/!\[[^\]]*\]\([^)]*\)/g, "").replace(/\[([^\]]+)\]\([^)]*\)/g, "$1").replace(/[*_`]/g, "").trim();
       if (!line) continue;
-      const h =
-        line.match(/^#{1,6}\s+(.*)/) || line.match(/^\*\*(.{2,60}?)\*\*:?\s*$/);
+      const h = line.match(/^#{1,6}\s+(.*)/) || line.match(/^\*\*(.{2,60}?)\*\*:?\s*$/);
       if (h) {
         const head = h[1].toLowerCase();
-        if (
-          !out.title &&
-          h[1].length < 80 &&
-          !/ingredient|instruction|direction|method|step|note/.test(head)
-        ) {
+        if (!out.title && h[1].length < 80 && !/ingredient|instruction|direction|method|step|note/.test(head)) {
           out.title = h[1].trim();
           continue;
         }
-        mode = /ingredient/.test(head)
-          ? "ingredients"
-          : /instruction|direction|method|step|preparation|recipe/.test(head)
-            ? "steps"
-            : mode;
+        mode = /ingredient/.test(head) ? "ingredients" : /instruction|direction|method|step|preparation|recipe/.test(head) ? "steps" : mode;
         continue;
       }
       const inlineIng = line.match(/^ingredients?\s*:\s*(.+)$/i);
@@ -121,32 +91,23 @@
         mode = "ingredients";
         continue;
       }
-      if (
-        /^(instructions?|directions?|method|steps?|preparation)\s*:?\s*$/i.test(
-          line,
-        )
-      ) {
+      if (/^(instructions?|directions?|method|steps?|preparation)\s*:?\s*$/i.test(
+        line
+      )) {
         mode = "steps";
         continue;
       }
-      const cleaned = line
-        .replace(/^[-*•]\s+/, "")
-        .replace(/^\d+[.)]\s+/, "")
-        .trim();
+      const cleaned = line.replace(/^[-*•]\s+/, "").replace(/^\d+[.)]\s+/, "").trim();
       if (!cleaned) continue;
-      if (
-        /^(print|share|save|join|subscribe|follow|watch|jump to|advertisement)\b/i.test(
-          cleaned,
-        )
-      )
+      if (/^(print|share|save|join|subscribe|follow|watch|jump to|advertisement)\b/i.test(
+        cleaned
+      ))
         continue;
       if (/^(title|name)\s*:\s*/i.test(cleaned)) {
         out.title ||= cleaned.replace(/^(title|name)\s*:\s*/i, "");
         continue;
       }
-      const sv = cleaned.match(
-        /^(?:serves|servings?|makes|yield)\s*:?\s*(\d+)/i,
-      );
+      const sv = cleaned.match(/^(?:serves|servings?|makes|yield)\s*:?\s*(\d+)/i);
       if (sv) {
         out.portions ||= sv[1];
         continue;
@@ -157,7 +118,7 @@
           out.ingredients.push({
             qty: m[1].trim(),
             unit: (m[2] || "").toLowerCase(),
-            name: m[3].replace(/\s*\(.*?\)\s*/g, " ").trim(),
+            name: m[3].replace(/\s*\(.*?\)\s*/g, " ").trim()
           });
         } else if (cleaned.split(/\s+/).length <= 6 && !/[.]$/.test(cleaned)) {
           out.ingredients.push({ qty: "", unit: "", name: cleaned });
@@ -168,21 +129,13 @@
         out.ingredients.push({
           qty: m[1].trim(),
           unit: (m[2] || "").toLowerCase(),
-          name: m[3].replace(/\s*\(.*?\)\s*/g, " ").trim(),
+          name: m[3].replace(/\s*\(.*?\)\s*/g, " ").trim()
         });
         continue;
       }
-      if (
-        mode === "steps" ||
-        (out.ingredients.length &&
-          (cleaned.length >= 120 || /[.;]$/.test(cleaned)))
-      ) {
+      if (mode === "steps" || out.ingredients.length && (cleaned.length >= 120 || /[.;]$/.test(cleaned))) {
         out.steps.push(cleaned);
-      } else if (
-        !out.ingredients.length &&
-        !out.title &&
-        !/[.;]$/.test(cleaned)
-      ) {
+      } else if (!out.ingredients.length && !out.title && !/[.;]$/.test(cleaned)) {
         out.title = cleaned;
       }
     }
@@ -191,12 +144,10 @@
   }
   function extractJsonLdRecipe(html) {
     const doc = new DOMParser().parseFromString(html, "text/html");
-    for (const el of doc.querySelectorAll(
-      'script[type="application/ld+json"]',
-    )) {
+    for (const el of doc.querySelectorAll('script[type="application/ld+json"]')) {
       try {
         const data = JSON.parse(
-          el.textContent.replace(/^\s*<!\[CDATA\[|\]\]>\s*$/g, ""),
+          el.textContent.replace(/^\s*<!\[CDATA\[|\]\]>\s*$/g, "")
         );
         const queue = Array.isArray(data) ? data : [data];
         while (queue.length) {
@@ -206,7 +157,8 @@
             return node;
           queue.push(...Object.values(node).flat());
         }
-      } catch {}
+      } catch {
+      }
     }
     return null;
   }
@@ -230,8 +182,8 @@
       steps,
       meta: {
         portions: r.recipeYield ?? "",
-        time: r.totalTime ?? "",
-      },
+        time: r.totalTime ?? ""
+      }
     };
   }
   function parseLine(line) {
@@ -240,7 +192,7 @@
     return {
       qty: m[1].trim(),
       unit: (m[2] || "").toLowerCase(),
-      name: m[3].replace(/\s*\(.*?\)\s*/g, " ").trim(),
+      name: m[3].replace(/\s*\(.*?\)\s*/g, " ").trim()
     };
   }
   function aiNeededTags(draft) {
@@ -249,29 +201,20 @@
     if (draft.ingredients.length) {
       const noQty = draft.ingredients.filter((i) => !i.qty).length;
       if (noQty)
-        tags.push(
-          `${noQty} ingredient(s) without a quantity (e.g. "to taste")`,
-        );
-      const METRIC =
-        /^(g|kg|mg|ml|l|cl|dl|fl\s*oz|pinch|clove|cloves|slice|slices|can|bunch|handful|large|medium|small|whole)s?$/;
+        tags.push(`${noQty} ingredient(s) without a quantity (e.g. "to taste")`);
+      const METRIC = /^(g|kg|mg|ml|l|cl|dl|fl\s*oz|pinch|clove|cloves|slice|slices|can|bunch|handful|large|medium|small|whole)s?$/;
       const unmapped = [
         ...new Set(
-          draft.ingredients
-            .filter(
-              (i) =>
-                i.qty && i.unit && !UNIT_MAP[i.unit] && !METRIC.test(i.unit),
-            )
-            .map((i) => i.unit),
-        ),
+          draft.ingredients.filter(
+            (i) => i.qty && i.unit && !UNIT_MAP[i.unit] && !METRIC.test(i.unit)
+          ).map((i) => i.unit)
+        )
       ];
       if (unmapped.length)
         tags.push(`Unfamiliar unit(s): ${unmapped.join(", ")}`);
-    } else
-      tags.push("No ingredient list detected \u2014 AI extraction recommended");
+    } else tags.push("No ingredient list detected \u2014 AI extraction recommended");
     if (!draft.steps.length)
-      tags.push(
-        "No instruction steps detected \u2014 AI extraction recommended",
-      );
+      tags.push("No instruction steps detected \u2014 AI extraction recommended");
     return tags;
   }
   function hasHardGaps(draft) {
@@ -279,7 +222,7 @@
   }
   function convertTemps(s) {
     return s.replace(/(\d{2,3})\s*°\s*F\b/gi, (_, f) => {
-      const c = Math.round(((Number(f) - 32) * 5) / 9);
+      const c = Math.round((Number(f) - 32) * 5 / 9);
       return `${c} \xB0C`;
     });
   }
@@ -289,28 +232,19 @@
     if (!m) return [s, ""];
     const n = Math.max(Number(m[1]), Number(m[2] ?? m[1]));
     const unit = m[3].toLowerCase();
-    const timer = /^h/.test(unit)
-      ? `~{${n * 60} min}`
-      : /^min/.test(unit) || unit === "m"
-        ? `~{${n} min}`
-        : `~{${n} s}`;
+    const timer = /^h/.test(unit) ? `~{${n * 60} min}` : /^min/.test(unit) || unit === "m" ? `~{${n} min}` : `~{${n} s}`;
     return [
-      s
-        .slice(0, m.index)
-        .trimEnd()
-        .replace(/[,;.]$/, ""),
-      timer,
+      s.slice(0, m.index).trimEnd().replace(/[,;.]$/, ""),
+      timer
     ];
   }
   function draftToGram(draft, meta = {}) {
     const title = draft.title || meta.title || "Imported recipe";
     const portions = meta.portions || "";
     const tags = aiNeededTags(draft);
-    const tagComment = hasHardGaps(draft)
-      ? `# review: ${tags.join("; ")}
+    const tagComment = hasHardGaps(draft) ? `# review: ${tags.join("; ")}
 # tip: npx gram import <url> --pick-model for an AI-assisted translation
-`
-      : "";
+` : "";
     const ingLines = draft.ingredients.map((i) => {
       const q = i.qty ? `{${toGramQty(i.qty, i.unit)}}` : "{}";
       return `- @${slugify(i.name)}${q} \u2014 ${i.name}`;
@@ -362,15 +296,14 @@ ${stepLines.join("\n\n")}
         gallons: "3800 ml",
         stick: "113 g",
         sticks: "113 g",
-        floz: "30 ml",
+        floz: "30 ml"
       };
       QTY = String.raw`(?:\d+\s+\d*\/\d+|\d+\/\d+|\d+[.,]\d+|\d+|[¼½¾⅓⅔⅛⅜⅝⅞])`;
       ING_RE = new RegExp(
-        `^(${QTY}(?:\\s*(?:to|-|\u2013)\\s*${QTY})?)\\s*([a-zA-Z.]+)?\\.?\\s+(.+)$`,
+        `^(${QTY}(?:\\s*(?:to|-|\u2013)\\s*${QTY})?)\\s*([a-zA-Z.]+)?\\.?\\s+(.+)$`
       );
-      TIME_RE =
-        /[,;]?\s*(?:for |about )?(\d+)(?:\s*(?:to|-|–)\s*(\d+))?\s*(hours?|hrs?|h|minutes?|mins?|min|seconds?|secs?)\.?\s*$/i;
-    },
+      TIME_RE = /[,;]?\s*(?:for |about )?(\d+)(?:\s*(?:to|-|–)\s*(\d+))?\s*(hours?|hrs?|h|minutes?|mins?|min|seconds?|secs?)\.?\s*$/i;
+    }
   });
 
   // client.js
@@ -380,9 +313,7 @@ ${stepLines.join("\n\n")}
       function initApp(root) {
         let data;
         try {
-          data = JSON.parse(
-            root.querySelector("script.recipe-data").textContent,
-          );
+          data = JSON.parse(root.querySelector("script.recipe-data").textContent);
         } catch {
           return;
         }
@@ -395,24 +326,19 @@ ${stepLines.join("\n\n")}
           el.replaceChildren(...frag.childNodes);
         }
         function render() {
-          setHTML(
-            renderEl,
-            `<div class="gram-preview">${data[scale].html}</div>`,
-          );
+          setHTML(renderEl, `<div class="gram-preview">${data[scale].html}</div>`);
           setHTML(ganttEl, data[scale].gantt);
           const slot = root.querySelector(".snippet-slot");
           if (slot && data[scale].snippet) setHTML(slot, data[scale].snippet);
-          btns.forEach((b) =>
-            b.classList.toggle("active", b.dataset.scale === scale),
+          btns.forEach(
+            (b) => b.classList.toggle("active", b.dataset.scale === scale)
           );
           exitCookMode();
         }
-        btns.forEach((b) =>
-          b.addEventListener("click", () => {
-            scale = b.dataset.scale;
-            render();
-          }),
-        );
+        btns.forEach((b) => b.addEventListener("click", () => {
+          scale = b.dataset.scale;
+          render();
+        }));
         const cookBar = root.querySelector(".cook-bar");
         const cookLabel = root.querySelector(".cook-step-label");
         function steps() {
@@ -420,9 +346,7 @@ ${stepLines.join("\n\n")}
         }
         function exitCookMode() {
           root.classList.remove("cooking");
-          steps().forEach((s) =>
-            s.classList.remove("cook-active", "cook-done", "cook-pending"),
-          );
+          steps().forEach((s) => s.classList.remove("cook-active", "cook-done", "cook-pending"));
           cookBar?.removeAttribute("open");
         }
         function showStep(i) {
@@ -437,34 +361,24 @@ ${stepLines.join("\n\n")}
           });
           const secs = [...renderEl.querySelectorAll("section")];
           const active = ss[i].closest("section");
-          secs.forEach((s) =>
-            s.classList.toggle(
-              "cook-hidden-section",
-              s !== active && !s.contains(ss[i]),
-            ),
+          secs.forEach(
+            (s) => s.classList.toggle("cook-hidden-section", s !== active && !s.contains(ss[i]))
           );
           cookLabel.textContent = `${document.documentElement.lang === "fr" ? "\xC9tape" : "Step"} ${i + 1}/${ss.length}`;
           ss[i].scrollIntoView({ behavior: "smooth", block: "center" });
         }
-        root
-          .querySelector(".cook-start")
-          ?.addEventListener("click", () => showStep(0));
+        root.querySelector(".cook-start")?.addEventListener("click", () => showStep(0));
         root.querySelector(".cook-next")?.addEventListener("click", () => {
-          const i = steps().findIndex((s) =>
-            s.classList.contains("cook-active"),
-          );
+          const i = steps().findIndex((s) => s.classList.contains("cook-active"));
           showStep(i + 1);
         });
-        root
-          .querySelector(".cook-exit")
-          ?.addEventListener("click", exitCookMode);
+        root.querySelector(".cook-exit")?.addEventListener("click", exitCookMode);
         render();
       }
       document.querySelectorAll(".recipe-app").forEach(initApp);
       function fmtTime(min) {
         if (min == null) return "";
-        const h = Math.floor(min / 60),
-          m = Math.round(min % 60);
+        const h = Math.floor(min / 60), m = Math.round(min % 60);
         return h ? `${h} h ${m ? m + " min" : ""}`.trim() : `${m} min`;
       }
       async function initBrowse() {
@@ -473,13 +387,9 @@ ${stepLines.join("\n\n")}
         let recipes;
         const fr = document.documentElement.lang === "fr";
         try {
-          recipes = await (
-            await fetch(fr ? "../recipes-index-fr.json" : "recipes-index.json")
-          ).json();
+          recipes = await (await fetch(fr ? "../recipes-index-fr.json" : "recipes-index.json")).json();
         } catch {
-          table.textContent = fr
-            ? "\xC9chec du chargement de l\u2019index des recettes."
-            : "Failed to load recipe index.";
+          table.textContent = fr ? "\xC9chec du chargement de l\u2019index des recettes." : "Failed to load recipe index.";
           return;
         }
         const tbody = table.querySelector("tbody");
@@ -488,29 +398,17 @@ ${stepLines.join("\n\n")}
         const count = document.querySelector("#browse-count");
         const cats = [...new Set(recipes.map((r) => r.category))].sort();
         for (const c of cats) catSel.add(new Option(c, c));
-        let sortKey = "title",
-          sortAsc = true;
+        let sortKey = "title", sortAsc = true;
         function rows() {
           const q = search.value.trim().toLowerCase();
           const cat = catSel.value;
-          return recipes
-            .filter(
-              (r) =>
-                (!cat || r.category === cat) &&
-                (!q ||
-                  `${r.title} ${r.category} ${r.source}`
-                    .toLowerCase()
-                    .includes(q)),
-            )
-            .sort((a, b) => {
-              const va = a[sortKey],
-                vb = b[sortKey];
-              const c =
-                typeof va === "number"
-                  ? va - vb
-                  : String(va).localeCompare(String(vb));
-              return sortAsc ? c : -c;
-            });
+          return recipes.filter(
+            (r) => (!cat || r.category === cat) && (!q || `${r.title} ${r.category} ${r.source}`.toLowerCase().includes(q))
+          ).sort((a, b) => {
+            const va = a[sortKey], vb = b[sortKey];
+            const c = typeof va === "number" ? va - vb : String(va).localeCompare(String(vb));
+            return sortAsc ? c : -c;
+          });
         }
         function render() {
           const rs = rows();
@@ -527,29 +425,21 @@ ${stepLines.join("\n\n")}
               link.textContent = r.title;
               const titleTd = document.createElement("td");
               titleTd.append(link);
-              tr.append(
-                titleTd,
-                td(r.category),
-                td(fmtTime(r.time)),
-                td(r.portions),
-                td(r.source ?? ""),
-              );
+              tr.append(titleTd, td(r.category), td(fmtTime(r.time)), td(r.portions), td(r.source ?? ""));
               return tr;
-            }),
+            })
           );
           count.textContent = `${rs.length} / ${recipes.length} ${fr ? "recettes" : "recipes"}`;
         }
-        table.querySelectorAll("th[data-sort]").forEach((th) =>
-          th.addEventListener("click", () => {
+        table.querySelectorAll("th[data-sort]").forEach(
+          (th) => th.addEventListener("click", () => {
             const k = th.dataset.sort;
             sortAsc = k === sortKey ? !sortAsc : true;
             sortKey = k;
-            table
-              .querySelectorAll("th[data-sort]")
-              .forEach((t) => t.classList.remove("sort-asc", "sort-desc"));
+            table.querySelectorAll("th[data-sort]").forEach((t) => t.classList.remove("sort-asc", "sort-desc"));
             th.classList.add(sortAsc ? "sort-asc" : "sort-desc");
             render();
-          }),
+          })
         );
         search.addEventListener("input", render);
         catSel.addEventListener("change", render);
@@ -574,40 +464,29 @@ ${stepLines.join("\n\n")}
         const form = document.querySelector("#import-form");
         if (!form) return;
         const fr = document.documentElement.lang === "fr";
-        const T = fr
-          ? {
-              needsReview:
-                "\u26A0 \xC0 v\xE9rifier \u2014 traduction IA recommand\xE9e pour :",
-              aiTip:
-                "Essayez `npx gram import <url> --pick-model` pour une conversion assist\xE9e par IA.",
-              parsed: (i, s) =>
-                `${i} ingr\xE9dients et ${s} \xE9tapes analys\xE9s.`,
-              flagged: (n) =>
-                ` ${n} \xE9l\xE9ment(s) marqu\xE9(s) \xE0 relire.`,
-              clean: " Traduction statique qui semble compl\xE8te.",
-              enter:
-                "Saisissez une URL de recette ou collez le texte de la recette.",
-              urlPrefix: "L\u2019URL doit commencer par http(s)://",
-              fetching: "R\xE9cup\xE9ration\u2026",
-              failed: (m) =>
-                `\xC9chec de l\u2019import : ${m}. Collez plut\xF4t le texte de la recette.`,
-              copied: "Copi\xE9 dans le presse-papiers.",
-            }
-          : {
-              needsReview:
-                "\u26A0 Needs review \u2014 AI translation recommended for these:",
-              aiTip:
-                "Try `npx gram import <url> --pick-model` for AI-assisted conversion.",
-              parsed: (i, s) => `Parsed ${i} ingredients and ${s} steps.`,
-              flagged: (n) => ` ${n} item(s) flagged for review.`,
-              clean: " Looks like a clean static translation.",
-              enter: "Enter a recipe URL or paste the recipe text.",
-              urlPrefix: "URL must start with http(s)://",
-              fetching: "Fetching\u2026",
-              failed: (m) =>
-                `Import failed: ${m}. Paste the recipe text instead.`,
-              copied: "Copied to clipboard.",
-            };
+        const T = fr ? {
+          needsReview: "\u26A0 \xC0 v\xE9rifier \u2014 traduction IA recommand\xE9e pour :",
+          aiTip: "Essayez `npx gram import <url> --pick-model` pour une conversion assist\xE9e par IA.",
+          parsed: (i, s) => `${i} ingr\xE9dients et ${s} \xE9tapes analys\xE9s.`,
+          flagged: (n) => ` ${n} \xE9l\xE9ment(s) marqu\xE9(s) \xE0 relire.`,
+          clean: " Traduction statique qui semble compl\xE8te.",
+          enter: "Saisissez une URL de recette ou collez le texte de la recette.",
+          urlPrefix: "L\u2019URL doit commencer par http(s)://",
+          fetching: "R\xE9cup\xE9ration\u2026",
+          failed: (m) => `\xC9chec de l\u2019import : ${m}. Collez plut\xF4t le texte de la recette.`,
+          copied: "Copi\xE9 dans le presse-papiers."
+        } : {
+          needsReview: "\u26A0 Needs review \u2014 AI translation recommended for these:",
+          aiTip: "Try `npx gram import <url> --pick-model` for AI-assisted conversion.",
+          parsed: (i, s) => `Parsed ${i} ingredients and ${s} steps.`,
+          flagged: (n) => ` ${n} item(s) flagged for review.`,
+          clean: " Looks like a clean static translation.",
+          enter: "Enter a recipe URL or paste the recipe text.",
+          urlPrefix: "URL must start with http(s)://",
+          fetching: "Fetching\u2026",
+          failed: (m) => `Import failed: ${m}. Paste the recipe text instead.`,
+          copied: "Copied to clipboard."
+        };
         const urlIn = document.querySelector("#import-url");
         const textEl = document.querySelector("#import-text");
         const status = document.querySelector("#import-status");
@@ -642,8 +521,7 @@ ${stepLines.join("\n\n")}
           out.hidden = false;
           show(
             `${T.parsed(draft.ingredients.length, draft.steps.length)}${tags.length ? T.flagged(tags.length) : T.clean}`,
-            tags.length > 0 &&
-              (!draft.ingredients.length || !draft.steps.length),
+            tags.length > 0 && (!draft.ingredients.length || !draft.steps.length)
           );
         }
         form.addEventListener("submit", async (e) => {
@@ -663,14 +541,12 @@ ${stepLines.join("\n\n")}
             let recipe = null;
             try {
               recipe = extractJsonLdRecipe(body);
-            } catch {}
+            } catch {
+            }
             if (recipe) {
               const draft = jsonLdToDraft(recipe);
               if (!draft.title) draft.title = parseRecipeText("").title || url;
-              emit(draft, {
-                source: url,
-                portions: String(recipe.recipeYield ?? ""),
-              });
+              emit(draft, { source: url, portions: String(recipe.recipeYield ?? "") });
             } else {
               emit(parseRecipeText(body, ""), { source: url });
             }
@@ -679,32 +555,23 @@ ${stepLines.join("\n\n")}
           }
         });
         const currentText = () => preview?.value || gramText;
-        document
-          .querySelector("#import-copy")
-          ?.addEventListener("click", async () => {
-            await navigator.clipboard.writeText(currentText());
-            show(T.copied);
-          });
-        document
-          .querySelector("#import-download")
-          ?.addEventListener("click", () => {
-            const gram = currentText();
-            const title = gram.match(/^title: (.+)$/m)?.[1] ?? "recipe";
-            const slug = title
-              .toLowerCase()
-              .replace(/[^a-z0-9]+/g, "-")
-              .replace(/^-+|-+$/g, "");
-            const a = document.createElement("a");
-            a.href = URL.createObjectURL(
-              new Blob([gram], { type: "text/plain" }),
-            );
-            a.download = `${slug}.gram`;
-            a.click();
-            URL.revokeObjectURL(a.href);
-          });
+        document.querySelector("#import-copy")?.addEventListener("click", async () => {
+          await navigator.clipboard.writeText(currentText());
+          show(T.copied);
+        });
+        document.querySelector("#import-download")?.addEventListener("click", () => {
+          const gram = currentText();
+          const title = gram.match(/^title: (.+)$/m)?.[1] ?? "recipe";
+          const slug = title.toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/^-+|-+$/g, "");
+          const a = document.createElement("a");
+          a.href = URL.createObjectURL(new Blob([gram], { type: "text/plain" }));
+          a.download = `${slug}.gram`;
+          a.click();
+          URL.revokeObjectURL(a.href);
+        });
       }
       initImport();
-    },
+    }
   });
   require_client();
 })();
