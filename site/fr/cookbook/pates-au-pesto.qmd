@@ -6,6 +6,6 @@ total_time: "27 min"
 portions: "2"
 ---
 
-[🇬🇧 English version](../../cookbook/pates-au-pesto.html){.lang-switch}
+[🇬🇧 English version](../../cookbook/pesto-pasta.html){.lang-switch}
 
 {{< recipe fr/pates-au-pesto >}}

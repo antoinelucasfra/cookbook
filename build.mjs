@@ -7,7 +7,7 @@ import {
   readFileSync,
   rmSync,
 } from "node:fs";
-import { join } from "node:path";
+import { join, basename } from "node:path";
 import { runPipeline } from "@gram-lang/cli";
 import { toHTML, toGanttHTML } from "@gram-lang/renderer";
 import { toSnippetHTML } from "./snippet.mjs";
@@ -84,8 +84,8 @@ async function buildPass({
         meta: { title: r.title, portions: r.meta?.portions },
       };
       scales[String(s)] = {
-        html: toHTML(clean),
-        gantt: toGanttHTML(clean),
+        html: toHTML(clean, { lang }),
+        gantt: toGanttHTML(clean, { lang }),
         snippet: toSnippetHTML(r),
       };
       if (s === 1) {
@@ -116,10 +116,8 @@ async function buildPass({
 </div>`;
     writeFileSync(`${includeDir}/${slug}.html`, interactive);
 
-    const langSwitch =
-      lang === "fr"
-        ? `[🇬🇧 English version](../../cookbook/${slug}.html){.lang-switch}`
-        : `[🇫🇷 Version française](../fr/cookbook/${slug}.html){.lang-switch}`;
+    // cross-language link resolved after both passes (slugs differ per language)
+    const langSwitch = "{{LANGSWITCH}}";
     writeFileSync(
       `${cookbookDir}/${slug}.qmd`,
       `---
@@ -147,12 +145,22 @@ ${langSwitch}\n
   return index;
 }
 
+// same source basenames pair 1:1 across recipes/ and recipes/fr/
+const slugByBase = (idx, files) =>
+  Object.fromEntries(idx.map((r, i) => [files[i], r.slug]));
+
+const enFiles = listGram("recipes")
+  .filter((f) => !f.includes("bases/") && !f.includes("/fr/"))
+  .map((f) => basename(f, ".gram"));
 const en = await buildPass({
   dir: "recipes",
   includeDir: "site/_includes",
   cookbookDir: "site/cookbook",
   excludeFr: true,
 });
+const frFiles = listGram("recipes/fr")
+  .filter((f) => !f.includes("bases/"))
+  .map((f) => basename(f, ".gram"));
 const fr = await buildPass({
   dir: "recipes/fr",
   includeDir: "site/_includes/fr",
@@ -169,6 +177,30 @@ for (let i = 0; i < fr.length; i++) {
   );
   writeFileSync(`site/fr/cookbook/${fr[i].slug}.qmd`, qmd);
 }
+// resolve {{LANGSWITCH}} placeholders using basename→slug maps
+const enSlug = slugByBase(en, enFiles);
+const frSlug = slugByBase(fr, frFiles);
+for (const [base, s] of Object.entries(frSlug)) {
+  const p = `site/fr/cookbook/${s}.qmd`;
+  writeFileSync(
+    p,
+    readFileSync(p, "utf8").replace(
+      "{{LANGSWITCH}}",
+      `[🇬🇧 English version](../../cookbook/${enSlug[base]}.html){.lang-switch}`,
+    ),
+  );
+}
+for (const [base, s] of Object.entries(enSlug)) {
+  const p = `site/cookbook/${s}.qmd`;
+  writeFileSync(
+    p,
+    readFileSync(p, "utf8").replace(
+      "{{LANGSWITCH}}",
+      `[🇫🇷 Version française](../fr/cookbook/${frSlug[base]}.html){.lang-switch}`,
+    ),
+  );
+}
+
 writeFileSync("site/recipes-index.json", JSON.stringify(en, null, 2));
 writeFileSync("site/recipes-index-fr.json", JSON.stringify(fr, null, 2));
 console.log(`\n${en.length} EN + ${fr.length} FR recipes → site/`);

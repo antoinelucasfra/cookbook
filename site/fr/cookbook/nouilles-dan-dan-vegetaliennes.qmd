@@ -6,6 +6,6 @@ total_time: "41.5 min"
 portions: "4"
 ---
 
-[🇬🇧 English version](../../cookbook/nouilles-dan-dan-vegetaliennes.html){.lang-switch}
+[🇬🇧 English version](../../cookbook/vegan-dan-dan-noodles.html){.lang-switch}
 
 {{< recipe fr/nouilles-dan-dan-vegetaliennes >}}

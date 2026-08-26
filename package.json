@@ -5,11 +5,11 @@
   "main": "index.js",
   "scripts": {
     "build:data": "node build.mjs",
-    "build:js": "esbuild client.js --bundle --format=iife --outfile=site/recipe-app.js --minify",
+    "build:js": "esbuild client.js --bundle --format=iife --outfile=site/recipe-app.js",
     "build:css": "cp node_modules/@gram-lang/renderer/gram.css node_modules/@gram-lang/renderer/gantt.css site/css/",
     "build": "npm run build:data && npm run build:js && cd site && quarto render",
     "check": "gram check \"recipes/**/*.gram\"",
-    "test": "node snippet.mjs && node import-parser.mjs",
+    "test": "node snippet.mjs && node self-check.mjs",
     "serve": "python3 -m http.server 8801 -d site/_site"
   },
   "keywords": [],

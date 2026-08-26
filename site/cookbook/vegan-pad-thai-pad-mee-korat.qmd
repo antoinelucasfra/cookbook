@@ -5,6 +5,6 @@ total_time: "140 min"
 portions: "2"
 ---
 
-[🇫🇷 Version française](../fr/cookbook/vegan-pad-thai-pad-mee-korat.html){.lang-switch}
+[🇫🇷 Version française](../fr/cookbook/pad-thai-vegetalien-pad-mee-korat.html){.lang-switch}
 
 {{< recipe vegan-pad-thai-pad-mee-korat >}}

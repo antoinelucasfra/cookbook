@@ -6,6 +6,6 @@ total_time: "1516 min"
 portions: "10"
 ---
 
-[🇬🇧 English version](../../cookbook/caneles.html){.lang-switch}
+[🇬🇧 English version](../../cookbook/canneles.html){.lang-switch}
 
 {{< recipe fr/caneles >}}

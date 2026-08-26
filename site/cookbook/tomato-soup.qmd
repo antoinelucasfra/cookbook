@@ -5,6 +5,6 @@ total_time: "52 min"
 portions: "4"
 ---
 
-[🇫🇷 Version française](../fr/cookbook/tomato-soup.html){.lang-switch}
+[🇫🇷 Version française](../fr/cookbook/soupe-de-tomates.html){.lang-switch}
 
 {{< recipe tomato-soup >}}

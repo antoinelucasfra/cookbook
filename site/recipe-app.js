@@ -1,38 +1,710 @@
-(()=>{var I=(e,t,n)=>()=>{if(n)throw n[0];try{return e&&(t=e(e=0)),t}catch(i){throw n=[i],i}};var j=(e,t)=>()=>{try{return t||e((t={exports:{}}).exports,t),t.exports}catch(n){throw t=0,n}};function N(e){e=e.trim().replace(",",".");let t={"\xBC":.25,"\xBD":.5,"\xBE":.75,"\u2153":1/3,"\u2154":2/3,"\u215B":.125,"\u215C":.375,"\u215D":.625,"\u215E":.875},n=e.match(/^(\d+)\s+([¼½¾⅓⅔⅛⅜⅝⅞])$/);if(n)return Number(n[1])+t[n[2]];let i=e.match(/^(\d+)\s+(\d+)\/(\d+)$/);if(i)return Number(i[1])+Number(i[2])/Number(i[3]);let o=e.match(/^(\d+)\/(\d+)$/);return o?Number(o[1])/Number(o[2]):t[e]??Number(e)}function R(e){return e.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g,"").replace(/[^a-z0-9]+/g,"-").replace(/^-+|-+$/g,"").slice(0,40)||"ingredient"}function x(e,t){let n=e.trim(),i=(t||"").toLowerCase().replace(/\.$/,"");if(v[i]){let[o,r]=[n,v[i]];return o.split(/\s*(?:to|-|–)\s*/).map(l=>{let s=N(l),a=r.match(/^(\d+)\s*(\w+)$/);return a?`${Math.round(s*Number(a[1]))} ${a[2]}`:r}).join(" to ")}return`${n}${i?" "+i:""}`}function S(e,t=""){let n={title:t||"",ingredients:[],steps:[]},i=null;for(let o of e.split(/\r?\n/)){let r=o.replace(/!\[[^\]]*\]\([^)]*\)/g,"").replace(/\[([^\]]+)\]\([^)]*\)/g,"$1").replace(/[*_`]/g,"").trim();if(!r)continue;let d=r.match(/^#{1,6}\s+(.*)/)||r.match(/^\*\*(.{2,60}?)\*\*:?\s*$/);if(d){let a=d[1].toLowerCase();if(!n.title&&d[1].length<80&&!/ingredient|instruction|direction|method|step|note/.test(a)){n.title=d[1].trim();continue}i=/ingredient/.test(a)?"ingredients":/instruction|direction|method|step|preparation|recipe/.test(a)?"steps":i;continue}if(/^(ingredients?|for the .*)\s*:?\s*$/i.test(r)){i="ingredients";continue}if(/^(instructions?|directions?|method|steps?|preparation)\s*:?\s*$/i.test(r)){i="steps";continue}let l=r.replace(/^[-*•]\s+/,"").replace(/^\d+[.)]\s+/,"").trim();if(!l||/^(print|share|save|join|subscribe|follow|watch|jump to|advertisement)\b/i.test(l))continue;if(/^(title|name)\s*:\s*/i.test(l)){n.title||=l.replace(/^(title|name)\s*:\s*/i,"");continue}let s=l.match(T);if(i==="ingredients"&&l.length<120){s?n.ingredients.push({qty:s[1].trim(),unit:(s[2]||"").toLowerCase(),name:s[3].replace(/\s*\(.*?\)\s*/g," ").trim()}):l.split(/\s+/).length<=6&&!/[.]$/.test(l)&&n.ingredients.push({qty:"",unit:"",name:l});continue}if(i!=="steps"&&s&&l.length<120){n.ingredients.push({qty:s[1].trim(),unit:(s[2]||"").toLowerCase(),name:s[3].replace(/\s*\(.*?\)\s*/g," ").trim()});continue}/^(print|share|save|join|subscribe|follow|watch|jump to|advertisement)\b/i.test(l)||(i==="steps"||l.length>=120||/[.;]$/.test(l)?n.steps.push(l):i===null&&!n.title&&(n.title=l))}return t&&(n.title=t),n}function q(e){let t=new DOMParser().parseFromString(e,"text/html");for(let n of t.querySelectorAll('script[type="application/ld+json"]'))try{let i=JSON.parse(n.textContent.replace(/^\s*<!\[CDATA\[|\]\]>\s*$/g,"")),o=Array.isArray(i)?i:[i];for(;o.length;){let r=o.shift();if(!(!r||typeof r!="object")){if((r["@type"]??[]).toString().toLowerCase().includes("recipe"))return r;o.push(...Object.values(r).flat())}}}catch{}return null}function k(e){let t=(e.recipeIngredient??e.ingredients??[]).map(o=>(typeof o=="string"?M(o):null)??{qty:"",unit:"",name:String(o)}),n=[],i=o=>{typeof o=="string"?n.push(o.replace(/<[^>]*>/g,"").trim()):Array.isArray(o)?o.forEach(i):o&&typeof o=="object"&&i(o.itemListElement??o.text??o.name)};return i(e.recipeInstructions??[]),n=n.filter(Boolean),{title:(typeof e.name=="string"?e.name:"")||"",ingredients:t,steps:n,meta:{portions:e.recipeYield??"",time:e.totalTime??""}}}function M(e){let t=e.match(T);return t?{qty:t[1].trim(),unit:(t[2]||"").toLowerCase(),name:t[3].replace(/\s*\(.*?\)\s*/g," ").trim()}:null}function w(e){let t=[];if(e.title||t.push("No title detected"),e.ingredients.length){let n=e.ingredients.filter(r=>!r.qty).length;n&&t.push(`${n} ingredient(s) without a quantity (e.g. "to taste")`);let i=/^(g|kg|mg|ml|l|cl|dl|fl\s*oz|pinch|clove|cloves|slice|slices|can|bunch|handful)s?$/,o=[...new Set(e.ingredients.filter(r=>r.qty&&r.unit&&!v[r.unit]&&!i.test(r.unit)).map(r=>r.unit))];o.length&&t.push(`Unfamiliar unit(s): ${o.join(", ")}`)}else t.push("No ingredient list detected \u2014 AI extraction recommended");return e.steps.length||t.push("No instruction steps detected \u2014 AI extraction recommended"),t}function b(e){return!e.title||!e.ingredients.length||!e.steps.length}function L(e,t={}){let n=e.title||t.title||"Imported recipe",i=t.portions||"",o=w(e),r=b(e)?`# review: ${o.join("; ")}
+(() => {
+  var __getOwnPropNames = Object.getOwnPropertyNames;
+  var __esm = (fn, res, err) =>
+    function __init() {
+      if (err) throw err[0];
+      try {
+        return fn && (res = (0, fn[__getOwnPropNames(fn)[0]])((fn = 0))), res;
+      } catch (e) {
+        throw ((err = [e]), e);
+      }
+    };
+  var __commonJS = (cb, mod) =>
+    function __require() {
+      try {
+        return (
+          mod ||
+            (0, cb[__getOwnPropNames(cb)[0]])(
+              (mod = { exports: {} }).exports,
+              mod,
+            ),
+          mod.exports
+        );
+      } catch (e) {
+        throw ((mod = 0), e);
+      }
+    };
+
+  // import-parser.mjs
+  function fracToNum(s) {
+    s = s.trim().replace(",", ".");
+    const uni = {
+      "\xBC": 0.25,
+      "\xBD": 0.5,
+      "\xBE": 0.75,
+      "\u2153": 1 / 3,
+      "\u2154": 2 / 3,
+      "\u215B": 0.125,
+      "\u215C": 0.375,
+      "\u215D": 0.625,
+      "\u215E": 0.875,
+    };
+    const mixedUni = s.match(/^(\d+)\s+([¼½¾⅓⅔⅛⅜⅝⅞])$/);
+    if (mixedUni) return Number(mixedUni[1]) + uni[mixedUni[2]];
+    const mixed = s.match(/^(\d+)\s+(\d+)\/(\d+)$/);
+    if (mixed) return Number(mixed[1]) + Number(mixed[2]) / Number(mixed[3]);
+    const frac = s.match(/^(\d+)\/(\d+)$/);
+    if (frac) return Number(frac[1]) / Number(frac[2]);
+    return uni[s] ?? Number(s);
+  }
+  function slugify(s) {
+    return (
+      s
+        .toLowerCase()
+        .normalize("NFD")
+        .replace(/[\u0300-\u036f]/g, "")
+        .replace(/[^a-z0-9]+/g, "-")
+        .replace(/^-+|-+$/g, "")
+        .slice(0, 40) || "ingredient"
+    );
+  }
+  function toGramQty(qtyStr, unitStr) {
+    const qty = qtyStr.trim();
+    const unit = (unitStr || "").toLowerCase().replace(/\.$/, "");
+    if (UNIT_MAP[unit]) {
+      const [num, target] = [qty, UNIT_MAP[unit]];
+      const val = num.split(/\s*(?:to|-|–)\s*/).map((p) => {
+        const n = fracToNum(p);
+        const m = target.match(/^(\d+)\s*(\w+)$/);
+        return m ? `${Math.round(n * Number(m[1]))} ${m[2]}` : target;
+      });
+      return val.join(" to ");
+    }
+    return `${qty}${unit ? " " + unit : ""}`;
+  }
+  function parseRecipeText(text, titleHint = "") {
+    const out = {
+      title: titleHint || "",
+      ingredients: [],
+      steps: [],
+      portions: "",
+    };
+    let mode = null;
+    for (const raw of text.split(/\r?\n/)) {
+      const line = raw
+        .replace(/!\[[^\]]*\]\([^)]*\)/g, "")
+        .replace(/\[([^\]]+)\]\([^)]*\)/g, "$1")
+        .replace(/[*_`]/g, "")
+        .trim();
+      if (!line) continue;
+      const h =
+        line.match(/^#{1,6}\s+(.*)/) || line.match(/^\*\*(.{2,60}?)\*\*:?\s*$/);
+      if (h) {
+        const head = h[1].toLowerCase();
+        if (
+          !out.title &&
+          h[1].length < 80 &&
+          !/ingredient|instruction|direction|method|step|note/.test(head)
+        ) {
+          out.title = h[1].trim();
+          continue;
+        }
+        mode = /ingredient/.test(head)
+          ? "ingredients"
+          : /instruction|direction|method|step|preparation|recipe/.test(head)
+            ? "steps"
+            : mode;
+        continue;
+      }
+      const inlineIng = line.match(/^ingredients?\s*:\s*(.+)$/i);
+      if (inlineIng) {
+        mode = "ingredients";
+        for (const part of inlineIng[1].split(/[,;]/)) {
+          const d = parseLine(part.trim());
+          if (d) out.ingredients.push(d);
+          else if (part.trim().split(/\s+/).length <= 6)
+            out.ingredients.push({ qty: "", unit: "", name: part.trim() });
+        }
+        continue;
+      }
+      if (/^(ingredients?|for the .*)\s*:?\s*$/i.test(line)) {
+        mode = "ingredients";
+        continue;
+      }
+      if (
+        /^(instructions?|directions?|method|steps?|preparation)\s*:?\s*$/i.test(
+          line,
+        )
+      ) {
+        mode = "steps";
+        continue;
+      }
+      const cleaned = line
+        .replace(/^[-*•]\s+/, "")
+        .replace(/^\d+[.)]\s+/, "")
+        .trim();
+      if (!cleaned) continue;
+      if (
+        /^(print|share|save|join|subscribe|follow|watch|jump to|advertisement)\b/i.test(
+          cleaned,
+        )
+      )
+        continue;
+      if (/^(title|name)\s*:\s*/i.test(cleaned)) {
+        out.title ||= cleaned.replace(/^(title|name)\s*:\s*/i, "");
+        continue;
+      }
+      const sv = cleaned.match(
+        /^(?:serves|servings?|makes|yield)\s*:?\s*(\d+)/i,
+      );
+      if (sv) {
+        out.portions ||= sv[1];
+        continue;
+      }
+      const m = cleaned.match(ING_RE);
+      if (mode === "ingredients" && cleaned.length < 120) {
+        if (m) {
+          out.ingredients.push({
+            qty: m[1].trim(),
+            unit: (m[2] || "").toLowerCase(),
+            name: m[3].replace(/\s*\(.*?\)\s*/g, " ").trim(),
+          });
+        } else if (cleaned.split(/\s+/).length <= 6 && !/[.]$/.test(cleaned)) {
+          out.ingredients.push({ qty: "", unit: "", name: cleaned });
+        }
+        if (out.ingredients.at(-1)?.name === cleaned || m) continue;
+      }
+      if (mode !== "steps" && m && cleaned.length < 120) {
+        out.ingredients.push({
+          qty: m[1].trim(),
+          unit: (m[2] || "").toLowerCase(),
+          name: m[3].replace(/\s*\(.*?\)\s*/g, " ").trim(),
+        });
+        continue;
+      }
+      if (
+        mode === "steps" ||
+        (out.ingredients.length &&
+          (cleaned.length >= 120 || /[.;]$/.test(cleaned)))
+      ) {
+        out.steps.push(cleaned);
+      } else if (
+        !out.ingredients.length &&
+        !out.title &&
+        !/[.;]$/.test(cleaned)
+      ) {
+        out.title = cleaned;
+      }
+    }
+    if (titleHint) out.title = titleHint;
+    return out;
+  }
+  function extractJsonLdRecipe(html) {
+    const doc = new DOMParser().parseFromString(html, "text/html");
+    for (const el of doc.querySelectorAll(
+      'script[type="application/ld+json"]',
+    )) {
+      try {
+        const data = JSON.parse(
+          el.textContent.replace(/^\s*<!\[CDATA\[|\]\]>\s*$/g, ""),
+        );
+        const queue = Array.isArray(data) ? data : [data];
+        while (queue.length) {
+          const node = queue.shift();
+          if (!node || typeof node !== "object") continue;
+          if ((node["@type"] ?? []).toString().toLowerCase().includes("recipe"))
+            return node;
+          queue.push(...Object.values(node).flat());
+        }
+      } catch {}
+    }
+    return null;
+  }
+  function jsonLdToDraft(r) {
+    const ingredients = (r.recipeIngredient ?? r.ingredients ?? []).map((s) => {
+      const d = typeof s === "string" ? parseLine(s) : null;
+      return d ?? { qty: "", unit: "", name: String(s) };
+    });
+    let steps = [];
+    const walk = (n) => {
+      if (typeof n === "string") steps.push(n.replace(/<[^>]*>/g, "").trim());
+      else if (Array.isArray(n)) n.forEach(walk);
+      else if (n && typeof n === "object")
+        walk(n.itemListElement ?? n.text ?? n.name);
+    };
+    walk(r.recipeInstructions ?? []);
+    steps = steps.filter(Boolean);
+    return {
+      title: (typeof r.name === "string" ? r.name : "") || "",
+      ingredients,
+      steps,
+      meta: {
+        portions: r.recipeYield ?? "",
+        time: r.totalTime ?? "",
+      },
+    };
+  }
+  function parseLine(line) {
+    const m = line.match(ING_RE);
+    if (!m) return null;
+    return {
+      qty: m[1].trim(),
+      unit: (m[2] || "").toLowerCase(),
+      name: m[3].replace(/\s*\(.*?\)\s*/g, " ").trim(),
+    };
+  }
+  function aiNeededTags(draft) {
+    const tags = [];
+    if (!draft.title) tags.push("No title detected");
+    if (draft.ingredients.length) {
+      const noQty = draft.ingredients.filter((i) => !i.qty).length;
+      if (noQty)
+        tags.push(
+          `${noQty} ingredient(s) without a quantity (e.g. "to taste")`,
+        );
+      const METRIC =
+        /^(g|kg|mg|ml|l|cl|dl|fl\s*oz|pinch|clove|cloves|slice|slices|can|bunch|handful|large|medium|small|whole)s?$/;
+      const unmapped = [
+        ...new Set(
+          draft.ingredients
+            .filter(
+              (i) =>
+                i.qty && i.unit && !UNIT_MAP[i.unit] && !METRIC.test(i.unit),
+            )
+            .map((i) => i.unit),
+        ),
+      ];
+      if (unmapped.length)
+        tags.push(`Unfamiliar unit(s): ${unmapped.join(", ")}`);
+    } else
+      tags.push("No ingredient list detected \u2014 AI extraction recommended");
+    if (!draft.steps.length)
+      tags.push(
+        "No instruction steps detected \u2014 AI extraction recommended",
+      );
+    return tags;
+  }
+  function hasHardGaps(draft) {
+    return !draft.title || !draft.ingredients.length || !draft.steps.length;
+  }
+  function convertTemps(s) {
+    return s.replace(/(\d{2,3})\s*°\s*F\b/gi, (_, f) => {
+      const c = Math.round(((Number(f) - 32) * 5) / 9);
+      return `${c} \xB0C`;
+    });
+  }
+  function extractTimer(s) {
+    if (s.includes("~{")) return [s, ""];
+    const m = s.match(TIME_RE);
+    if (!m) return [s, ""];
+    const n = Math.max(Number(m[1]), Number(m[2] ?? m[1]));
+    const unit = m[3].toLowerCase();
+    const timer = /^h/.test(unit)
+      ? `~{${n * 60} min}`
+      : /^min/.test(unit) || unit === "m"
+        ? `~{${n} min}`
+        : `~{${n} s}`;
+    return [
+      s
+        .slice(0, m.index)
+        .trimEnd()
+        .replace(/[,;.]$/, ""),
+      timer,
+    ];
+  }
+  function draftToGram(draft, meta = {}) {
+    const title = draft.title || meta.title || "Imported recipe";
+    const portions = meta.portions || "";
+    const tags = aiNeededTags(draft);
+    const tagComment = hasHardGaps(draft)
+      ? `# review: ${tags.join("; ")}
 # tip: npx gram import <url> --pick-model for an AI-assisted translation
-`:"",d=e.ingredients.map(s=>{let a=s.qty?`{${x(s.qty,s.unit)}}`:"{}";return`- @${R(s.name)}${a} \u2014 ${s.name}`}),l=e.steps.map((s,a)=>`[Step ${a+1}] ${s}`);return`${r}---
-title: ${n}
-portions: ${i||4}
+`
+      : "";
+    const ingLines = draft.ingredients.map((i) => {
+      const q = i.qty ? `{${toGramQty(i.qty, i.unit)}}` : "{}";
+      return `- @${slugify(i.name)}${q} \u2014 ${i.name}`;
+    });
+    const stepLines = draft.steps.map((s0, idx) => {
+      const [text, timer] = extractTimer(convertTemps(s0));
+      return `[Step ${idx + 1}] ${timer ? `${text}, ${timer}` : text}`;
+    });
+    return `${tagComment}---
+title: ${title}
+portions: ${portions || 4}
 category: Imported
-source: "${t.source??""}"
+source: "${meta.source ?? ""}"
 ---
 
 ## Ingredients
 
-${d.join(`
-`)}
+${ingLines.join("\n")}
 
 ## Steps
 
-${l.join(`
+${stepLines.join("\n\n")}
+`;
+  }
+  var UNIT_MAP, QTY, ING_RE, TIME_RE;
+  var init_import_parser = __esm({
+    "import-parser.mjs"() {
+      UNIT_MAP = {
+        tbsp: "15 ml",
+        tablespoon: "15 ml",
+        tablespoons: "15 ml",
+        tsp: "5 ml",
+        teaspoon: "5 ml",
+        teaspoons: "5 ml",
+        cup: "240 ml",
+        cups: "240 ml",
+        oz: "28 g",
+        ounce: "28 g",
+        ounces: "28 g",
+        lb: "454 g",
+        lbs: "454 g",
+        pound: "454 g",
+        pounds: "454 g",
+        pint: "473 ml",
+        quart: "946 ml",
+        qt: "946 ml",
+        gal: "3800 ml",
+        gallon: "3800 ml",
+        gallons: "3800 ml",
+        stick: "113 g",
+        sticks: "113 g",
+        floz: "30 ml",
+      };
+      QTY = String.raw`(?:\d+\s+\d*\/\d+|\d+\/\d+|\d+[.,]\d+|\d+|[¼½¾⅓⅔⅛⅜⅝⅞])`;
+      ING_RE = new RegExp(
+        `^(${QTY}(?:\\s*(?:to|-|\u2013)\\s*${QTY})?)\\s*([a-zA-Z.]+)?\\.?\\s+(.+)$`,
+      );
+      TIME_RE =
+        /[,;]?\s*(?:for |about )?(\d+)(?:\s*(?:to|-|–)\s*(\d+))?\s*(hours?|hrs?|h|minutes?|mins?|min|seconds?|secs?)\.?\s*$/i;
+    },
+  });
 
-`)}
-`}var v,C,T,A=I(()=>{v={tbsp:"15 ml",tablespoon:"15 ml",tablespoons:"15 ml",tsp:"5 ml",teaspoon:"5 ml",teaspoons:"5 ml",cup:"240 ml",cups:"240 ml",oz:"28 g",ounce:"28 g",ounces:"28 g",lb:"454 g",lbs:"454 g",pound:"454 g",pounds:"454 g",pint:"473 ml",quart:"946 ml",qt:"946 ml"},C=String.raw`(?:\d+\s+\d*\/\d+|\d+\/\d+|\d+[.,]\d+|\d+|[¼½¾⅓⅔⅛⅜⅝⅞])`,T=new RegExp(`^(${C}(?:\\s*(?:to|-|\u2013)\\s*${C})?)\\s*([a-zA-Z.]+)?\\.?\\s+(.+)$`);if(typeof process<"u"&&process.argv[1]?.endsWith("import-parser.mjs")){let e=(s,a)=>{s||(console.error("FAIL:",a),process.exitCode=1)},t=S(`# Vegan Pad Thai
-
-## Ingredients
-
-- 112 g dry rice noodles
-- 2 cups spinach
-- 3 tbsp soy sauce
-- 1 \xBD oz peanuts
-- Salt to taste
-
-## Instructions
-
-1. Soak the noodles.
-2. Stir fry everything. Serve hot.`);e(t.title==="Vegan Pad Thai","title"),e(t.ingredients.length===5,`ingredients count ${t.ingredients.length}`),e(t.ingredients[0].qty==="112"&&t.ingredients[0].unit==="g"&&t.ingredients[0].name==="dry rice noodles",JSON.stringify(t.ingredients[0])),e(x("2","cups")==="480 ml",`cup map ${x("2","cups")}`),e(x("1 \xBD","oz")==="42 g",`oz map ${x("1 \xBD","oz")}`),e(t.steps.length===2,`steps ${t.steps.length}`);let n=L(t,{portions:2,source:"https://example.com"});e(n.includes("title: Vegan Pad Thai"),"gram title"),e(n.includes("@dry-rice-noodles{112 g}"),`gram ing: ${n.split(`
-`)[12]}`),e(n.includes("@spinach{480 ml}"),"gram cup conversion"),e(n.includes("[Step 1] Soak"),"gram step");let i='<html><script type="application/ld+json">{"@graph":[{"@type":"Article"},{"@type":"Recipe","name":"Tofu Curry","recipeYield":"4","recipeIngredient":["200 g tofu","1 cup rice"],"recipeInstructions":[{"text":"Fry."},{"text":"Simmer 10 min."}]}<\/script></html>';if(typeof DOMParser>"u")console.log("(DOMParser unavailable in node \u2014 skipping JSON-LD check)");else{let s=q(i);e(s?.name==="Tofu Curry","jsonld name");let a=k(s);e(a.ingredients.length===2,"jsonld ings"),e(a.steps[0]==="Fry.","jsonld steps")}e(!b(t),"clean draft has no hard gaps");let o=w(t);e(o.some(s=>/quantity/.test(s)),`salt-to-taste flagged soft: ${o}`);let r=S("Random prose paragraph about my grandmother and food memories."),d=w(r);e(b(r),"messy draft flagged hard"),e(d.some(s=>/ingredient/i.test(s)),`messy draft tagged for ingredients: ${d}`),e(d.some(s=>/instruction/i.test(s))||d.some(s=>/ingredient/i.test(s)),`messy draft tagged for extraction gaps: ${d}`);let l=S(`# Soup
-
-## Ingredients
-
-- 200 g tofu`);e(w(l).some(s=>/instruction/i.test(s)),`missing steps flagged: ${w(l)}`),e(L(r).includes("# review:"),"tags emitted as review comment in .gram"),e(!L(t).includes("# review:"),"clean draft has no review comment"),console.log(process.exitCode?"SELF-CHECK FAILED":"import-parser self-check OK")}});var U=j(()=>{A();function O(e){let t;try{t=JSON.parse(e.querySelector("script.recipe-data").textContent)}catch{return}let n=e.querySelector(".recipe-render"),i=e.querySelector(".gantt-render"),o=[...e.querySelectorAll(".scale-btn")],r="1";function d(c,u){let h=new DOMParser().parseFromString(u,"text/html").body;c.replaceChildren(...h.childNodes)}function l(){d(n,`<div class="gram-preview">${t[r].html}</div>`),d(i,t[r].gantt);let c=e.querySelector(".snippet-slot");c&&t[r].snippet&&d(c,t[r].snippet),o.forEach(u=>u.classList.toggle("active",u.dataset.scale===r)),g()}o.forEach(c=>c.addEventListener("click",()=>{r=c.dataset.scale,l()}));let s=e.querySelector(".cook-bar"),a=e.querySelector(".cook-step-label");function m(){return[...n.querySelectorAll("ol.steps > li")]}function g(){e.classList.remove("cooking"),m().forEach(c=>c.classList.remove("cook-active","cook-done","cook-pending")),s?.removeAttribute("open")}function p(c){let u=m();if(c>=u.length)return g();e.classList.add("cooking"),s&&s.setAttribute("open",""),u.forEach((f,$)=>{f.classList.toggle("cook-active",$===c),f.classList.toggle("cook-done",$<c),f.classList.toggle("cook-pending",$>c)});let h=[...n.querySelectorAll("section")],y=u[c].closest("section");h.forEach(f=>f.classList.toggle("cook-hidden-section",f!==y&&!f.contains(u[c]))),a.textContent=`${document.documentElement.lang==="fr"?"\xC9tape":"Step"} ${c+1}/${u.length}`,u[c].scrollIntoView({behavior:"smooth",block:"center"})}e.querySelector(".cook-start")?.addEventListener("click",()=>p(0)),e.querySelector(".cook-next")?.addEventListener("click",()=>{let c=m().findIndex(u=>u.classList.contains("cook-active"));p(c+1)}),e.querySelector(".cook-exit")?.addEventListener("click",g),l()}document.querySelectorAll(".recipe-app").forEach(O);function P(e){if(e==null)return"";let t=Math.floor(e/60),n=Math.round(e%60);return t?`${t} h ${n?n+" min":""}`.trim():`${n} min`}async function D(){let e=document.querySelector("#browse-table");if(!e)return;let t,n=document.documentElement.lang==="fr";try{t=await(await fetch(n?"recipes-index-fr.json":"recipes-index.json")).json()}catch{e.textContent=n?"\xC9chec du chargement de l\u2019index des recettes.":"Failed to load recipe index.";return}let i=e.querySelector("tbody"),o=document.querySelector("#browse-search"),r=document.querySelector("#browse-category"),d=document.querySelector("#browse-count"),l=[...new Set(t.map(p=>p.category))].sort();for(let p of l)r.add(new Option(p,p));let s="title",a=!0;function m(){let p=o.value.trim().toLowerCase(),c=r.value;return t.filter(u=>(!c||u.category===c)&&(!p||`${u.title} ${u.category} ${u.source}`.toLowerCase().includes(p))).sort((u,h)=>{let y=u[s],f=h[s],$=typeof y=="number"?y-f:String(y).localeCompare(String(f));return a?$:-$})}function g(){let p=m();i.replaceChildren(...p.map(c=>{let u=document.createElement("tr"),h=$=>{let E=document.createElement("td");return E.textContent=$,E},y=document.createElement("a");y.href=`cookbook/${c.slug}.html`,y.textContent=c.title;let f=document.createElement("td");return f.append(y),u.append(f,h(c.category),h(P(c.time)),h(c.portions),h(c.source??"")),u})),d.textContent=`${p.length} / ${t.length} ${n?"recettes":"recipes"}`}e.querySelectorAll("th[data-sort]").forEach(p=>p.addEventListener("click",()=>{let c=p.dataset.sort;a=c===s?!a:!0,s=c,e.querySelectorAll("th[data-sort]").forEach(u=>u.classList.remove("sort-asc","sort-desc")),p.classList.add(a?"sort-asc":"sort-desc"),g()})),o.addEventListener("input",g),r.addEventListener("change",g),g()}D();async function z(e){let t=[e,`https://r.jina.ai/${e}`],n;for(let i of t)try{let o=await fetch(i);if(!o.ok)throw new Error(`HTTP ${o.status}`);return await o.text()}catch(o){n=o}throw n??new Error("fetch failed")}function F(){let e=document.querySelector("#import-form");if(!e)return;let t=document.querySelector("#import-url"),n=document.querySelector("#import-text"),i=document.querySelector("#import-status"),o=document.querySelector("#import-output"),r="";function d(s,a=!1){i.textContent=s,i.classList.toggle("error",a)}function l(s,a){r=L(s,a);let m=w(s);o.querySelector("pre").textContent=r;let g=o.querySelector("#import-tags");if(g.replaceChildren(),m.length){let p=document.createElement("p");p.className="import-tags-title",p.textContent="\u26A0 Needs review \u2014 AI translation recommended for these:";let c=document.createElement("ul");for(let h of m){let y=document.createElement("li");y.textContent=h,c.append(y)}let u=document.createElement("p");u.textContent="Try `npx gram import <url> --pick-model` for AI-assisted conversion.",g.append(p,c,u)}g.hidden=!m.length,o.hidden=!1,d(`Parsed ${s.ingredients.length} ingredients and ${s.steps.length} steps.${m.length?` ${m.length} item(s) flagged for review.`:" Looks like a clean static translation."}`,m.length>0&&(!s.ingredients.length||!s.steps.length))}e.addEventListener("submit",async s=>{s.preventDefault(),o.hidden=!0;let a=t.value.trim(),m=n.value.trim();try{if(m&&!a){l(S(m),{});return}if(!a)return d("Enter a recipe URL or paste the recipe text.",!0);if(!/^https?:\/\//.test(a))return d("URL must start with http(s)://",!0);d("Fetching\u2026");let g=await z(a),p=null;try{p=q(g)}catch{}if(p){let c=k(p);c.title||(c.title=S("").title||a),l(c,{source:a,portions:String(p.recipeYield??"")})}else l(S(g,""),{source:a})}catch(g){d(`Import failed: ${g.message}. Paste the recipe text instead.`,!0)}}),document.querySelector("#import-copy")?.addEventListener("click",async()=>{await navigator.clipboard.writeText(r),d("Copied to clipboard.")}),document.querySelector("#import-download")?.addEventListener("click",()=>{let a=(r.match(/^title: (.+)$/m)?.[1]??"recipe").toLowerCase().replace(/[^a-z0-9]+/g,"-").replace(/^-+|-+$/g,""),m=document.createElement("a");m.href=URL.createObjectURL(new Blob([r],{type:"text/plain"})),m.download=`${a}.gram`,m.click(),URL.revokeObjectURL(m.href)})}F()});U();})();
+  // client.js
+  var require_client = __commonJS({
+    "client.js"() {
+      init_import_parser();
+      function initApp(root) {
+        let data;
+        try {
+          data = JSON.parse(
+            root.querySelector("script.recipe-data").textContent,
+          );
+        } catch {
+          return;
+        }
+        const renderEl = root.querySelector(".recipe-render");
+        const ganttEl = root.querySelector(".gantt-render");
+        const btns = [...root.querySelectorAll(".scale-btn")];
+        let scale = "1";
+        function setHTML(el, html) {
+          const frag = new DOMParser().parseFromString(html, "text/html").body;
+          el.replaceChildren(...frag.childNodes);
+        }
+        function render() {
+          setHTML(
+            renderEl,
+            `<div class="gram-preview">${data[scale].html}</div>`,
+          );
+          setHTML(ganttEl, data[scale].gantt);
+          const slot = root.querySelector(".snippet-slot");
+          if (slot && data[scale].snippet) setHTML(slot, data[scale].snippet);
+          btns.forEach((b) =>
+            b.classList.toggle("active", b.dataset.scale === scale),
+          );
+          exitCookMode();
+        }
+        btns.forEach((b) =>
+          b.addEventListener("click", () => {
+            scale = b.dataset.scale;
+            render();
+          }),
+        );
+        const cookBar = root.querySelector(".cook-bar");
+        const cookLabel = root.querySelector(".cook-step-label");
+        function steps() {
+          return [...renderEl.querySelectorAll("ol.steps > li")];
+        }
+        function exitCookMode() {
+          root.classList.remove("cooking");
+          steps().forEach((s) =>
+            s.classList.remove("cook-active", "cook-done", "cook-pending"),
+          );
+          cookBar?.removeAttribute("open");
+        }
+        function showStep(i) {
+          const ss = steps();
+          if (i >= ss.length) return exitCookMode();
+          root.classList.add("cooking");
+          if (cookBar) cookBar.setAttribute("open", "");
+          ss.forEach((s, j) => {
+            s.classList.toggle("cook-active", j === i);
+            s.classList.toggle("cook-done", j < i);
+            s.classList.toggle("cook-pending", j > i);
+          });
+          const secs = [...renderEl.querySelectorAll("section")];
+          const active = ss[i].closest("section");
+          secs.forEach((s) =>
+            s.classList.toggle(
+              "cook-hidden-section",
+              s !== active && !s.contains(ss[i]),
+            ),
+          );
+          cookLabel.textContent = `${document.documentElement.lang === "fr" ? "\xC9tape" : "Step"} ${i + 1}/${ss.length}`;
+          ss[i].scrollIntoView({ behavior: "smooth", block: "center" });
+        }
+        root
+          .querySelector(".cook-start")
+          ?.addEventListener("click", () => showStep(0));
+        root.querySelector(".cook-next")?.addEventListener("click", () => {
+          const i = steps().findIndex((s) =>
+            s.classList.contains("cook-active"),
+          );
+          showStep(i + 1);
+        });
+        root
+          .querySelector(".cook-exit")
+          ?.addEventListener("click", exitCookMode);
+        render();
+      }
+      document.querySelectorAll(".recipe-app").forEach(initApp);
+      function fmtTime(min) {
+        if (min == null) return "";
+        const h = Math.floor(min / 60),
+          m = Math.round(min % 60);
+        return h ? `${h} h ${m ? m + " min" : ""}`.trim() : `${m} min`;
+      }
+      async function initBrowse() {
+        const table = document.querySelector("#browse-table");
+        if (!table) return;
+        let recipes;
+        const fr = document.documentElement.lang === "fr";
+        try {
+          recipes = await (
+            await fetch(fr ? "../recipes-index-fr.json" : "recipes-index.json")
+          ).json();
+        } catch {
+          table.textContent = fr
+            ? "\xC9chec du chargement de l\u2019index des recettes."
+            : "Failed to load recipe index.";
+          return;
+        }
+        const tbody = table.querySelector("tbody");
+        const search = document.querySelector("#browse-search");
+        const catSel = document.querySelector("#browse-category");
+        const count = document.querySelector("#browse-count");
+        const cats = [...new Set(recipes.map((r) => r.category))].sort();
+        for (const c of cats) catSel.add(new Option(c, c));
+        let sortKey = "title",
+          sortAsc = true;
+        function rows() {
+          const q = search.value.trim().toLowerCase();
+          const cat = catSel.value;
+          return recipes
+            .filter(
+              (r) =>
+                (!cat || r.category === cat) &&
+                (!q ||
+                  `${r.title} ${r.category} ${r.source}`
+                    .toLowerCase()
+                    .includes(q)),
+            )
+            .sort((a, b) => {
+              const va = a[sortKey],
+                vb = b[sortKey];
+              const c =
+                typeof va === "number"
+                  ? va - vb
+                  : String(va).localeCompare(String(vb));
+              return sortAsc ? c : -c;
+            });
+        }
+        function render() {
+          const rs = rows();
+          tbody.replaceChildren(
+            ...rs.map((r) => {
+              const tr = document.createElement("tr");
+              const td = (text) => {
+                const c = document.createElement("td");
+                c.textContent = text;
+                return c;
+              };
+              const link = document.createElement("a");
+              link.href = `cookbook/${r.slug}.html`;
+              link.textContent = r.title;
+              const titleTd = document.createElement("td");
+              titleTd.append(link);
+              tr.append(
+                titleTd,
+                td(r.category),
+                td(fmtTime(r.time)),
+                td(r.portions),
+                td(r.source ?? ""),
+              );
+              return tr;
+            }),
+          );
+          count.textContent = `${rs.length} / ${recipes.length} ${fr ? "recettes" : "recipes"}`;
+        }
+        table.querySelectorAll("th[data-sort]").forEach((th) =>
+          th.addEventListener("click", () => {
+            const k = th.dataset.sort;
+            sortAsc = k === sortKey ? !sortAsc : true;
+            sortKey = k;
+            table
+              .querySelectorAll("th[data-sort]")
+              .forEach((t) => t.classList.remove("sort-asc", "sort-desc"));
+            th.classList.add(sortAsc ? "sort-asc" : "sort-desc");
+            render();
+          }),
+        );
+        search.addEventListener("input", render);
+        catSel.addEventListener("change", render);
+        render();
+      }
+      initBrowse();
+      async function fetchPage(url) {
+        const attempts = [url, `https://r.jina.ai/${url}`];
+        let lastErr;
+        for (const u of attempts) {
+          try {
+            const res = await fetch(u);
+            if (!res.ok) throw new Error(`HTTP ${res.status}`);
+            return await res.text();
+          } catch (e) {
+            lastErr = e;
+          }
+        }
+        throw lastErr ?? new Error("fetch failed");
+      }
+      function initImport() {
+        const form = document.querySelector("#import-form");
+        if (!form) return;
+        const fr = document.documentElement.lang === "fr";
+        const T = fr
+          ? {
+              needsReview:
+                "\u26A0 \xC0 v\xE9rifier \u2014 traduction IA recommand\xE9e pour :",
+              aiTip:
+                "Essayez `npx gram import <url> --pick-model` pour une conversion assist\xE9e par IA.",
+              parsed: (i, s) =>
+                `${i} ingr\xE9dients et ${s} \xE9tapes analys\xE9s.`,
+              flagged: (n) =>
+                ` ${n} \xE9l\xE9ment(s) marqu\xE9(s) \xE0 relire.`,
+              clean: " Traduction statique qui semble compl\xE8te.",
+              enter:
+                "Saisissez une URL de recette ou collez le texte de la recette.",
+              urlPrefix: "L\u2019URL doit commencer par http(s)://",
+              fetching: "R\xE9cup\xE9ration\u2026",
+              failed: (m) =>
+                `\xC9chec de l\u2019import : ${m}. Collez plut\xF4t le texte de la recette.`,
+              copied: "Copi\xE9 dans le presse-papiers.",
+            }
+          : {
+              needsReview:
+                "\u26A0 Needs review \u2014 AI translation recommended for these:",
+              aiTip:
+                "Try `npx gram import <url> --pick-model` for AI-assisted conversion.",
+              parsed: (i, s) => `Parsed ${i} ingredients and ${s} steps.`,
+              flagged: (n) => ` ${n} item(s) flagged for review.`,
+              clean: " Looks like a clean static translation.",
+              enter: "Enter a recipe URL or paste the recipe text.",
+              urlPrefix: "URL must start with http(s)://",
+              fetching: "Fetching\u2026",
+              failed: (m) =>
+                `Import failed: ${m}. Paste the recipe text instead.`,
+              copied: "Copied to clipboard.",
+            };
+        const urlIn = document.querySelector("#import-url");
+        const textEl = document.querySelector("#import-text");
+        const status = document.querySelector("#import-status");
+        const out = document.querySelector("#import-output");
+        const preview = out?.querySelector("#import-preview");
+        let gramText = "";
+        function show(msg, isError = false) {
+          status.textContent = msg;
+          status.classList.toggle("error", isError);
+        }
+        function emit(draft, meta) {
+          gramText = draftToGram(draft, meta);
+          const tags = aiNeededTags(draft);
+          if (preview) preview.value = gramText;
+          const tagBox = out.querySelector("#import-tags");
+          tagBox.replaceChildren();
+          if (tags.length) {
+            const p = document.createElement("p");
+            p.className = "import-tags-title";
+            p.textContent = T.needsReview;
+            const ul = document.createElement("ul");
+            for (const t of tags) {
+              const li = document.createElement("li");
+              li.textContent = t;
+              ul.append(li);
+            }
+            const tip = document.createElement("p");
+            tip.textContent = T.aiTip;
+            tagBox.append(p, ul, tip);
+          }
+          tagBox.hidden = !tags.length;
+          out.hidden = false;
+          show(
+            `${T.parsed(draft.ingredients.length, draft.steps.length)}${tags.length ? T.flagged(tags.length) : T.clean}`,
+            tags.length > 0 &&
+              (!draft.ingredients.length || !draft.steps.length),
+          );
+        }
+        form.addEventListener("submit", async (e) => {
+          e.preventDefault();
+          out.hidden = true;
+          const url = urlIn.value.trim();
+          const raw = textEl.value.trim();
+          try {
+            if (raw && !url) {
+              emit(parseRecipeText(raw), {});
+              return;
+            }
+            if (!url) return show(T.enter, true);
+            if (!/^https?:\/\//.test(url)) return show(T.urlPrefix, true);
+            show(T.fetching);
+            const body = await fetchPage(url);
+            let recipe = null;
+            try {
+              recipe = extractJsonLdRecipe(body);
+            } catch {}
+            if (recipe) {
+              const draft = jsonLdToDraft(recipe);
+              if (!draft.title) draft.title = parseRecipeText("").title || url;
+              emit(draft, {
+                source: url,
+                portions: String(recipe.recipeYield ?? ""),
+              });
+            } else {
+              emit(parseRecipeText(body, ""), { source: url });
+            }
+          } catch (err) {
+            show(T.failed(err.message), true);
+          }
+        });
+        const currentText = () => preview?.value || gramText;
+        document
+          .querySelector("#import-copy")
+          ?.addEventListener("click", async () => {
+            await navigator.clipboard.writeText(currentText());
+            show(T.copied);
+          });
+        document
+          .querySelector("#import-download")
+          ?.addEventListener("click", () => {
+            const gram = currentText();
+            const title = gram.match(/^title: (.+)$/m)?.[1] ?? "recipe";
+            const slug = title
+              .toLowerCase()
+              .replace(/[^a-z0-9]+/g, "-")
+              .replace(/^-+|-+$/g, "");
+            const a = document.createElement("a");
+            a.href = URL.createObjectURL(
+              new Blob([gram], { type: "text/plain" }),
+            );
+            a.download = `${slug}.gram`;
+            a.click();
+            URL.revokeObjectURL(a.href);
+          });
+      }
+      initImport();
+    },
+  });
+  require_client();
+})();

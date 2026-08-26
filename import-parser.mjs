@@ -84,7 +84,12 @@ export function toGramQty(qtyStr, unitStr) {
 
 /** Parse plain-text ingredient list + instructions into a gram draft. */
 export function parseRecipeText(text, titleHint = "") {
-  const out = { title: titleHint || "", ingredients: [], steps: [], portions: "" };
+  const out = {
+    title: titleHint || "",
+    ingredients: [],
+    steps: [],
+    portions: "",
+  };
   let mode = null; // null | "ingredients" | "steps"
   for (const raw of text.split(/\r?\n/)) {
     // strip markdown: images, links → text, emphasis
@@ -184,10 +189,15 @@ export function parseRecipeText(text, titleHint = "") {
     // any section is story text — never a step
     if (
       mode === "steps" ||
-      (out.ingredients.length && (cleaned.length >= 120 || /[.;]$/.test(cleaned)))
+      (out.ingredients.length &&
+        (cleaned.length >= 120 || /[.;]$/.test(cleaned)))
     ) {
       out.steps.push(cleaned);
-    } else if (!out.ingredients.length && !out.title && !/[.;]$/.test(cleaned)) {
+    } else if (
+      !out.ingredients.length &&
+      !out.title &&
+      !/[.;]$/.test(cleaned)
+    ) {
       out.title = cleaned;
     }
   }
@@ -313,7 +323,13 @@ function extractTimer(s) {
     : /^min/.test(unit) || unit === "m"
       ? `~{${n} min}`
       : `~{${n} s}`;
-  return [s.slice(0, m.index).trimEnd().replace(/[,;.]$/, ""), timer];
+  return [
+    s
+      .slice(0, m.index)
+      .trimEnd()
+      .replace(/[,;.]$/, ""),
+    timer,
+  ];
 }
 
 /** Draft → full .gram file source. */
@@ -348,4 +364,3 @@ ${ingLines.join("\n")}
 ${stepLines.join("\n\n")}
 `;
 }
-
