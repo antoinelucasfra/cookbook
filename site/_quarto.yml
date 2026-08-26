@@ -25,6 +25,8 @@ format:
   html:
     theme: cosmo
     lang: en
+    filters:
+      - gram
     css:
       - css/gram.css
       - css/gantt.css
