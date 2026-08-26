@@ -78,7 +78,7 @@ function toGramQty(qtyStr, unitStr) {
 
 /** Parse plain-text ingredient list + instructions into a gram draft. */
 export function parseRecipeText(text, titleHint = "") {
-  const out = { title: titleHint || "", ingredients: [], steps: [] };
+  const out = { title: titleHint || "", ingredients: [], steps: [], portions: "" };
   let mode = null; // null | "ingredients" | "steps"
   for (const raw of text.split(/\r?\n/)) {
     // strip markdown: images, links → text, emphasis
@@ -105,6 +105,18 @@ export function parseRecipeText(text, titleHint = "") {
         : /instruction|direction|method|step|preparation|recipe/.test(head)
           ? "steps"
           : mode;
+      continue;
+    }
+    const inlineIng = line.match(/^ingredients?\s*:\s*(.+)$/i);
+    if (inlineIng) {
+      // one-liner format: "Ingredients: 200 g flour, 2 eggs"
+      mode = "ingredients";
+      for (const part of inlineIng[1].split(/[,;]/)) {
+        const d = parseLine(part.trim());
+        if (d) out.ingredients.push(d);
+        else if (part.trim().split(/\s+/).length <= 6)
+          out.ingredients.push({ qty: "", unit: "", name: part.trim() });
+      }
       continue;
     }
     if (/^(ingredients?|for the .*)\s*:?\s*$/i.test(line)) {
@@ -134,6 +146,11 @@ export function parseRecipeText(text, titleHint = "") {
       out.title ||= cleaned.replace(/^(title|name)\s*:\s*/i, "");
       continue;
     }
+    const sv = cleaned.match(/^(?:serves|servings?|makes|yield)\s*:?\s*(\d+)/i);
+    if (sv) {
+      out.portions ||= sv[1];
+      continue;
+    }
     const m = cleaned.match(ING_RE);
     if (mode === "ingredients" && cleaned.length < 120) {
       if (m) {
@@ -146,7 +163,8 @@ export function parseRecipeText(text, titleHint = "") {
         // short qty-less lines like "Salt to taste"; longer prose is not an ingredient
         out.ingredients.push({ qty: "", unit: "", name: cleaned });
       }
-      continue;
+      if (out.ingredients.at(-1)?.name === cleaned || m) continue;
+      // prose under Ingredients header — fall through to step handling
     }
     if (mode !== "steps" && m && cleaned.length < 120) {
       out.ingredients.push({
@@ -156,15 +174,14 @@ export function parseRecipeText(text, titleHint = "") {
       });
       continue;
     }
+    // prose after the ingredient list counts as a step; intro prose before
+    // any section is story text — never a step
     if (
-      /^(print|share|save|join|subscribe|follow|watch|jump to|advertisement)\b/i.test(
-        cleaned,
-      )
-    )
-      continue;
-    if (mode === "steps" || cleaned.length >= 120 || /[.;]$/.test(cleaned)) {
+      mode === "steps" ||
+      (out.ingredients.length && (cleaned.length >= 120 || /[.;]$/.test(cleaned)))
+    ) {
       out.steps.push(cleaned);
-    } else if (mode === null && !out.title) {
+    } else if (!out.ingredients.length && !out.title && !/[.;]$/.test(cleaned)) {
       out.title = cleaned;
     }
   }
@@ -244,7 +261,7 @@ export function aiNeededTags(draft) {
     if (noQty)
       tags.push(`${noQty} ingredient(s) without a quantity (e.g. "to taste")`);
     const METRIC =
-      /^(g|kg|mg|ml|l|cl|dl|fl\s*oz|pinch|clove|cloves|slice|slices|can|bunch|handful)s?$/;
+      /^(g|kg|mg|ml|l|cl|dl|fl\s*oz|pinch|clove|cloves|slice|slices|can|bunch|handful|large|medium|small|whole)s?$/;
     const unmapped = [
       ...new Set(
         draft.ingredients
@@ -361,6 +378,39 @@ if (
     assert(d2.ingredients.length === 2, "jsonld ings");
     assert(d2.steps[0] === "Fry.", "jsonld steps");
   }
+
+  // intro prose must not leak into steps
+  const cake = parseRecipeText(`Best Chocolate Cake
+
+This cake has been in my family for years. It is amazing.
+
+Serves 8 | Prep 20 min
+
+Ingredients:
+- 250 g flour
+- 2 large eggs
+- pinch of salt
+
+Instructions:
+Preheat oven to 180°C.
+Mix dry ingredients.`);
+  assert(cake.title === "Best Chocolate Cake", `cake title ${cake.title}`);
+  assert(
+    !cake.steps.some((s) => /family/.test(s)),
+    `intro prose leaked into steps: ${cake.steps}`,
+  );
+  assert(cake.steps.length === 2, `cake steps ${cake.steps.length}`);
+  assert(cake.portions === "8", `serves parsed ${cake.portions}`);
+  assert(
+    !aiNeededTags(cake).some((t) => /unfamiliar/i.test(t)),
+    `large eggs false-positive: ${aiNeededTags(cake)}`,
+  );
+  // compact one-liner ingredient format
+  const compact = parseRecipeText(
+    "Pancakes\nIngredients: 200 g flour, 2 eggs, 300 ml milk\nMix all. Fry in pan.",
+  );
+  assert(compact.ingredients.length === 3, `compact ings ${JSON.stringify(compact.ingredients)}`);
+  assert(compact.steps.length === 1, `compact steps ${compact.steps.length}`);
 
   // AI-needed tagging
   assert(!hasHardGaps(d), "clean draft has no hard gaps");
