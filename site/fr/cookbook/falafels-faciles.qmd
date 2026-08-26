@@ -6,6 +6,6 @@ total_time: "105 min"
 portions: "12"
 ---
 
-[🇬🇧 English version](../../cookbook/easy-vegan-falafel.html){.lang-switch}
+<nav class="lang-switch" aria-label="Language"><span class="lang-opt active" aria-current="true">FR</span><a class="lang-opt" href="../../cookbook/easy-vegan-falafel.html" hreflang="en" lang="en">EN</a></nav>
 
 {{< recipe fr/falafels-faciles >}}

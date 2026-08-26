@@ -5,6 +5,6 @@ total_time: "65 min"
 portions: "8"
 ---
 
-[🇫🇷 Version française](../fr/cookbook/gateau-au-chocolat.html){.lang-switch}
+<nav class="lang-switch" aria-label="Language"><a class="lang-opt" href="../fr/cookbook/gateau-au-chocolat.html" hreflang="fr" lang="fr">FR</a><span class="lang-opt active" aria-current="true">EN</span></nav>
 
 {{< recipe chocolate-cake >}}

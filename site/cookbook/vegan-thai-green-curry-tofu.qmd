@@ -5,6 +5,6 @@ total_time: "44 min"
 portions: "4"
 ---
 
-[🇫🇷 Version française](../fr/cookbook/curry-vert-thai-au-tofu-vegetalien.html){.lang-switch}
+<nav class="lang-switch" aria-label="Language"><a class="lang-opt" href="../fr/cookbook/curry-vert-thai-au-tofu-vegetalien.html" hreflang="fr" lang="fr">FR</a><span class="lang-opt active" aria-current="true">EN</span></nav>
 
 {{< recipe vegan-thai-green-curry-tofu >}}

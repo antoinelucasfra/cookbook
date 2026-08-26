@@ -6,6 +6,6 @@ total_time: "41.5 min"
 portions: "4"
 ---
 
-[🇬🇧 English version](../../cookbook/vegan-dan-dan-noodles.html){.lang-switch}
+<nav class="lang-switch" aria-label="Language"><span class="lang-opt active" aria-current="true">FR</span><a class="lang-opt" href="../../cookbook/vegan-dan-dan-noodles.html" hreflang="en" lang="en">EN</a></nav>
 
 {{< recipe fr/nouilles-dan-dan-vegetaliennes >}}

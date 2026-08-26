@@ -5,6 +5,6 @@ total_time: "334 min"
 portions: "8"
 ---
 
-[🇫🇷 Version française](../fr/cookbook/tarte-au-citron.html){.lang-switch}
+<nav class="lang-switch" aria-label="Language"><a class="lang-opt" href="../fr/cookbook/tarte-au-citron.html" hreflang="fr" lang="fr">FR</a><span class="lang-opt active" aria-current="true">EN</span></nav>
 
 {{< recipe lemon-tart >}}

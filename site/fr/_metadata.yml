@@ -8,6 +8,10 @@ website:
         text: Parcourir
       - href: import.qmd
         text: Importer
-      - href: ../index.qmd
-        text: English 🇬🇧
+      - text: "🌐"
+        menu:
+          - text: "English"
+            href: ../index.qmd
+          - text: "Français"
+            href: index.qmd
   page-footer: "Cuisiné avec [Gram](https://gram-lang.org) + Quarto"

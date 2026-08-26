@@ -6,6 +6,6 @@ total_time: "54 min"
 portions: "4"
 ---
 
-[🇬🇧 English version](../../cookbook/vegan-butter-chicken.html){.lang-switch}
+<nav class="lang-switch" aria-label="Language"><span class="lang-opt active" aria-current="true">FR</span><a class="lang-opt" href="../../cookbook/vegan-butter-chicken.html" hreflang="en" lang="en">EN</a></nav>
 
 {{< recipe fr/poulet-au-beurre-vegetalien >}}

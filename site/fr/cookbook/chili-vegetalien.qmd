@@ -6,6 +6,6 @@ total_time: "76 min"
 portions: "6"
 ---
 
-[🇬🇧 English version](../../cookbook/vegan-chili.html){.lang-switch}
+<nav class="lang-switch" aria-label="Language"><span class="lang-opt active" aria-current="true">FR</span><a class="lang-opt" href="../../cookbook/vegan-chili.html" hreflang="en" lang="en">EN</a></nav>
 
 {{< recipe fr/chili-vegetalien >}}

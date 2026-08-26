@@ -5,6 +5,6 @@ total_time: "1516 min"
 portions: "10"
 ---
 
-[🇫🇷 Version française](../fr/cookbook/caneles.html){.lang-switch}
+<nav class="lang-switch" aria-label="Language"><a class="lang-opt" href="../fr/cookbook/caneles.html" hreflang="fr" lang="fr">FR</a><span class="lang-opt active" aria-current="true">EN</span></nav>
 
 {{< recipe canneles >}}

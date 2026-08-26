@@ -6,6 +6,6 @@ total_time: "91 min"
 portions: "16"
 ---
 
-[🇬🇧 English version](../../cookbook/fudgy-vegan-brownies.html){.lang-switch}
+<nav class="lang-switch" aria-label="Language"><span class="lang-opt active" aria-current="true">FR</span><a class="lang-opt" href="../../cookbook/fudgy-vegan-brownies.html" hreflang="en" lang="en">EN</a></nav>
 
 {{< recipe fr/brownies-fondants-vegetaliens >}}

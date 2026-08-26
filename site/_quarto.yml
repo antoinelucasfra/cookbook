@@ -17,8 +17,12 @@ website:
         text: Browse
       - href: import.qmd
         text: Import
-      - href: fr/index.qmd
-        text: Français 🇫🇷
+      - text: "🌐"
+        menu:
+          - text: "English"
+            href: index.qmd
+          - text: "Français"
+            href: fr/index.qmd
   page-footer: "Cooked with [Gram](https://gram-lang.org) + Quarto"
 
 format:

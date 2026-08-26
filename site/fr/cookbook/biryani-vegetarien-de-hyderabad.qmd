@@ -6,6 +6,6 @@ total_time: "125.5 min"
 portions: "6"
 ---
 
-[🇬🇧 English version](../../cookbook/hyderabadi-vegetable-biryani.html){.lang-switch}
+<nav class="lang-switch" aria-label="Language"><span class="lang-opt active" aria-current="true">FR</span><a class="lang-opt" href="../../cookbook/hyderabadi-vegetable-biryani.html" hreflang="en" lang="en">EN</a></nav>
 
 {{< recipe fr/biryani-vegetarien-de-hyderabad >}}

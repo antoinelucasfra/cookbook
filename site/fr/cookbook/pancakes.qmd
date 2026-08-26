@@ -6,6 +6,6 @@ total_time: "17 min"
 portions: "2"
 ---
 
-[🇬🇧 English version](../../cookbook/pancakes.html){.lang-switch}
+<nav class="lang-switch" aria-label="Language"><span class="lang-opt active" aria-current="true">FR</span><a class="lang-opt" href="../../cookbook/pancakes.html" hreflang="en" lang="en">EN</a></nav>
 
 {{< recipe fr/pancakes >}}

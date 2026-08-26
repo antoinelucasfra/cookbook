@@ -177,7 +177,7 @@ for (const [base, s] of Object.entries(frSlug)) {
     p,
     readFileSync(p, "utf8").replace(
       "{{LANGSWITCH}}",
-      `[🇬🇧 English version](../../cookbook/${enSlug[base]}.html){.lang-switch}`,
+      `<nav class="lang-switch" aria-label="Language"><span class="lang-opt active" aria-current="true">FR</span><a class="lang-opt" href="../../cookbook/${enSlug[base]}.html" hreflang="en" lang="en">EN</a></nav>`,
     ),
   );
 }
@@ -187,7 +187,7 @@ for (const [base, s] of Object.entries(enSlug)) {
     p,
     readFileSync(p, "utf8").replace(
       "{{LANGSWITCH}}",
-      `[🇫🇷 Version française](../fr/cookbook/${frSlug[base]}.html){.lang-switch}`,
+      `<nav class="lang-switch" aria-label="Language"><a class="lang-opt" href="../fr/cookbook/${frSlug[base]}.html" hreflang="fr" lang="fr">FR</a><span class="lang-opt active" aria-current="true">EN</span></nav>`,
     ),
   );
 }

@@ -6,6 +6,6 @@ total_time: "90 min"
 portions: "6"
 ---
 
-[🇬🇧 English version](../../cookbook/butternut-squash-mac-and-cheese.html){.lang-switch}
+<nav class="lang-switch" aria-label="Language"><span class="lang-opt active" aria-current="true">FR</span><a class="lang-opt" href="../../cookbook/butternut-squash-mac-and-cheese.html" hreflang="en" lang="en">EN</a></nav>
 
 {{< recipe fr/mac-and-cheese-a-la-courge-butternut >}}

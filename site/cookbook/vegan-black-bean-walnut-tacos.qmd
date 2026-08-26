@@ -5,6 +5,6 @@ total_time: "52 min"
 portions: "6"
 ---
 
-[🇫🇷 Version française](../fr/cookbook/tacos-aux-haricots-noirs-et-noix.html){.lang-switch}
+<nav class="lang-switch" aria-label="Language"><a class="lang-opt" href="../fr/cookbook/tacos-aux-haricots-noirs-et-noix.html" hreflang="fr" lang="fr">FR</a><span class="lang-opt active" aria-current="true">EN</span></nav>
 
 {{< recipe vegan-black-bean-walnut-tacos >}}
