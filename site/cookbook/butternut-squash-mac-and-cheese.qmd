@@ -1,0 +1,10 @@
+---
+title: "Butternut Squash Mac and Cheese"
+category: "Pasta"
+total_time: "90 min"
+portions: "6"
+---
+
+[🇫🇷 Version française](../fr/cookbook/mac-and-cheese-a-la-courge-butternut.html){.lang-switch}
+
+{{< recipe butternut-squash-mac-and-cheese >}}

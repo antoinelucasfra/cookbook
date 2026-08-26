@@ -50,6 +50,7 @@ ingredients:
   sugar:
     name: Sugar
     aliases:
+      - coconut sugar
       - sucre
     category: Sugars
     physical:
@@ -86,6 +87,7 @@ ingredients:
   salt:
     name: Salt
     aliases:
+      - sea salt
       - sel
     physical:
       density: 2.16
@@ -244,6 +246,7 @@ ingredients:
   garlic:
     name: Garlic clove
     aliases:
+      - crushed garlic
       - ail
       - garlic
     category: Vegetables
@@ -316,6 +319,7 @@ ingredients:
   basil:
     name: Fresh basil
     aliases:
+      - dried basil
       - basilic
       - basil leaves
       - feuilles de basilic
@@ -366,6 +370,7 @@ ingredients:
   pasta:
     name: Spaghetti
     aliases:
+      - macaroni
       - pasta
       - spaghetti
       - spaghettis
@@ -426,6 +431,7 @@ ingredients:
   soy-sauce:
     name: Soy sauce
     aliases:
+      - dark soy sauce
       - tamari
       - sauce soja
       - sauce-soja
@@ -561,6 +567,7 @@ ingredients:
   tofu:
     name: Firm tofu
     aliases:
+      - extra-firm tofu
       - extra firm tofu
       - super-firm tofu
       - firm bean curd
@@ -1048,6 +1055,7 @@ ingredients:
   paprika:
     name: Paprika
     aliases:
+      - smoked paprika
       - paprika moulu
     category: Spices
     physical:
@@ -1551,3 +1559,134 @@ ingredients:
       carbs: 28.9
       fat: 42.2
     name_fr: Graines de lin moulues
+  mushrooms:
+    name: Cremini mushrooms
+    aliases:
+      - button mushrooms
+      - champignons de Paris
+    category: Vegetables
+    physical:
+      density: 0.35
+    nutrition:
+      calories: 22
+      protein: 3.1
+      carbs: 4.3
+      fat: 0.1
+    name_fr: Champignons bruns
+  oregano-dried:
+    name: Dried oregano
+    aliases:
+      - origan séché
+    category: Spices
+    physical:
+      density: 0.3
+    nutrition:
+      calories: 265
+      protein: 9
+      carbs: 69
+      fat: 4.3
+    name_fr: Origan séché
+  soy-milk:
+    name: Soy milk (unsweetened)
+    aliases:
+      - lait de soja
+    category: Drinks
+    physical:
+      density: 1.03
+    nutrition:
+      calories: 33
+      protein: 3.3
+      carbs: 1.5
+      fat: 1.8
+    name_fr: Lait de soja
+  dijon-mustard:
+    name: Dijon mustard
+    aliases:
+      - moutarde de Dijon
+    category: Condiments
+    physical:
+      density: 1.05
+    nutrition:
+      calories: 66
+      protein: 4.4
+      carbs: 5.8
+      fat: 3.3
+    name_fr: Moutarde de Dijon
+  onion-powder:
+    name: Onion powder
+    aliases:
+      - oignon en poudre
+    category: Spices
+    physical:
+      density: 0.36
+    nutrition:
+      calories: 341
+      protein: 10
+      carbs: 73
+      fat: 1.2
+    name_fr: Oignon en poudre
+  marinara-sauce:
+    name: Marinara sauce
+    aliases:
+      - sauce marinara
+    category: Condiments
+    physical:
+      density: 1.02
+    nutrition:
+      calories: 60
+      protein: 1.6
+      carbs: 9.2
+      fat: 2
+    name_fr: Sauce marinara
+  zucchini:
+    name: Zucchini
+    aliases:
+      - courgette
+    category: Vegetables
+    physical:
+      unit_weight: 200
+    nutrition:
+      calories: 17
+      protein: 1.2
+      carbs: 3.1
+      fat: 0.3
+    name_fr: Courgette
+  lasagna-sheets:
+    name: Lasagna sheets (dry)
+    aliases:
+      - feuilles de lasagne
+    category: Grains
+    physical:
+      unit_weight: 12
+    nutrition:
+      calories: 355
+      protein: 12
+      carbs: 72
+      fat: 2
+    name_fr: Feuilles de lasagne
+  butternut-squash:
+    name: Butternut squash
+    aliases:
+      - courge butternut
+    category: Vegetables
+    physical:
+      unit_weight: 1100
+    nutrition:
+      calories: 45
+      protein: 1
+      carbs: 11.7
+      fat: 0.1
+    name_fr: Courge butternut
+  vegan-ricotta:
+    name: Vegan ricotta (store-bought or almond)
+    aliases:
+      - ricotta végétale
+    category: Dairy-free
+    physical:
+      density: 1.0
+    nutrition:
+      calories: 180
+      protein: 6
+      carbs: 8
+      fat: 13
+    name_fr: Ricotta végétale

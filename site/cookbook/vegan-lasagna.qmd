@@ -1,0 +1,10 @@
+---
+title: "Vegan Lasagna"
+category: "Pasta"
+total_time: "116 min"
+portions: "8"
+---
+
+[🇫🇷 Version française](../fr/cookbook/lasagne-vegetaliennes.html){.lang-switch}
+
+{{< recipe vegan-lasagna >}}

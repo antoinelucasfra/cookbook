@@ -1,0 +1,11 @@
+---
+title: "Lasagne végétaliennes"
+lang: fr
+category: "Pâtes"
+total_time: "116 min"
+portions: "8"
+---
+
+[🇬🇧 English version](../../cookbook/vegan-lasagna.html){.lang-switch}
+
+{{< recipe fr/lasagne-vegetaliennes >}}

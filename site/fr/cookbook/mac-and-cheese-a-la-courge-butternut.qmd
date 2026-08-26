@@ -1,0 +1,11 @@
+---
+title: "Mac and cheese à la courge butternut"
+lang: fr
+category: "Pâtes"
+total_time: "90 min"
+portions: "6"
+---
+
+[🇬🇧 English version](../../cookbook/butternut-squash-mac-and-cheese.html){.lang-switch}
+
+{{< recipe fr/mac-and-cheese-a-la-courge-butternut >}}
