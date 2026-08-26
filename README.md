@@ -40,3 +40,16 @@ ingredients or steps; quantities missing; unfamiliar units) both in the UI and a
 a `# review:` comment in the draft — those flags mean an AI translation pass is
 recommended. Review the draft, save under `recipes/`, extend
 `.gram/ingredients.yaml` with any missing ingredients, then `npx gram check`.
+
+## Bilingual site (EN / FR)
+
+The site is fully bilingual. English lives in `recipes/` and renders to `site/cookbook/`;
+French recipes live in `recipes/fr/*.gram` and render (with the gram renderer's
+`lang: fr` output — French UI labels, tooltips, timings) to `site/fr/cookbook/`.
+
+- Each page links to its counterpart ("Version française" / "English version").
+- The Browse table reads `recipes-index.json` / `recipes-index-fr.json` depending on
+  the page language (`<html lang>`).
+- Ingredient display names: French names come from `name_fr` + aliases in
+  `.gram/ingredients.yaml`. When adding an ingredient, include both English and
+  French names/aliases.

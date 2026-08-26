@@ -1,8 +1,11 @@
 ---
 title: "Tarte au citron"
+lang: fr
 category: "Pâtisserie"
 total_time: "335 min"
 portions: "8"
 ---
+
+[🇬🇧 English version](../../cookbook/tarte-au-citron.html){.lang-switch}
 
 {{< recipe fr/tarte-au-citron >}}

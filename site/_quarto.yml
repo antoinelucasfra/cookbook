@@ -8,6 +8,7 @@ project:
 
 website:
   title: "Cookbook"
+  site-url: https://antoinelucasfra.github.io/cookbook/
   navbar:
     left:
       - href: index.qmd
@@ -16,13 +17,14 @@ website:
         text: Browse
       - href: import.qmd
         text: Import
-      - href: fr.qmd
-        text: Recettes FR
+      - href: fr/index.qmd
+        text: Français 🇫🇷
   page-footer: "Cooked with [Gram](https://gram-lang.org) + Quarto"
 
 format:
   html:
     theme: cosmo
+    lang: en
     css:
       - css/gram.css
       - css/gantt.css

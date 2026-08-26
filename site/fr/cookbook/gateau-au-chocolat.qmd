@@ -1,8 +1,11 @@
 ---
 title: "Gâteau au chocolat"
+lang: fr
 category: "Dessert"
 total_time: "65 min"
 portions: "8"
 ---
+
+[🇬🇧 English version](../../cookbook/gateau-au-chocolat.html){.lang-switch}
 
 {{< recipe fr/gateau-au-chocolat >}}

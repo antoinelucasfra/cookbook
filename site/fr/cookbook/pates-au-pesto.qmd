@@ -1,8 +1,11 @@
 ---
 title: "Pâtes au pesto"
+lang: fr
 category: "Pâtes"
 total_time: "27 min"
 portions: "2"
 ---
+
+[🇬🇧 English version](../../cookbook/pates-au-pesto.html){.lang-switch}
 
 {{< recipe fr/pates-au-pesto >}}

@@ -70,7 +70,7 @@ function initApp(root) {
     secs.forEach((s) =>
       s.classList.toggle("cook-hidden-section", s !== active && !s.contains(ss[i]))
     );
-    cookLabel.textContent = `Step ${i + 1}/${ss.length}`;
+    cookLabel.textContent = `${document.documentElement.lang === "fr" ? "Étape" : "Step"} ${i + 1}/${ss.length}`;
     ss[i].scrollIntoView({ behavior: "smooth", block: "center" });
   }
 
@@ -97,10 +97,13 @@ async function initBrowse() {
   const table = document.querySelector("#browse-table");
   if (!table) return;
   let recipes;
+  const fr = document.documentElement.lang === "fr";
   try {
-    recipes = await (await fetch("recipes-index.json")).json();
+    recipes = await (await fetch(fr ? "recipes-index-fr.json" : "recipes-index.json")).json();
   } catch {
-    table.textContent = "Failed to load recipe index.";
+    table.textContent = fr
+      ? "Échec du chargement de l’index des recettes."
+      : "Failed to load recipe index.";
     return;
   }
   const tbody = table.querySelector("tbody");
@@ -146,7 +149,7 @@ async function initBrowse() {
         return tr;
       })
     );
-    count.textContent = `${rs.length} / ${recipes.length} recipes`;
+    count.textContent = `${rs.length} / ${recipes.length} ${fr ? "recettes" : "recipes"}`;
   }
 
   table.querySelectorAll("th[data-sort]").forEach((th) =>

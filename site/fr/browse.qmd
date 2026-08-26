@@ -1,0 +1,37 @@
+---
+title: "Parcourir"
+lang: fr
+---
+
+## Comment utiliser ce cookbook
+
+Chaque recette est écrite en [Gram](https://gram-lang.org) et présentée de trois façons :
+
+- **Aperçu rapide** — un tableau en tête de chaque page de recette : les colonnes sont les actions (Mélanger, Cuire, Enfourner…), les lignes listent les ingrédients qui y entrent (quantités mises à l'échelle automatiquement), et la cellule de droite indique température et durée. Toute la recette en un coup d'œil.
+- **Étapes détaillées** — instructions pas à pas avec mélanges intermédiaires et chronologie.
+- **Mode cuisine** — cliquez sur *Mode cuisine* sur une page de recette pour dérouler les étapes mains libres ; l'étape en cours reste centrée pendant que vous travaillez.
+
+Utilisez les **boutons d'échelle** (½×–3×) sur une page de recette pour ajuster les portions ; chaque quantité, le tableau d'aperçu et les durées se mettent à jour instantanément. Le tableau ci-dessous filtre et trie toutes les recettes par titre, catégorie, durée ou portions.
+
+[English version](../browse.html)
+
+<div class="browse-controls">
+  <input id="browse-search" type="search" placeholder="Rechercher une recette…" aria-label="Rechercher une recette" />
+  <select id="browse-category" aria-label="Filtrer par catégorie">
+    <option value="">Toutes les catégories</option>
+  </select>
+  <span id="browse-count" class="browse-count"></span>
+</div>
+
+<table id="browse-table" class="browse-table">
+  <thead>
+    <tr>
+      <th data-sort="title">Titre</th>
+      <th data-sort="category">Catégorie</th>
+      <th data-sort="time">Durée totale</th>
+      <th data-sort="portions">Portions</th>
+      <th>Source</th>
+    </tr>
+  </thead>
+  <tbody></tbody>
+</table>

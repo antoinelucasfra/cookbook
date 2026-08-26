@@ -1,0 +1,43 @@
+---
+title: "Importer"
+lang: fr
+---
+
+## Importer une recette
+
+Transformez n'importe quelle recette en brouillon Gram : collez le texte brut ci-dessous ou donnez un lien web — la page le récupère, extrait le JSON-LD schema.org Recipe quand il existe (sinon analyse du texte brut) et convertit les quantités en grammes/millilitres. Tout ce que l'analyseur statique n'a pas pu traiter avec confiance est marqué sous le brouillon — ce sont les endroits où une relecture s'impose.
+
+Pour une conversion assistée par IA depuis une URL ou une vidéo YouTube, utilisez plutôt le CLI : `npx gram import <url> --pick-model` (nécessite une clé de fournisseur IA).
+
+[English version](../import.html)
+
+<form id="import-form" class="import-form">
+  <label for="import-url">URL de la recette</label>
+  <input id="import-url" type="url" placeholder="https://exemple.fr/recette" />
+  <label for="import-text">…ou collez le texte brut de la recette</label>
+  <textarea id="import-text" rows="8" placeholder="# Titre de la recette
+
+## Ingrédients
+
+- 200 g de tofu
+- 2 tasses d'épinards
+
+## Instructions
+
+1. Faire frire le tofu."></textarea>
+  <button type="submit">Convertir en Gram</button>
+</form>
+
+<p id="import-status" role="status"></p>
+
+<div id="import-tags" class="import-tags" hidden></div>
+
+<div id="import-output" hidden>
+  <h3>Brouillon Gram (<code>.gram</code>)</h3>
+  <pre><code></code></pre>
+  <div class="import-actions">
+    <button id="import-download" type="button">Télécharger .gram</button>
+    <button id="import-copy" type="button">Copier dans le presse-papiers</button>
+  </div>
+  <p>Enregistrez le fichier sous <code>recipes/&lt;slug&gt;.gram</code>, ajoutez les ingrédients manquants à <code>.gram/ingredients.yaml</code>, puis lancez <code>npx gram check "recipes/**/*.gram"</code> et reconstruisez.</p>
+</div>

@@ -6,7 +6,7 @@ source: "Classique de Bordeaux"
 lang: fr
 ---
 
-## Appareil ~{-1d} ->&batter
+## Appareil ~{-1d} ->&appareil
 
 [Mélanger] Dans un #saladier{}, mélanger la @farine{100 g}, le @sucre{200 g} et le @sel{2 g}. ->&ingrédients secs{}
 
@@ -22,4 +22,4 @@ lang: fr
 
 [Beurrer] Beurrer généreusement les #moules à canelés{}.
 
-[Remplir] Remplir les moules aux 3/4 avec la &batter. Cuire à ^{180°C} pendant ~_{50 min}.
+[Remplir] Remplir les moules aux 3/4 avec l'&appareil{}. Cuire à ^{180°C} pendant ~_{50 min}.

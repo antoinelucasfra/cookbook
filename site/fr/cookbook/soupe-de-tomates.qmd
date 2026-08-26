@@ -1,8 +1,11 @@
 ---
 title: "Soupe de tomates"
+lang: fr
 category: "Soupe"
 total_time: "52 min"
 portions: "4"
 ---
+
+[🇬🇧 English version](../../cookbook/soupe-de-tomates.html){.lang-switch}
 
 {{< recipe fr/soupe-de-tomates >}}

@@ -1,8 +1,11 @@
 ---
 title: "Pad Thaï végétalien (Pad Mee Korat)"
+lang: fr
 category: "Thaï"
 total_time: "140 min"
 portions: "2"
 ---
+
+[🇬🇧 English version](../../cookbook/pad-thai-vegetalien-pad-mee-korat.html){.lang-switch}
 
 {{< recipe fr/pad-thai-vegetalien-pad-mee-korat >}}

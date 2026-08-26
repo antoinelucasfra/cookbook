@@ -2,3 +2,4 @@ node_modules/
 dist/
 .env
 site/_site/
+cookbook-sim/

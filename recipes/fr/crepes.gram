@@ -6,15 +6,15 @@ source: "Classique français"
 lang: fr
 ---
 
-## Pâte ->&batter
+## Pâte ->&appareil
 
-[Mélanger] Dans un #blender{}, mixer la @farine{125 g}, le @lait{250 ml}, les @œufs{2}, le @sucre{1 tbsp} et le @sel{1 pinch} jusqu'à obtenir un mélange lisse. ->&crêpe batter{}
+[Mélanger] Dans un #blender{}, mixer la @farine{125 g}, le @lait{250 ml}, les @œufs{2}, le @sucre{1 tbsp} et le @sel{1 pinch} jusqu'à obtenir un mélange lisse. ->&pâte à crêpes{}
 
-[Reposer] Laisser reposer la &crêpe batter{} pendant ~{30 min}.
+[Reposer] Laisser reposer la &pâte à crêpes{} pendant ~{30 min}.
 
 ## Cuisson
 
-[Cuire] Chauffer une #poêle à crêpes{} à ^{feu moyen}, beurrer légèrement, et verser une fine louche de &crêpe batter{}.
+[Cuire] Chauffer une #poêle à crêpes{} à ^{feu moyen}, beurrer légèrement, et verser une fine louche de &pâte à crêpes{}.
 
 [Retourner] Cuire ~{1 min}, retourner, puis cuire encore ~{30 s}.
 

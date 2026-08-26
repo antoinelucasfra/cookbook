@@ -1,8 +1,11 @@
 ---
 title: "Crêpes"
+lang: fr
 category: "Petit-déjeuner"
 total_time: "47.5 min"
 portions: "4"
 ---
+
+[🇬🇧 English version](../../cookbook/crepes.html){.lang-switch}
 
 {{< recipe fr/crepes >}}

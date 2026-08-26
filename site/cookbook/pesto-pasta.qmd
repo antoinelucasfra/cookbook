@@ -5,4 +5,6 @@ total_time: "27 min"
 portions: "2"
 ---
 
+[🇫🇷 Version française](../fr/cookbook/pesto-pasta.html){.lang-switch}
+
 {{< recipe pesto-pasta >}}

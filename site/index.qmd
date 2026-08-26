@@ -1,7 +1,9 @@
 ---
 title: "Recipes"
 listing:
-  contents: cookbook
+  contents:
+    - cookbook/*.qmd
+    - "!fr/**"
   type: grid
   fields: [title, category, total_time]
   field-display-names:

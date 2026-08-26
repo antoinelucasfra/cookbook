@@ -12,7 +12,7 @@ lang: fr
 
 [Chemiser] Beurrer et fariner un #moule carré{}.
 
-## Appareil ->&batter
+## Appareil ->&appareil
 
 [Fondre] Faire fondre le @beurre{115 g} dans une #casserole{}. ->&beurre fondu{}
 
@@ -24,6 +24,6 @@ lang: fr
 
 ## Cuisson
 
-[Remplir] Verser la &batter dans le #moule carré.
+[Remplir] Verser l'&appareil{} dans le #moule carré.
 
 [Enfourner] Cuire à ^{175°C} pendant ~{35 min}, jusqu'à ce qu'un couteau ressorte propre.

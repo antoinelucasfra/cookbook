@@ -5,7 +5,7 @@ category: Petit-déjeuner
 lang: fr
 ---
 
-## Pâte ->&batter
+## Pâte ->&appareil
 
 [Mélanger] Dans un #saladier{}, fouetter la @farine{160 g}, la @levure chimique{1 tsp}, le @sucre{1 tbsp} et le @sel{1/4 tsp}. ->&mélange sec{}
 
@@ -13,4 +13,4 @@ lang: fr
 
 ## Cuisson
 
-[Cuire] Verser la &batter sur une #plaque à pâtisserie{} à ^{feu moyen} et cuire ~{2 min}.
+[Cuire] Verser la &appareil sur une #plaque à pâtisserie{} à ^{feu moyen} et cuire ~{2 min}.

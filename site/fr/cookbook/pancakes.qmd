@@ -1,8 +1,11 @@
 ---
 title: "Pancakes"
+lang: fr
 category: "Petit-déjeuner"
 total_time: "17 min"
 portions: "2"
 ---
+
+[🇬🇧 English version](../../cookbook/pancakes.html){.lang-switch}
 
 {{< recipe fr/pancakes >}}

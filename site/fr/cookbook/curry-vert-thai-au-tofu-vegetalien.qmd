@@ -1,8 +1,11 @@
 ---
 title: "Curry vert thaï au tofu (végétalien)"
+lang: fr
 category: "Thaï"
 total_time: "42 min"
 portions: "4"
 ---
+
+[🇬🇧 English version](../../cookbook/curry-vert-thai-au-tofu-vegetalien.html){.lang-switch}
 
 {{< recipe fr/curry-vert-thai-au-tofu-vegetalien >}}
