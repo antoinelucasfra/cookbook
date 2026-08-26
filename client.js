@@ -99,7 +99,8 @@ async function initBrowse() {
   let recipes;
   const fr = document.documentElement.lang === "fr";
   try {
-    recipes = await (await fetch(fr ? "recipes-index-fr.json" : "recipes-index.json")).json();
+    // fr pages live under /fr/ → index is one level up
+    recipes = await (await fetch(fr ? "../recipes-index-fr.json" : "recipes-index.json")).json();
   } catch {
     table.textContent = fr
       ? "Échec du chargement de l’index des recettes."
@@ -191,10 +192,37 @@ async function fetchPage(url) {
 function initImport() {
   const form = document.querySelector("#import-form");
   if (!form) return;
+  const fr = document.documentElement.lang === "fr";
+  const T = fr
+    ? {
+        needsReview: "⚠ À vérifier — traduction IA recommandée pour :",
+        aiTip: "Essayez `npx gram import <url> --pick-model` pour une conversion assistée par IA.",
+        parsed: (i, s) => `${i} ingrédients et ${s} étapes analysés.`,
+        flagged: (n) => ` ${n} élément(s) marqué(s) à relire.`,
+        clean: " Traduction statique qui semble complète.",
+        enter: "Saisissez une URL de recette ou collez le texte de la recette.",
+        urlPrefix: "L’URL doit commencer par http(s)://",
+        fetching: "Récupération…",
+        failed: (m) => `Échec de l’import : ${m}. Collez plutôt le texte de la recette.`,
+        copied: "Copié dans le presse-papiers.",
+      }
+    : {
+        needsReview: "⚠ Needs review — AI translation recommended for these:",
+        aiTip: "Try `npx gram import <url> --pick-model` for AI-assisted conversion.",
+        parsed: (i, s) => `Parsed ${i} ingredients and ${s} steps.`,
+        flagged: (n) => ` ${n} item(s) flagged for review.`,
+        clean: " Looks like a clean static translation.",
+        enter: "Enter a recipe URL or paste the recipe text.",
+        urlPrefix: "URL must start with http(s)://",
+        fetching: "Fetching…",
+        failed: (m) => `Import failed: ${m}. Paste the recipe text instead.`,
+        copied: "Copied to clipboard.",
+      };
   const urlIn = document.querySelector("#import-url");
   const textEl = document.querySelector("#import-text");
   const status = document.querySelector("#import-status");
   const out = document.querySelector("#import-output");
+  const preview = out?.querySelector("#import-preview");
   let gramText = "";
 
   function show(msg, isError = false) {
@@ -205,13 +233,13 @@ function initImport() {
   function emit(draft, meta) {
     gramText = draftToGram(draft, meta);
     const tags = aiNeededTags(draft);
-    out.querySelector("pre").textContent = gramText;
+    if (preview) preview.value = gramText;
     const tagBox = out.querySelector("#import-tags");
     tagBox.replaceChildren();
     if (tags.length) {
       const p = document.createElement("p");
       p.className = "import-tags-title";
-      p.textContent = "⚠ Needs review — AI translation recommended for these:";
+      p.textContent = T.needsReview;
       const ul = document.createElement("ul");
       for (const t of tags) {
         const li = document.createElement("li");
@@ -219,13 +247,14 @@ function initImport() {
         ul.append(li);
       }
       const tip = document.createElement("p");
-      tip.textContent = "Try `npx gram import <url> --pick-model` for AI-assisted conversion.";
+      tip.textContent = T.aiTip;
       tagBox.append(p, ul, tip);
     }
     tagBox.hidden = !tags.length;
     out.hidden = false;
     show(
-      `Parsed ${draft.ingredients.length} ingredients and ${draft.steps.length} steps.${tags.length ? ` ${tags.length} item(s) flagged for review.` : " Looks like a clean static translation."}`, tags.length > 0 && (!draft.ingredients.length || !draft.steps.length),
+      `${T.parsed(draft.ingredients.length, draft.steps.length)}${tags.length ? T.flagged(tags.length) : T.clean}`,
+      tags.length > 0 && (!draft.ingredients.length || !draft.steps.length),
     );
   }
 
@@ -239,9 +268,9 @@ function initImport() {
         emit(parseRecipeText(raw), {});
         return;
       }
-      if (!url) return show("Enter a recipe URL or paste the recipe text.", true);
-      if (!/^https?:\/\//.test(url)) return show("URL must start with http(s)://", true);
-      show("Fetching…");
+      if (!url) return show(T.enter, true);
+      if (!/^https?:\/\//.test(url)) return show(T.urlPrefix, true);
+      show(T.fetching);
       const body = await fetchPage(url);
       let recipe = null;
       try {
@@ -257,19 +286,23 @@ function initImport() {
         emit(parseRecipeText(body, ""), { source: url });
       }
     } catch (err) {
-      show(`Import failed: ${err.message}. Paste the recipe text instead.`, true);
+      show(T.failed(err.message), true);
     }
   });
 
+  // copy/download use the (possibly hand-edited) preview content
+  const currentText = () => preview?.value || gramText;
+
   document.querySelector("#import-copy")?.addEventListener("click", async () => {
-    await navigator.clipboard.writeText(gramText);
-    show("Copied to clipboard.");
+    await navigator.clipboard.writeText(currentText());
+    show(T.copied);
   });
   document.querySelector("#import-download")?.addEventListener("click", () => {
-    const title = gramText.match(/^title: (.+)$/m)?.[1] ?? "recipe";
+    const gram = currentText();
+    const title = gram.match(/^title: (.+)$/m)?.[1] ?? "recipe";
     const slug = title.toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/^-+|-+$/g, "");
     const a = document.createElement("a");
-    a.href = URL.createObjectURL(new Blob([gramText], { type: "text/plain" }));
+    a.href = URL.createObjectURL(new Blob([gram], { type: "text/plain" }));
     a.download = `${slug}.gram`;
     a.click();
     URL.revokeObjectURL(a.href);

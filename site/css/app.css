@@ -216,13 +216,20 @@ table.recipe-snippet {
   font-family: ui-monospace, monospace;
   font-size: 0.875rem;
 }
-#import-output pre {
+#import-output pre,
+#import-output textarea {
   background: #f8fafc;
   border: 1px solid #e5e7eb;
   border-radius: 6px;
   padding: 1rem;
   overflow-x: auto;
   white-space: pre-wrap;
+}
+#import-output textarea {
+  width: 100%;
+  font-family: ui-monospace, monospace;
+  font-size: 0.85rem;
+  resize: vertical;
 }
 .import-actions {
   display: flex;

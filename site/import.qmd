@@ -31,7 +31,7 @@ For higher-fidelity AI-assisted conversion from a URL or YouTube video, use the 
 
 <div id="import-output" hidden>
   <h3>Gram draft (<code>.gram</code>)</h3>
-  <pre><code></code></pre>
+  <textarea id="import-preview" rows="18" spellcheck="false"></textarea>
   <div class="import-actions">
     <button id="import-download" type="button">Download .gram</button>
     <button id="import-copy" type="button">Copy to clipboard</button>

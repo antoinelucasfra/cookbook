@@ -19,6 +19,12 @@ const UNIT_MAP = {
   pint: "473 ml",
   quart: "946 ml",
   qt: "946 ml",
+  gal: "3800 ml",
+  gallon: "3800 ml",
+  gallons: "3800 ml",
+  stick: "113 g",
+  sticks: "113 g",
+  floz: "30 ml",
 };
 
 const QTY = String.raw`(?:\d+\s+\d*\/\d+|\d+\/\d+|\d+[.,]\d+|\d+|[¼½¾⅓⅔⅛⅜⅝⅞])`;
@@ -60,7 +66,7 @@ function slugify(s) {
   );
 }
 
-function toGramQty(qtyStr, unitStr) {
+export function toGramQty(qtyStr, unitStr) {
   const qty = qtyStr.trim();
   const unit = (unitStr || "").toLowerCase().replace(/\.$/, "");
   if (UNIT_MAP[unit]) {
@@ -284,6 +290,32 @@ export function hasHardGaps(draft) {
   return !draft.title || !draft.ingredients.length || !draft.steps.length;
 }
 
+/** °F → °C inside step text ("350°F" → "177 °C"). */
+function convertTemps(s) {
+  return s.replace(/(\d{2,3})\s*°\s*F\b/gi, (_, f) => {
+    const c = Math.round(((Number(f) - 32) * 5) / 9);
+    return `${c} °C`;
+  });
+}
+
+/** Trailing duration in a step ("...for 35 minutes.") → gram timer suffix. */
+const TIME_RE =
+  /[,;]?\s*(?:for |about )?(\d+)(?:\s*(?:to|-|–)\s*(\d+))?\s*(hours?|hrs?|h|minutes?|mins?|min|seconds?|secs?)\.?\s*$/i;
+
+function extractTimer(s) {
+  if (s.includes("~{")) return [s, ""];
+  const m = s.match(TIME_RE);
+  if (!m) return [s, ""];
+  const n = Math.max(Number(m[1]), Number(m[2] ?? m[1]));
+  const unit = m[3].toLowerCase();
+  const timer = /^h/.test(unit)
+    ? `~{${n * 60} min}`
+    : /^min/.test(unit) || unit === "m"
+      ? `~{${n} min}`
+      : `~{${n} s}`;
+  return [s.slice(0, m.index).trimEnd().replace(/[,;.]$/, ""), timer];
+}
+
 /** Draft → full .gram file source. */
 export function draftToGram(draft, meta = {}) {
   const title = draft.title || meta.title || "Imported recipe";
@@ -296,7 +328,10 @@ export function draftToGram(draft, meta = {}) {
     const q = i.qty ? `{${toGramQty(i.qty, i.unit)}}` : "{}";
     return `- @${slugify(i.name)}${q} — ${i.name}`;
   });
-  const stepLines = draft.steps.map((s, idx) => `[Step ${idx + 1}] ${s}`);
+  const stepLines = draft.steps.map((s0, idx) => {
+    const [text, timer] = extractTimer(convertTemps(s0));
+    return `[Step ${idx + 1}] ${timer ? `${text}, ${timer}` : text}`;
+  });
   return `${tagComment}---
 title: ${title}
 portions: ${portions || 4}
@@ -314,140 +349,3 @@ ${stepLines.join("\n\n")}
 `;
 }
 
-// --- self-check ---
-if (
-  typeof process !== "undefined" &&
-  process.argv[1]?.endsWith("import-parser.mjs")
-) {
-  const assert = (cond, msg) => {
-    if (!cond) {
-      console.error("FAIL:", msg);
-      process.exitCode = 1;
-    }
-  };
-
-  const d = parseRecipeText(`# Vegan Pad Thai
-
-## Ingredients
-
-- 112 g dry rice noodles
-- 2 cups spinach
-- 3 tbsp soy sauce
-- 1 ½ oz peanuts
-- Salt to taste
-
-## Instructions
-
-1. Soak the noodles.
-2. Stir fry everything. Serve hot.`);
-  assert(d.title === "Vegan Pad Thai", "title");
-  assert(
-    d.ingredients.length === 5,
-    `ingredients count ${d.ingredients.length}`,
-  );
-  assert(
-    d.ingredients[0].qty === "112" &&
-      d.ingredients[0].unit === "g" &&
-      d.ingredients[0].name === "dry rice noodles",
-    JSON.stringify(d.ingredients[0]),
-  );
-  assert(
-    toGramQty("2", "cups") === "480 ml",
-    `cup map ${toGramQty("2", "cups")}`,
-  );
-  assert(toGramQty("1 ½", "oz") === "42 g", `oz map ${toGramQty("1 ½", "oz")}`);
-  assert(d.steps.length === 2, `steps ${d.steps.length}`);
-
-  const gram = draftToGram(d, { portions: 2, source: "https://example.com" });
-  assert(gram.includes("title: Vegan Pad Thai"), "gram title");
-  assert(
-    gram.includes("@dry-rice-noodles{112 g}"),
-    `gram ing: ${gram.split("\n")[12]}`,
-  );
-  assert(gram.includes("@spinach{480 ml}"), "gram cup conversion");
-  assert(gram.includes("[Step 1] Soak"), "gram step");
-
-  const html = `<html><script type="application/ld+json">{"@graph":[{"@type":"Article"},{"@type":"Recipe","name":"Tofu Curry","recipeYield":"4","recipeIngredient":["200 g tofu","1 cup rice"],"recipeInstructions":[{"text":"Fry."},{"text":"Simmer 10 min."}]}</script></html>`;
-  // DOMParser not available in bare node — test jsonLd path via jsdom-free fallback:
-  if (typeof DOMParser === "undefined") {
-    console.log("(DOMParser unavailable in node — skipping JSON-LD check)");
-  } else {
-    const r = extractJsonLdRecipe(html);
-    assert(r?.name === "Tofu Curry", "jsonld name");
-    const d2 = jsonLdToDraft(r);
-    assert(d2.ingredients.length === 2, "jsonld ings");
-    assert(d2.steps[0] === "Fry.", "jsonld steps");
-  }
-
-  // intro prose must not leak into steps
-  const cake = parseRecipeText(`Best Chocolate Cake
-
-This cake has been in my family for years. It is amazing.
-
-Serves 8 | Prep 20 min
-
-Ingredients:
-- 250 g flour
-- 2 large eggs
-- pinch of salt
-
-Instructions:
-Preheat oven to 180°C.
-Mix dry ingredients.`);
-  assert(cake.title === "Best Chocolate Cake", `cake title ${cake.title}`);
-  assert(
-    !cake.steps.some((s) => /family/.test(s)),
-    `intro prose leaked into steps: ${cake.steps}`,
-  );
-  assert(cake.steps.length === 2, `cake steps ${cake.steps.length}`);
-  assert(cake.portions === "8", `serves parsed ${cake.portions}`);
-  assert(
-    !aiNeededTags(cake).some((t) => /unfamiliar/i.test(t)),
-    `large eggs false-positive: ${aiNeededTags(cake)}`,
-  );
-  // compact one-liner ingredient format
-  const compact = parseRecipeText(
-    "Pancakes\nIngredients: 200 g flour, 2 eggs, 300 ml milk\nMix all. Fry in pan.",
-  );
-  assert(compact.ingredients.length === 3, `compact ings ${JSON.stringify(compact.ingredients)}`);
-  assert(compact.steps.length === 1, `compact steps ${compact.steps.length}`);
-
-  // AI-needed tagging
-  assert(!hasHardGaps(d), "clean draft has no hard gaps");
-  const dTags = aiNeededTags(d);
-  assert(
-    dTags.some((t) => /quantity/.test(t)),
-    `salt-to-taste flagged soft: ${dTags}`,
-  );
-  const messy = parseRecipeText(
-    "Random prose paragraph about my grandmother and food memories.",
-  );
-  const mt = aiNeededTags(messy);
-  assert(hasHardGaps(messy), "messy draft flagged hard");
-  assert(
-    mt.some((t) => /ingredient/i.test(t)),
-    `messy draft tagged for ingredients: ${mt}`,
-  );
-  assert(
-    mt.some((t) => /instruction/i.test(t)) ||
-      mt.some((t) => /ingredient/i.test(t)),
-    `messy draft tagged for extraction gaps: ${mt}`,
-  );
-  const noSteps = parseRecipeText("# Soup\n\n## Ingredients\n\n- 200 g tofu");
-  assert(
-    aiNeededTags(noSteps).some((t) => /instruction/i.test(t)),
-    `missing steps flagged: ${aiNeededTags(noSteps)}`,
-  );
-  assert(
-    draftToGram(messy).includes("# review:"),
-    "tags emitted as review comment in .gram",
-  );
-  assert(
-    !draftToGram(d).includes("# review:"),
-    "clean draft has no review comment",
-  );
-
-  console.log(
-    process.exitCode ? "SELF-CHECK FAILED" : "import-parser self-check OK",
-  );
-}
