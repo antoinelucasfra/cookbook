@@ -128,7 +128,7 @@ portions: "${base.meta?.portions ?? ""}"
 ---
 
 ${langSwitch}\n
-{{< recipe ${slug} >}}
+{{< recipe ${lang === "fr" ? `fr/` : ``}${slug} >}}
 `,
     );
 
@@ -168,15 +168,6 @@ const fr = await buildPass({
   lang: "fr",
 });
 
-// fr recipes embed {{< recipe fr/slug >}} → reads _includes/fr/<slug>.html
-for (let i = 0; i < fr.length; i++) {
-  let qmd = readFileSync(`site/fr/cookbook/${fr[i].slug}.qmd`, "utf8");
-  qmd = qmd.replace(
-    `{{< recipe ${fr[i].slug} >}}`,
-    `{{< recipe fr/${fr[i].slug} >}}`,
-  );
-  writeFileSync(`site/fr/cookbook/${fr[i].slug}.qmd`, qmd);
-}
 // resolve {{LANGSWITCH}} placeholders using basename→slug maps
 const enSlug = slugByBase(en, enFiles);
 const frSlug = slugByBase(fr, frFiles);

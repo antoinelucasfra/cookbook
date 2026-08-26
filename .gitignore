@@ -3,3 +3,5 @@ dist/
 .env
 site/_site/
 cookbook-sim/
+site/css/gram.css
+site/css/gantt.css
