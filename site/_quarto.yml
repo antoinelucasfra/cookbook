@@ -4,6 +4,7 @@ project:
   resources:
     - recipe-app.js
     - recipes-index.json
+    - recipes-index-fr.json
 
 website:
   title: "Cookbook"
@@ -15,6 +16,8 @@ website:
         text: Browse
       - href: import.qmd
         text: Import
+      - href: fr.qmd
+        text: Recettes FR
   page-footer: "Cooked with [Gram](https://gram-lang.org) + Quarto"
 
 format:

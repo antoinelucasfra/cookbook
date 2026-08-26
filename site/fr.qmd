@@ -1,0 +1,12 @@
+---
+title: "Recettes (FR)"
+listing:
+  contents: cookbook/fr
+  type: grid
+  fields: [title, category, total_time]
+  field-display-names:
+    category: Catégorie
+    total_time: Durée
+---
+
+Version française du cookbook. Chaque recette est écrite en [Gram](https://gram-lang.org) et rendue avec les mêmes outils que la version anglaise : aperçu rapide, étapes détaillées, mode cuisine et mise à l'échelle des portions.

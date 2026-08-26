@@ -1,0 +1,8 @@
+---
+title: "Pâtes au pesto"
+category: "Pâtes"
+total_time: "27 min"
+portions: "2"
+---
+
+{{< recipe fr/pates-au-pesto >}}

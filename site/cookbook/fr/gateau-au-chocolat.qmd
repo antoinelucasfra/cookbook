@@ -1,0 +1,8 @@
+---
+title: "Gâteau au chocolat"
+category: "Dessert"
+total_time: "65 min"
+portions: "8"
+---
+
+{{< recipe fr/gateau-au-chocolat >}}

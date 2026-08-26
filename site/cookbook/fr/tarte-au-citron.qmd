@@ -1,0 +1,8 @@
+---
+title: "Tarte au citron"
+category: "Pâtisserie"
+total_time: "335 min"
+portions: "8"
+---
+
+{{< recipe fr/tarte-au-citron >}}

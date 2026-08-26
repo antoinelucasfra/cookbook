@@ -1,0 +1,8 @@
+---
+title: "Nouilles Dan Dan végétaliennes"
+category: "Chinois"
+total_time: "41.5 min"
+portions: "4"
+---
+
+{{< recipe fr/nouilles-dan-dan-vegetaliennes >}}

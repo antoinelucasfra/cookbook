@@ -1,0 +1,82 @@
+[
+  {
+    "slug": "caneles",
+    "title": "Canelés",
+    "category": "Pâtisserie",
+    "time": 1516,
+    "portions": "10",
+    "source": "Classique de Bordeaux"
+  },
+  {
+    "slug": "gateau-au-chocolat",
+    "title": "Gâteau au chocolat",
+    "category": "Dessert",
+    "time": 65,
+    "portions": "8",
+    "source": "Style brownie classique"
+  },
+  {
+    "slug": "crepes",
+    "title": "Crêpes",
+    "category": "Petit-déjeuner",
+    "time": 47.5,
+    "portions": "4",
+    "source": "Classique français"
+  },
+  {
+    "slug": "tarte-au-citron",
+    "title": "Tarte au citron",
+    "category": "Pâtisserie",
+    "time": 335,
+    "portions": "8",
+    "source": ""
+  },
+  {
+    "slug": "pancakes",
+    "title": "Pancakes",
+    "category": "Petit-déjeuner",
+    "time": 17,
+    "portions": "2",
+    "source": ""
+  },
+  {
+    "slug": "pates-au-pesto",
+    "title": "Pâtes au pesto",
+    "category": "Pâtes",
+    "time": 27,
+    "portions": "2",
+    "source": "À la génoise"
+  },
+  {
+    "slug": "curry-vert-thai-au-tofu-vegetalien",
+    "title": "Curry vert thaï au tofu (végétalien)",
+    "category": "Thaï",
+    "time": 42,
+    "portions": "4",
+    "source": "https://cinnamonsnail.com/vegan-green-curry-tofu/"
+  },
+  {
+    "slug": "soupe-de-tomates",
+    "title": "Soupe de tomates",
+    "category": "Soupe",
+    "time": 52,
+    "portions": "4",
+    "source": "Valeur sûre du soir"
+  },
+  {
+    "slug": "nouilles-dan-dan-vegetaliennes",
+    "title": "Nouilles Dan Dan végétaliennes",
+    "category": "Chinois",
+    "time": 41.5,
+    "portions": "4",
+    "source": "https://www.connoisseurusveg.com/vegan-dan-dan-noodles/"
+  },
+  {
+    "slug": "pad-thai-vegetalien-pad-mee-korat",
+    "title": "Pad Thaï végétalien (Pad Mee Korat)",
+    "category": "Thaï",
+    "time": 140,
+    "portions": "2",
+    "source": "https://hot-thai-kitchen.com/vegan-pad-thai/"
+  }
+]

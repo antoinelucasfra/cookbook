@@ -1,0 +1,29 @@
+---
+title: Gâteau au chocolat
+portions: 8
+category: Dessert
+source: "Style brownie classique"
+lang: fr
+---
+
+## Préparation
+
+[Préchauffer] Préchauffer le four à ^{175°C}.
+
+[Chemiser] Beurrer et fariner un #moule carré{}.
+
+## Appareil ->&batter
+
+[Fondre] Faire fondre le @beurre{115 g} dans une #casserole{}. ->&beurre fondu{}
+
+[Mélanger] Dans un #saladier{}, mélanger le @sucre{200 g}, l'extrait de @vanille{1 tsp} et le @café fort{60 ml}. ->&mélange sucré{}
+
+[Ajouter les œufs] Fouetter les @œufs{2} dans le &mélange sucré{}.
+
+[Incorporer] Ajouter le &beurre fondu{}, la @farine{80 g}, le @cacao en poudre{60 g}, la @levure chimique{1/4 tsp} et le @sel{1/4 tsp} à l'appareil.
+
+## Cuisson
+
+[Remplir] Verser la &batter dans le #moule carré.
+
+[Enfourner] Cuire à ^{175°C} pendant ~{35 min}, jusqu'à ce qu'un couteau ressorte propre.

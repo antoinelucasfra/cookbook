@@ -1,0 +1,8 @@
+---
+title: "Pancakes"
+category: "Petit-déjeuner"
+total_time: "17 min"
+portions: "2"
+---
+
+{{< recipe fr/pancakes >}}

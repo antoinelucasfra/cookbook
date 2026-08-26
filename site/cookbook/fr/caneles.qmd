@@ -1,0 +1,8 @@
+---
+title: "Canelés"
+category: "Pâtisserie"
+total_time: "1516 min"
+portions: "10"
+---
+
+{{< recipe fr/caneles >}}

@@ -1,0 +1,21 @@
+---
+title: Crêpes
+portions: 4
+category: Petit-déjeuner
+source: "Classique français"
+lang: fr
+---
+
+## Pâte ->&batter
+
+[Mélanger] Dans un #blender{}, mixer la @farine{125 g}, le @lait{250 ml}, les @œufs{2}, le @sucre{1 tbsp} et le @sel{1 pinch} jusqu'à obtenir un mélange lisse. ->&crêpe batter{}
+
+[Reposer] Laisser reposer la &crêpe batter{} pendant ~{30 min}.
+
+## Cuisson
+
+[Cuire] Chauffer une #poêle à crêpes{} à ^{feu moyen}, beurrer légèrement, et verser une fine louche de &crêpe batter{}.
+
+[Retourner] Cuire ~{1 min}, retourner, puis cuire encore ~{30 s}.
+
+[Beurrer] Faire fondre le @beurre{30 g} et beurrer la poêle entre chaque crêpe.

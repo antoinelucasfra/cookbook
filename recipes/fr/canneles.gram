@@ -1,0 +1,25 @@
+---
+title: Canelés
+portions: 10
+category: Pâtisserie
+source: "Classique de Bordeaux"
+lang: fr
+---
+
+## Appareil ~{-1d} ->&batter
+
+[Mélanger] Dans un #saladier{}, mélanger la @farine{100 g}, le @sucre{200 g} et le @sel{2 g}. ->&ingrédients secs{}
+
+[Chauffer] Dans une #casserole{}, porter le @lait{500 ml}, le @beurre{50 g} et la @gousse de vanille{1}(fendue et grattée) à ^{85°C}. ->&lait chaud{}
+
+[Mélanger] Verser le &lait chaud{} d'un coup sur les &ingrédients secs{}. Fouetter vigoureusement.
+
+[Ajouter] Ajouter les @jaunes d'œuf{4}<@œuf{4} et le @rhum{50 ml}.
+
+[Reposer] Filmer au contact avec du #film alimentaire{} et réfrigérer au moins ~_réfrigérateur{24 h}.
+
+## Moulage
+
+[Beurrer] Beurrer généreusement les #moules à canelés{}.
+
+[Remplir] Remplir les moules aux 3/4 avec la &batter. Cuire à ^{180°C} pendant ~_{50 min}.

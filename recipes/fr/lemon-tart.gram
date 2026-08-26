@@ -1,0 +1,26 @@
+---
+title: Tarte au citron
+portions: 8
+category: Pâtisserie
+lang: fr
+---
+
+@use "../bases/pate-sucree-fr.gram" as &pate
+
+## Fond
+
+[Foncer] Étaler la &pate{250 g} et foncer un #cercle à tarte{}. Piquer à la #fourchette{}.
+
+[Cuire à blanc] Cuire à ^{170°C} pendant ~_{15 min}, jusqu'à ce qu'il soit légèrement doré.
+
+## Crème ->&curd
+
+[Fouetter] Fouetter les @œufs{3}, le @sucre{150 g}, le @jus de citron{120 ml}<@citron{4}(pressé) et le @zeste de citron{2}<@citron{2}(râpé) dans une #casserole{}. ->&mélange crème{}
+
+[Épaissir] Cuire le &mélange crème{} à ^{feu doux} pendant ~{5 min} en remuant, jusqu'à ce qu'il nappe la #spatule{}. Hors du feu, ajouter le @beurre{60 g}.
+
+[Filtrer] Passer au #tamis fin{}.
+
+## Montage
+
+[Garnir] Verser la &curd dans le fond. Prendre ~_réfrigérateur{3 h}.

@@ -34,14 +34,21 @@ rmSync("site/_includes", { recursive: true, force: true });
 rmSync("site/cookbook", { recursive: true, force: true });
 rmSync("site/recipes-index.json", { force: true });
 mkdirSync("site/_includes", { recursive: true });
+mkdirSync("site/_includes/fr", { recursive: true });
 mkdirSync("site/cookbook", { recursive: true });
+mkdirSync("site/cookbook/fr", { recursive: true });
 
-const index = [];
-for (const file of listGram("recipes").filter((f) => !f.includes("bases/"))) {
+async function buildPass({ dir, includeDir, cookbookDir, lang = "en", excludeFr = false }) {
+  const index = [];
+  for (const file of listGram(dir).filter(
+    (f) =>
+      !f.includes("bases/") && (!excludeFr || !f.includes("/fr/")),
+  )) {
   const scales = {};
   for (const s of SCALES) {
     const { analyzed } = await runPipeline(file, {
       db: DB,
+      lang,
       scaleFactor: s === 1 ? undefined : s,
     });
     const r = analyzed.result;
@@ -80,10 +87,10 @@ for (const file of listGram("recipes").filter((f) => !f.includes("bases/"))) {
   <details class="gantt-details"><summary>⏱ Timeline</summary><div class="gantt-render"></div></details>
   <script type="application/json" class="recipe-data">${JSON.stringify(scales).replace(/</g, "\\u003c")}</script>
 </div>`;
-  writeFileSync(`site/_includes/${slug}.html`, interactive);
+  writeFileSync(`${includeDir}/${slug}.html`, interactive);
 
   writeFileSync(
-    `site/cookbook/${slug}.qmd`,
+    `${cookbookDir}/${slug}.qmd`,
     `---
 title: "${base.title}"
 category: "${base.meta?.category ?? "Uncategorized"}"
@@ -103,8 +110,34 @@ portions: "${base.meta?.portions ?? ""}"
     portions: base.meta?.portions ?? "",
     source: base.meta?.source ?? "",
   });
-  console.log(`✓ ${slug} (${base.metrics?.totalTime ?? "?"} min)`);
+  console.log(`✓ ${lang}/${slug} (${base.metrics?.totalTime ?? "?"} min)`);
+  }
+  return index;
 }
 
-writeFileSync("site/recipes-index.json", JSON.stringify(index, null, 2));
-console.log(`\n${index.length} recipes → site/`);
+const en = await buildPass({
+  dir: "recipes",
+  includeDir: "site/_includes",
+  cookbookDir: "site/cookbook",
+  excludeFr: true,
+});
+const fr = await buildPass({
+  dir: "recipes/fr",
+  includeDir: "site/_includes/fr",
+  cookbookDir: "site/cookbook/fr",
+  lang: "fr",
+});
+
+// fr recipes embed {{< recipe fr/slug >}} → reads _includes/fr/<slug>.html
+for (let i = 0; i < fr.length; i++) {
+  let qmd = readFileSync(`site/cookbook/fr/${fr[i].slug}.qmd`, "utf8");
+  qmd = qmd.replace(
+    `{{< recipe ${fr[i].slug} >}}`,
+    `{{< recipe fr/${fr[i].slug} >}}`,
+  );
+  writeFileSync(`site/cookbook/fr/${fr[i].slug}.qmd`, qmd);
+}
+
+writeFileSync("site/recipes-index.json", JSON.stringify(en, null, 2));
+writeFileSync("site/recipes-index-fr.json", JSON.stringify(fr, null, 2));
+console.log(`\n${en.length} EN + ${fr.length} FR recipes → site/`);

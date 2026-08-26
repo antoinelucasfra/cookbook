@@ -34,6 +34,8 @@ ingredients:
       - eggs
       - œuf
       - œufs
+      - oeufs
+      - oeuf
     category: Eggs
     physical:
       unit_weight: 60
@@ -61,6 +63,8 @@ ingredients:
     name: Butter
     aliases:
       - beurre
+      - beurre fondu
+      - beurre-fondu
     category: Fats
     physical:
       density: 0.96
@@ -74,6 +78,7 @@ ingredients:
     name: Baking powder
     aliases:
       - levure chimique
+      - levure-chimique
     physical:
       density: 0.9
     name_fr: Levure chimique
@@ -88,21 +93,28 @@ ingredients:
     name: Cling film
     aliases:
       - film alimentaire
+      - film-alimentaire
     name_fr: Film alimentaire
   food-processor:
     name: Food processor
     aliases:
       - robot
+      - robot pâtissier
+      - robot-patissier
     name_fr: Robot pâtissier
   vanilla-extract:
     name: Vanilla extract
     aliases:
       - extrait de vanille
+      - vanille
+      - extrait-de-vanille
     name_fr: Extrait de vanille
   buttermilk:
     name: Buttermilk
     aliases:
       - lait ribot
+      - babeurre
+      - lait-ribot
     physical:
       density: 1.04
     name_fr: Babeurre
@@ -110,11 +122,15 @@ ingredients:
     name: Vanilla bean
     aliases:
       - gousse de vanille
+      - gousse-de-vanille
     name_fr: Gousse de vanille
   egg-yolk:
     name: Egg yolk
     aliases:
       - jaune d'œuf
+      - jaunes d'œuf
+      - jaune-d-oeuf
+      - jaunes-d-oeuf
     physical:
       unit_weight: 18
     nutrition:
@@ -148,6 +164,7 @@ ingredients:
     name: Lemon juice
     aliases:
       - jus de citron
+      - jus-de-citron
     physical:
       density: 1.03
     name_fr: Jus de citron
@@ -155,16 +172,23 @@ ingredients:
     name: Lemon zest
     aliases:
       - zeste de citron
+      - zeste-de-citron
     name_fr: Zeste de citron
   tart-ring:
     name: Tart ring
     is_cookware: true
     name_fr: Cercle à tarte
+    aliases:
+      - cercle à tarte
+      - cercle-a-tarte
   cocoa:
     name: Cocoa powder
     aliases:
       - cacao
       - cacao powder
+      - cacao en poudre
+      - cacao-powder
+      - cacao-en-poudre
     category: Sugars
     physical:
       density: 0.55
@@ -179,6 +203,7 @@ ingredients:
     aliases:
       - chocolat noir
       - chocolat
+      - chocolat-noir
     category: Sugars
     physical:
       density: 1.3
@@ -193,6 +218,9 @@ ingredients:
     aliases:
       - café
       - espresso
+      - café fort
+      - cafe
+      - cafe-fort
     physical:
       density: 1
     name_fr: Café fort
@@ -201,6 +229,7 @@ ingredients:
     aliases:
       - huile d'olive
       - oil
+      - huile-d-olive
     category: Fats
     physical:
       density: 0.91
@@ -244,6 +273,8 @@ ingredients:
       - tomate
       - tomatoes
       - canned tomatoes
+      - tomates
+      - canned-tomatoes
     category: Vegetables
     physical:
       unit_weight: 120
@@ -259,6 +290,8 @@ ingredients:
     aliases:
       - bouillon
       - broth
+      - bouillon de légumes
+      - bouillon-de-legumes
     physical:
       density: 1
     name_fr: Bouillon de légumes
@@ -267,6 +300,8 @@ ingredients:
     aliases:
       - crème
       - crème liquide
+      - creme
+      - creme-liquide
     category: Dairy
     physical:
       density: 0.98
@@ -281,6 +316,9 @@ ingredients:
     aliases:
       - basilic
       - basil leaves
+      - feuilles de basilic
+      - basil-leaves
+      - feuilles-de-basilic
     category: Herbs
     physical:
       unit_weight: 1
@@ -295,6 +333,9 @@ ingredients:
     aliases:
       - pignons
       - pine nut
+      - pignons de pin
+      - pine-nut
+      - pignons-de-pin
     category: Nuts
     physical:
       density: 0.6
@@ -309,6 +350,8 @@ ingredients:
     aliases:
       - parmesan cheese
       - parmigiano
+      - parmesan
+      - parmesan-cheese
     category: Dairy
     physical:
       density: 1.2
@@ -323,6 +366,7 @@ ingredients:
     aliases:
       - pasta
       - spaghetti
+      - spaghettis
     category: Grains
     physical:
       density: 0.7
@@ -338,6 +382,8 @@ ingredients:
       - eau
       - hot water
       - boiling water
+      - hot-water
+      - boiling-water
     physical:
       density: 1
     name_fr: Eau
@@ -346,6 +392,9 @@ ingredients:
     aliases:
       - rice noodles
       - rice vermicelli
+      - nouilles de riz sèches
+      - rice-vermicelli
+      - nouilles-de-riz-seches
     category: Grains
     physical:
       density: 0.5
@@ -360,6 +409,9 @@ ingredients:
     aliases:
       - fresh noodles
       - ramen noodles
+      - nouilles fraîches
+      - ramen-noodles
+      - nouilles-fraiches
     category: Grains
     physical:
       density: 1
@@ -373,6 +425,8 @@ ingredients:
     name: Soy sauce
     aliases:
       - tamari
+      - sauce soja
+      - sauce-soja
     physical:
       density: 1.15
     nutrition:
@@ -387,6 +441,11 @@ ingredients:
       - tao jiew
       - miso
       - doenjang
+      - pâte de soja fermentée (tao jiew)
+      - tao-jiew
+      - pate-de-soja-fermentee-tao-jiew
+      - pate
+      - pâte
     physical:
       density: 1.1
     nutrition:
@@ -399,6 +458,11 @@ ingredients:
     name: Tamarind paste
     aliases:
       - tamarind concentrate
+      - pâte de tamarin
+      - tamarind-concentrate
+      - pate-de-tamarin
+      - pate
+      - pâte
     physical:
       density: 1.3
     nutrition:
@@ -412,6 +476,10 @@ ingredients:
     aliases:
       - red pepper flakes
       - pepper flakes
+      - flocons de piment
+      - red-pepper-flakes
+      - pepper-flakes
+      - flocons-de-piment
     physical:
       density: 0.5
     nutrition:
@@ -427,6 +495,12 @@ ingredients:
       - sunflower oil
       - avocado oil
       - neutral oil
+      - huile végétale neutre
+      - canola-oil
+      - sunflower-oil
+      - avocado-oil
+      - neutral-oil
+      - huile-vegetale-neutre
     category: Fats
     physical:
       density: 0.92
@@ -447,10 +521,16 @@ ingredients:
       carbs: 0
       fat: 100
     name_fr: Huile d'arachide
+    aliases:
+      - huile d'arachide
+      - huile-d-arachide
   chili-oil:
     name: Chili oil
     aliases:
       - chilli oil
+      - huile de piment
+      - chilli-oil
+      - huile-de-piment
     category: Fats
     physical:
       density: 0.92
@@ -464,6 +544,9 @@ ingredients:
     name: Pressed tofu
     aliases:
       - bean curd
+      - tofu pressé
+      - bean-curd
+      - tofu-presse
     category: Protein
     physical:
       density: 1.2
@@ -479,6 +562,11 @@ ingredients:
       - extra firm tofu
       - super-firm tofu
       - firm bean curd
+      - tofu ferme
+      - extra-firm-tofu
+      - super-firm-tofu
+      - firm-bean-curd
+      - tofu-ferme
     category: Protein
     physical:
       density: 1.05
@@ -493,6 +581,9 @@ ingredients:
     aliases:
       - shiitake mushrooms
       - shiitakes
+      - champignons shiitakés
+      - shiitake-mushrooms
+      - champignons-shiitakes
     category: Vegetables
     physical:
       density: 0.45
@@ -508,6 +599,8 @@ ingredients:
       - shallots
       - échalote
       - red onions
+      - echalote
+      - red-onions
     category: Vegetables
     physical:
       unit_weight: 40
@@ -522,6 +615,9 @@ ingredients:
     aliases:
       - green onions
       - spring onions
+      - ciboule
+      - green-onions
+      - spring-onions
     category: Vegetables
     physical:
       unit_weight: 15
@@ -535,6 +631,9 @@ ingredients:
     name: Garlic chives
     aliases:
       - chinese chives
+      - ciboule de Chine
+      - chinese-chives
+      - ciboule-de-chine
     category: Herbs
     physical:
       unit_weight: 1
@@ -549,6 +648,10 @@ ingredients:
     aliases:
       - bean sprout
       - soybean sprouts
+      - pousses de soja
+      - bean-sprout
+      - soybean-sprouts
+      - pousses-de-soja
     category: Vegetables
     physical:
       density: 0.35
@@ -562,6 +665,9 @@ ingredients:
     name: Fresh spinach
     aliases:
       - épinards
+      - épinards frais
+      - epinards
+      - epinards-frais
     category: Vegetables
     physical:
       density: 0.3
@@ -575,6 +681,9 @@ ingredients:
     name: Palm sugar
     aliases:
       - coconut sugar
+      - sucre de palme
+      - coconut-sugar
+      - sucre-de-palme
     category: Sugars
     physical:
       density: 0.85
@@ -589,6 +698,9 @@ ingredients:
     aliases:
       - sucre brun
       - cassonade
+      - sucre roux
+      - sucre-brun
+      - sucre-roux
     category: Sugars
     physical:
       density: 0.85
@@ -603,6 +715,9 @@ ingredients:
     aliases:
       - peanuts
       - cacahuètes
+      - cacahuètes grillées
+      - cacahuetes
+      - cacahuetes-grillees
     category: Nuts
     physical:
       density: 0.6
@@ -617,6 +732,10 @@ ingredients:
     aliases:
       - sesame paste
       - tahini
+      - pâte de sésame chinoise
+      - pate-de-sesame-chinoise
+      - pate
+      - pâte
     physical:
       density: 1.1
     nutrition:
@@ -629,6 +748,9 @@ ingredients:
     name: Sichuan peppercorns
     aliases:
       - sichuan pepper
+      - poivre du Sichuan
+      - sichuan-pepper
+      - poivre-du-sichuan
     physical:
       density: 0.5
     name_fr: Poivre du Sichuan
@@ -636,6 +758,9 @@ ingredients:
     name: Chinese five spice
     aliases:
       - five spice powder
+      - cinq-épices
+      - five-spice-powder
+      - cinq-epices
     physical:
       density: 0.6
     name_fr: Cinq-épices
@@ -649,10 +774,17 @@ ingredients:
       carbs: 55
       fat: 1
     name_fr: Sauce hoisin
+    aliases:
+      - sauce hoisin
+      - sauce-hoisin
   green-curry-paste:
     name: Thai green curry paste
     aliases:
       - green curry paste
+      - pâte de curry vert thaï
+      - pate-de-curry-vert-thai
+      - pate
+      - pâte
     physical:
       density: 1
     nutrition:
@@ -665,6 +797,7 @@ ingredients:
     name: Coconut milk
     aliases:
       - lait de coco
+      - lait-de-coco
     physical:
       density: 1
     nutrition:
@@ -678,6 +811,8 @@ ingredients:
     aliases:
       - red pepper
       - poivron rouge
+      - red-pepper
+      - poivron-rouge
     category: Vegetables
     physical:
       unit_weight: 160
@@ -692,6 +827,8 @@ ingredients:
     aliases:
       - green pepper
       - poivron vert
+      - green-pepper
+      - poivron-vert
     category: Vegetables
     physical:
       unit_weight: 160
@@ -705,6 +842,7 @@ ingredients:
     name: Green beans
     aliases:
       - haricots verts
+      - haricots-verts
     category: Vegetables
     physical:
       density: 0.5
@@ -725,10 +863,15 @@ ingredients:
       carbs: 5.5
       fat: 0.3
     name_fr: Mini maïs
+    aliases:
+      - mini maïs
+      - mini-mais
   thai-basil:
     name: Thai basil leaves
     aliases:
       - thai basil
+      - basilic thaï
+      - basilic-thai
     category: Herbs
     physical:
       unit_weight: 1
@@ -742,6 +885,7 @@ ingredients:
     name: Lime juice
     aliases:
       - jus de citron vert
+      - jus-de-citron-vert
     physical:
       density: 1.03
     nutrition:
@@ -755,6 +899,14 @@ ingredients:
     aliases:
       - cooked jasmine rice
       - riz jasmin
+      - riz jasmin (cuit)
+      - riz jasmin cuit
+      - cooked-jasmine-rice
+      - riz-jasmin
+      - riz-jasmin-cuit
+      - riz-jasmin-cuit
+      - riz jasmin cuit
+      - riz
     category: Grains
     physical:
       density: 0.85

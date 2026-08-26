@@ -1,0 +1,8 @@
+---
+title: "Crêpes"
+category: "Petit-déjeuner"
+total_time: "47.5 min"
+portions: "4"
+---
+
+{{< recipe fr/crepes >}}

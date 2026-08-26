@@ -24,14 +24,6 @@
     "source": "French classic"
   },
   {
-    "slug": "crepes",
-    "title": "Crêpes",
-    "category": "Petit-déjeuner",
-    "time": 47.5,
-    "portions": "4",
-    "source": "Classique français"
-  },
-  {
     "slug": "lemon-tart",
     "title": "Lemon Tart",
     "category": "Pastry",
