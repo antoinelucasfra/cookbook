@@ -36,5 +36,5 @@ For higher-fidelity AI-assisted conversion from a URL or YouTube video, use the 
     <button id="import-download" type="button">Download .gram</button>
     <button id="import-copy" type="button">Copy to clipboard</button>
   </div>
-  <p>Save the file as <code>recipes/&lt;slug&gt;.gram</code>, add missing ingredients to <code>.gram/ingredients.yaml</code>, then run <code>npx gram check "recipes/**/*.gram"</code> and rebuild.</p>
+  <p>Save the file as <code>sources/&lt;slug&gt;.gram</code>, add missing ingredients to <code>.gram/ingredients.yaml</code>, then run <code>npx gram check "sources/**/*.gram"</code> and rebuild.</p>
 </div>

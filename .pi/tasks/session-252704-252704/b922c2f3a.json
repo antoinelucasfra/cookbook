@@ -1,0 +1,18 @@
+{
+  "id": "b922c2f3a",
+  "name": "watch import fix deploy",
+  "command": "gh run watch $(gh run list -R antoinelucasfra/cookbook --limit 1 --json databaseId --jq '.[0].databaseId') -R antoinelucasfra/cookbook --exit-status > /tmp/deploy-watch5.log 2>&1 && echo DEPLOY-GREEN || echo DEPLOY-RED",
+  "status": "completed",
+  "outputPath": ".pi/tasks/session-252704-252704/b922c2f3a.output",
+  "cwd": "/home/tonio/project/recipes",
+  "startTime": 1787751084853,
+  "endTime": 1787751164112,
+  "exitCode": 0,
+  "signal": null,
+  "pid": 364360,
+  "bytesWritten": 13,
+  "isAgent": false,
+  "notified": true,
+  "notifyOnCompletion": true,
+  "triggerOnCompletion": true
+}

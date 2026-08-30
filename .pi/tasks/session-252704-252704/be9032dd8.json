@@ -1,0 +1,18 @@
+{
+  "id": "be9032dd8",
+  "name": "Watch pages deploy",
+  "command": "cd /home/tonio/project/recipes && gh run watch 32963288275 -R antoinelucasfra/cookbook --exit-status --interval 20 > /tmp/deploy-watch.log 2>&1; echo \"exit=$?\" >> /tmp/deploy-watch.log; tail -5 /tmp/deploy-watch.log",
+  "status": "completed",
+  "outputPath": ".pi/tasks/session-252704-252704/be9032dd8.output",
+  "cwd": "/home/tonio/project/recipes",
+  "startTime": 1787743643222,
+  "endTime": 1787743687292,
+  "exitCode": 0,
+  "signal": null,
+  "pid": 342273,
+  "bytesWritten": 280,
+  "isAgent": false,
+  "notified": true,
+  "notifyOnCompletion": true,
+  "triggerOnCompletion": true
+}

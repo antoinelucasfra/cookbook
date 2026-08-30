@@ -1,4 +1,4 @@
-// build.mjs — .gram recipes → Quarto site data
+// build.mjs — .gram sources → Quarto site data
 // Usage: node build.mjs
 import {
   readdirSync,
@@ -145,24 +145,24 @@ ${langSwitch}\n
   return index;
 }
 
-// same source basenames pair 1:1 across recipes/ and recipes/fr/
+// same source basenames pair 1:1 across sources/ and sources/fr/
 const slugByBase = (idx, files) =>
   Object.fromEntries(idx.map((r, i) => [files[i], r.slug]));
 
-const enFiles = listGram("recipes")
+const enFiles = listGram("sources")
   .filter((f) => !f.includes("bases/") && !f.includes("/fr/"))
   .map((f) => basename(f, ".gram"));
 const en = await buildPass({
-  dir: "recipes",
+  dir: "sources",
   includeDir: "site/_includes",
   cookbookDir: "site/cookbook",
   excludeFr: true,
 });
-const frFiles = listGram("recipes/fr")
+const frFiles = listGram("sources/fr")
   .filter((f) => !f.includes("bases/"))
   .map((f) => basename(f, ".gram"));
 const fr = await buildPass({
-  dir: "recipes/fr",
+  dir: "sources/fr",
   includeDir: "site/_includes/fr",
   cookbookDir: "site/fr/cookbook",
   lang: "fr",

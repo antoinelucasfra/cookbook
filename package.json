@@ -1,5 +1,5 @@
 {
-  "name": "recipes",
+  "name": "cookbook-web",
   "version": "1.0.0",
   "description": "",
   "scripts": {
@@ -7,7 +7,7 @@
     "build:js": "esbuild client.js --bundle --format=iife --outfile=site/recipe-app.js",
     "build:css": "cp node_modules/@gram-lang/renderer/gram.css node_modules/@gram-lang/renderer/gantt.css site/css/",
     "build": "npm run build:data && npm run build:js && npm run build:css && cd site && quarto render && cd .. && node fix-fr-chrome.mjs --self-check",
-    "check": "gram check \"recipes/**/*.gram\"",
+    "check": "gram check \"sources/**/*.gram\"",
     "test": "node snippet.mjs && node self-check.mjs",
     "serve": "python3 -m http.server 8801 -d site/_site"
   },

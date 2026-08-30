@@ -1,0 +1,18 @@
+{
+  "id": "b9466c24b",
+  "name": "Watch CI after bump",
+  "command": "cd /home/tonio/project/recipes && sleep 15 && RUN=$(gh run list -R antoinelucasfra/cookbook --limit 1 --json databaseId --jq '.[0].databaseId') && gh run watch $RUN -R antoinelucasfra/cookbook --exit-status --interval 20 > /tmp/deploy-watch2.log 2>&1; echo \"exit=$?\" >> /tmp/deploy-watch2.log; grep -c 'deprecated' /tmp/deploy-watch2.log >> /tmp/deploy-watch2.log; tail -3 /tmp/deploy-watch2.log",
+  "status": "completed",
+  "outputPath": ".pi/tasks/session-252704-252704/b9466c24b.output",
+  "cwd": "/home/tonio/project/recipes",
+  "startTime": 1787746046646,
+  "endTime": 1787746147365,
+  "exitCode": 0,
+  "signal": null,
+  "pid": 349256,
+  "bytesWritten": 28,
+  "isAgent": false,
+  "notified": true,
+  "notifyOnCompletion": true,
+  "triggerOnCompletion": true
+}

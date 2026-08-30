@@ -8,11 +8,11 @@ project:
 
 website:
   title: "Cookbook"
-  site-url: https://antoinelucasfra.github.io/cookbook/
+  site-url: https://antoinelucasfra.github.io/cookbook-web/
   navbar:
     left:
       - href: index.qmd
-        text: Recipes
+        text: Cookbook
       - href: browse.qmd
         text: Browse
       - href: import.qmd

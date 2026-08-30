@@ -4,7 +4,7 @@ Recipe site powered by the [Gram DSL](https://gram-lang.org) + Quarto.
 
 ## Layout
 
-- `recipes/**/*.gram` — source of truth (one file per recipe, `recipes/bases/` for reusable modules)
+- `sources/**/*.gram` — source of truth (one file per recipe, `sources/bases/` for reusable modules)
 - `.gram/ingredients.yaml` — ingredient DB (densities, yields, nutrition)
 - `build.mjs` — compiles every recipe × scale (0.5/1/2/3×) → HTML + Gantt + snippet JSON in `site/_includes/`
 - `snippet.mjs` — gram recipe → table-style quick-overview snippet (action columns + ingredient rows, like `recipe-format-sugg.png`)
@@ -20,8 +20,8 @@ Recipe site powered by the [Gram DSL](https://gram-lang.org) + Quarto.
 
 ## Adding a recipe
 
-Write `recipes/<slug>.gram` (VS Code: "Gram - Recipe Language" extension), then
-`npx gram check "recipes/**/*.gram"` and `npm run build`.
+Write `sources/<slug>.gram` (VS Code: "Gram - Recipe Language" extension), then
+`npx gram check "sources/**/*.gram"` and `npm run build`.
 
 ## Translating an external recipe into Gram
 
@@ -38,13 +38,13 @@ Two paths:
 The static pass tags what it could not handle confidently (missing title,
 ingredients or steps; quantities missing; unfamiliar units) both in the UI and as
 a `# review:` comment in the draft — those flags mean an AI translation pass is
-recommended. Review the draft, save under `recipes/`, extend
+recommended. Review the draft, save under `sources/`, extend
 `.gram/ingredients.yaml` with any missing ingredients, then `npx gram check`.
 
 ## Bilingual site (EN / FR)
 
-The site is fully bilingual. English lives in `recipes/` and renders to `site/cookbook/`;
-French recipes live in `recipes/fr/*.gram` and render (with the gram renderer's
+The site is fully bilingual. English lives in `sources/` and renders to `site/cookbook/`;
+French recipes live in `sources/fr/*.gram` and render (with the gram renderer's
 `lang: fr` output — French UI labels, tooltips, timings) to `site/fr/cookbook/`.
 
 - Each page links to its counterpart ("Version française" / "English version").
